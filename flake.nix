@@ -23,56 +23,44 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+    hyprland = {
+      url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+    };
+
+    hyprland-plugins = {
+      url = "github:hyprwm/hyprland-plugins";
+      inputs.hyprland.follows = "hyprland";
+    };
 
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.4.1";
+
+    ags.url = "github:Aylur/ags";
+
+    stylix = {
+      url = "github:danth/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
-    inputs@{ nixpkgs, ... }:
+    inputs:
+    let
+      system = "x86_64-linux";
+      lib = import ./lib { inherit inputs; };
+
+      pkgs = import inputs.nixpkgs {
+        system = system;
+        config.allowUnfree = true;
+      };
+    in
     {
-      nixosConfigurations.laptop =
-        let
-          system = "x86_64-linux";
-          pkgs = import nixpkgs {
-            system = system;
-            config.allowUnfree = true;
-          };
-        in
-        nixpkgs.lib.nixosSystem {
-          specialArgs = {
-            inherit inputs pkgs system;
-          };
-          system = pkgs.system;
-          modules = [
-            ./hosts/laptop
+      nixosConfigurations = {
+        laptop = lib.mkSystem system ./hosts/laptop;
+        pc = lib.mkSystem system ./hosts/pc;
+      };
 
-            inputs.nix-flatpak.nixosModules.nix-flatpak
-            inputs.home-manager.nixosModules.default
-            inputs.impermanence.nixosModules.impermanence
-          ];
-        };
-
-      nixosConfigurations.pc =
-        let
-          system = "x86_64-linux";
-          pkgs = import nixpkgs {
-            system = system;
-            config.allowUnfree = true;
-          };
-        in
-        nixpkgs.lib.nixosSystem {
-          specialArgs = {
-            inherit inputs pkgs system;
-          };
-          system = pkgs.system;
-          modules = [
-            ./hosts/pc
-
-            inputs.nix-flatpak.nixosModules.nix-flatpak
-            inputs.home-manager.nixosModules.default
-            inputs.impermanence.nixosModules.impermanence
-          ];
-        };
+      devShells."${system}" = {
+        js = import ./shells/js.nix { inherit inputs pkgs; };
+      };
     };
 }

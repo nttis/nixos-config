@@ -4,12 +4,6 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  fileSystems."/" = {
-    device = "/dev/disk/by-label/nix";
-    fsType = "btrfs";
-    options = [ "subvol=root" ];
-  };
-
   boot.initrd.postDeviceCommands = lib.mkAfter ''
     mkdir /btrfs_tmp
     mount /dev/disk/by-label/nix /btrfs_tmp
@@ -34,6 +28,12 @@
     btrfs subvolume create /btrfs_tmp/root
     umount /btrfs_tmp
   '';
+
+  fileSystems."/" = {
+    device = "/dev/disk/by-label/nix";
+    fsType = "btrfs";
+    options = [ "subvol=root" ];
+  };
 
   fileSystems."/persist" = {
     neededForBoot = true;
@@ -60,6 +60,12 @@
     # guess the fsType for us...
     # putting the wrong fsType brought many hours wasted
   };
+
+  swapDevices = [
+    {
+      device = "/dev/disk/by-label/swap";
+    }
+  ];
 
   environment.persistence."/persist/system" = {
     hideMounts = true;

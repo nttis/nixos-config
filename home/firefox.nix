@@ -1,15 +1,19 @@
-{ lib, inputs, ... }:
+{
+  lib,
+  inputs,
+  pkgs,
+  ...
+}:
 {
   programs.firefox = {
     enable = true;
     profiles = {
       default = {
         name = "delta";
-        extensions = with inputs.firefox-addons.packages."x86_64-linux"; [
+        extensions = with inputs.firefox-addons.packages.${pkgs.system}; [
           ublock-origin
           bitwarden
           sponsorblock
-          i-dont-care-about-cookies
         ];
         settings = {
           "browser.startup.homepage" = "about:home";

@@ -4,12 +4,6 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  fileSystems."/" = {
-    device = "/dev/disk/by-label/nix";
-    fsType = "btrfs";
-    options = [ "subvol=root" ];
-  };
-
   boot.initrd.postDeviceCommands = lib.mkAfter ''
     mkdir /btrfs_tmp
     mount /dev/disk/by-label/nix /btrfs_tmp
@@ -35,6 +29,12 @@
     umount /btrfs_tmp
   '';
 
+  fileSystems."/" = {
+    device = "/dev/disk/by-label/nix";
+    fsType = "btrfs";
+    options = [ "subvol=root" ];
+  };
+
   fileSystems."/persist" = {
     neededForBoot = true;
     device = "/dev/disk/by-label/nix";
@@ -56,10 +56,14 @@
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-label/ESP";
-    # future reference: don't put fsType so nix will automatically
-    # guess the fsType for us...
-    # putting the wrong fsType brought many hours wasted
+    options = ["umask=0077" "defaults"];
   };
+
+  swapDevices = [
+    {
+      device = "/dev/disk/by-label/swap";
+    }
+  ];
 
   environment.persistence."/persist/system" = {
     hideMounts = true;

@@ -113,7 +113,7 @@
       inherit inputs;
     };
     users = {
-      "delta" = import ./home/delta.nix;
+      "delta" = import ./../../users/delta.nix;
     };
 
     useGlobalPkgs = true;
