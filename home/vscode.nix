@@ -36,7 +36,7 @@
 
       "git.enableSmartCommit" = true;
 
-      "workbench.colorTheme" = "Atom One Dark";
+      # "workbench.colorTheme" = "Atom One Dark";
       "workbench.iconTheme" = "vscode-icons";
 
       "vsicons.dontShowNewVersionMessage" = true;

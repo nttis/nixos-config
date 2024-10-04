@@ -3,7 +3,7 @@
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
 {
-  lib,
+  config,
   pkgs,
   inputs,
   ...
@@ -51,37 +51,39 @@
     portalPackage = inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
   };
 
-  fonts = {
-    enableDefaultPackages = false;
+  /*
+    fonts = {
+      enableDefaultPackages = false;
 
-    packages = with pkgs; [
-      inter
+      packages = with pkgs; [
+        inter
 
-      fira-code
-      fira-code-symbols
+        fira-code
+        fira-code-symbols
 
-      noto-fonts
-      noto-fonts-cjk
-      noto-fonts-cjk-sans
-      noto-fonts-emoji
-      noto-fonts-color-emoji
+        noto-fonts
+        noto-fonts-cjk
+        noto-fonts-cjk-sans
+        noto-fonts-emoji
+        noto-fonts-color-emoji
 
-      source-serif
+        source-serif
 
-      font-awesome
-    ];
+        font-awesome
+      ];
 
-    fontconfig = {
-      defaultFonts = {
-        serif = [
-          "Noto Serif"
-          "source-serif"
-        ];
-        sansSerif = [ "Inter" ];
-        monospace = [ "FiraCode" ];
+      fontconfig = {
+        defaultFonts = {
+          serif = [
+            "Noto Serif"
+            "source-serif"
+          ];
+          sansSerif = [ "Inter" ];
+          monospace = [ "FiraCode" ];
+        };
       };
     };
-  };
+  */
 
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
   environment.systemPackages = with pkgs; [
@@ -108,6 +110,60 @@
 
     useGlobalPkgs = true;
     useUserPackages = true;
+
+    # Impermanence will delete these anyway
+    backupFileExtension = "backup";
+  };
+
+  # Stylix
+  stylix = {
+    enable = true;
+    polarity = "dark";
+
+    base16Scheme = {
+      base00 = "2b3339"; # Default Background
+      base01 = "323c41"; # Lighter Background (Used for status bars, line number and folding marks)
+      base02 = "503946"; # Selection Background
+      base03 = "868d80"; # Comments, Invisibles, Line Highlighting
+      base04 = "d3c6aa"; # Dark Foreground (Used for status bars)
+      base05 = "d3c6aa"; # Default Foreground, Caret, Delimiters, Operators
+      base06 = "e9e8d2"; # Light Foreground (Not often used)
+      base07 = "fff9e8"; # Light Background (Not often used)
+      base08 = "7fbbb3"; # Variables, XML Tags, Markup Link Text, Markup Lists, Diff Deleted
+      base09 = "d699b6"; # Integers, Boolean, Constants, XML Attributes, Markup Link Url
+      base0A = "83c092"; # Classes, Markup Bold, Search Text Background
+      base0B = "dbbc7f"; # Strings, Inherited Class, Markup Code, Diff Inserted
+      base0C = "e69875"; # Support, Regular Expressions, Escape Characters, Markup Quotes
+      base0D = "a7c080"; # Functions, Methods, Attribute IDs, Headings
+      base0E = "e67e80"; # Keywords, Storage, Selector, Markup Italic, Diff Changed
+      base0F = "d699b6"; # Deprecated, Opening/Closing Embedded Language Tags, e.g. <?php ?>
+    };
+    image = config.lib.stylix.pixel "base0A";
+
+    cursor = {
+      package = pkgs.bibata-cursors;
+      name = "Bibata-Modern-Ice";
+      size = 24;
+    };
+
+    fonts = {
+      monospace = {
+        package = pkgs.fira-code;
+        name = "Fira Code";
+      };
+      sansSerif = {
+        package = pkgs.inter;
+        name = "Inter Medium";
+      };
+      serif = {
+        package = pkgs.dejavu_fonts;
+        name = "DejaVu Serif";
+      };
+      emoji = {
+        package = pkgs.noto-fonts-emoji;
+        name = "Noto Emoji";
+      };
+    };
   };
 
   # This option defines the first version of NixOS you have installed on this particular machine,
