@@ -12,11 +12,11 @@ in
     inputs.impermanence.nixosModules.home-manager.impermanence
     inputs.ags.homeManagerModules.default
 
-    (rootPath + /home/firefox.nix)
-    (rootPath + /home/vscode.nix)
-    (rootPath + /home/kitty.nix)
-    (rootPath + /home/git.nix)
+    (rootPath + /modules/home)
   ];
+
+  impermanence.enable = true;
+  hyprland.enable = true;
 
   home.username = "delta";
   home.homeDirectory = "/home/delta";
@@ -24,66 +24,7 @@ in
   home.sessionVariables = {
     TERMINAL = "kitty";
     NIXOS_OZONE_WL = "1";
-  };
-
-  wayland.windowManager.hyprland = {
-    enable = true;
-    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
-
-    plugins = [
-      inputs.hyprland-plugins.packages.${pkgs.system}.hyprbars
-    ];
-
-    settings = {
-      exec-once = "waybar & kitty";
-
-      env = [
-        "XCURSOR_SIZE,24"
-        "HYPRCURSOR_SIZE,24"
-      ];
-
-      cursor = {
-        # This singlehandedly fixes all off-center cursor problems
-        # god bless
-        no_hardware_cursors = true;
-      };
-
-      general = {
-        gaps_in = 5;
-        gaps_out = 20;
-
-        border_size = 2;
-
-        resize_on_border = true;
-        layout = "master";
-      };
-
-      decoration = {
-        rounding = 10;
-        blur.enabled = false;
-      };
-
-      animations = {
-        enabled = false;
-      };
-
-      bind = [
-        "SUPER, C, killactive"
-        "SUPER, Q, exec, kitty"
-        "SUPER, V, togglefloating"
-      ];
-
-      plugin = {
-        hyprbars = {
-          bar_height = 20;
-
-          hyprbars-button = [
-            "rgb(ff4040), 10, , hyprctl dispatch killactive"
-            "rgb(eeee11), 10, , hyprctl dispatch fullscreen 1"
-          ];
-        };
-      };
-    };
+    NIX_PATH = "/persist/nixos";
   };
 
   home.packages = with pkgs; [
@@ -104,34 +45,35 @@ in
     # Development
     nixd
     nixfmt-rfc-style
+
+    inputs.ags.packages.${pkgs.system}.astal
+
+    # Misc
+    hicolor-icon-theme
+    yaru-theme
   ];
+
+  gtk = {
+    enable = true;
+
+    iconTheme = {
+      package = pkgs.papirus-icon-theme;
+      name = "Papirus-Dark";
+    };
+  };
 
   programs.ags = {
     enable = true;
+    configDir = ../../ags;
+
     extraPackages = with pkgs; [
-      gtksourceview
-      webkitgtk
-      accountsservice
+      inputs.ags.packages.${pkgs.system}.network
+      inputs.ags.packages.${pkgs.system}.wireplumber
+      inputs.ags.packages.${pkgs.system}.bluetooth
+
+      fzf
+      dart-sass
     ];
-  };
-
-  # Impermanence stuff
-  home.persistence."/persist/delta" = {
-    directories = [
-      ".ssh"
-      ".gnupg"
-
-      ".local/share/keyrings"
-      ".local/share/direnv"
-
-      ".local/share/flatpak"
-      ".var"
-
-      ".config/vesktop"
-
-      ".mozilla"
-    ];
-    allowOther = true;
   };
 
   home.stateVersion = "24.05";

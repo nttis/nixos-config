@@ -3,95 +3,28 @@
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
 {
-  config,
   pkgs,
   inputs,
   ...
 }:
-
+let
+  rootPath = ./../..;
+in
 {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ./boot.nix
 
-    ../common.nix
+    (rootPath + /modules/nixos)
   ];
 
-  networking.hostName = "pc"; # Define your hostname.
+  # Enable modules
+  impermanence.enable = true;
+  flatpak.enable = true;
+  hyprland.enable = true;
+  plasma.enable = true;
 
-  # Desktop environment
-  services.displayManager.sddm = {
-    enable = true;
-    wayland.enable = true;
-  };
-
-  services.desktopManager.plasma6.enable = true;
-
-  environment.plasma6.excludePackages = with pkgs.kdePackages; [
-    discover
-    elisa
-    konsole
-    plasma-browser-integration
-    ark
-    krdp
-    kwalletmanager
-    kwallet-pam
-    kwallet
-    okular
-    kate
-    kwrited
-  ];
-
-  documentation.nixos.enable = false;
-
-  programs.hyprland = {
-    enable = true;
-    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
-    portalPackage = inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
-  };
-
-  /*
-    fonts = {
-      enableDefaultPackages = false;
-
-      packages = with pkgs; [
-        inter
-
-        fira-code
-        fira-code-symbols
-
-        noto-fonts
-        noto-fonts-cjk
-        noto-fonts-cjk-sans
-        noto-fonts-emoji
-        noto-fonts-color-emoji
-
-        source-serif
-
-        font-awesome
-      ];
-
-      fontconfig = {
-        defaultFonts = {
-          serif = [
-            "Noto Serif"
-            "source-serif"
-          ];
-          sansSerif = [ "Inter" ];
-          monospace = [ "FiraCode" ];
-        };
-      };
-    };
-  */
-
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
-  environment.systemPackages = with pkgs; [
-    kitty
-    rofi-wayland
-    dunst
-    waybar
-  ];
+  networking.hostName = "pc"; # Define your hostname
 
   # Users
   users.users.delta = {
@@ -105,7 +38,7 @@
       inherit inputs pkgs;
     };
     users = {
-      "delta" = import ./../../users/delta;
+      "delta" = import (rootPath + /users/delta);
     };
 
     useGlobalPkgs = true;
@@ -115,53 +48,13 @@
     backupFileExtension = "backup";
   };
 
-  # Stylix
-  stylix = {
-    enable = true;
-    polarity = "dark";
-
-    base16Scheme = {
-      base00 = "2b3339"; # Default Background
-      base01 = "323c41"; # Lighter Background (Used for status bars, line number and folding marks)
-      base02 = "503946"; # Selection Background
-      base03 = "868d80"; # Comments, Invisibles, Line Highlighting
-      base04 = "d3c6aa"; # Dark Foreground (Used for status bars)
-      base05 = "d3c6aa"; # Default Foreground, Caret, Delimiters, Operators
-      base06 = "e9e8d2"; # Light Foreground (Not often used)
-      base07 = "fff9e8"; # Light Background (Not often used)
-      base08 = "7fbbb3"; # Variables, XML Tags, Markup Link Text, Markup Lists, Diff Deleted
-      base09 = "d699b6"; # Integers, Boolean, Constants, XML Attributes, Markup Link Url
-      base0A = "83c092"; # Classes, Markup Bold, Search Text Background
-      base0B = "dbbc7f"; # Strings, Inherited Class, Markup Code, Diff Inserted
-      base0C = "e69875"; # Support, Regular Expressions, Escape Characters, Markup Quotes
-      base0D = "a7c080"; # Functions, Methods, Attribute IDs, Headings
-      base0E = "e67e80"; # Keywords, Storage, Selector, Markup Italic, Diff Changed
-      base0F = "d699b6"; # Deprecated, Opening/Closing Embedded Language Tags, e.g. <?php ?>
-    };
-    image = config.lib.stylix.pixel "base0A";
-
-    cursor = {
-      package = pkgs.bibata-cursors;
-      name = "Bibata-Modern-Ice";
-      size = 24;
-    };
-
-    fonts = {
-      monospace = {
-        package = pkgs.fira-code;
-        name = "Fira Code";
-      };
-      sansSerif = {
-        package = pkgs.inter;
-        name = "Inter Medium";
-      };
-      serif = {
-        package = pkgs.dejavu_fonts;
-        name = "DejaVu Serif";
-      };
-      emoji = {
-        package = pkgs.noto-fonts-emoji;
-        name = "Noto Emoji";
+  # Create the persistent home directories with proper permissions
+  # to allow home-manager to write to them
+  systemd.tmpfiles.settings."delta" = {
+    "/persist/delta" = {
+      d = {
+        user = "delta";
+        mode = "700";
       };
     };
   };

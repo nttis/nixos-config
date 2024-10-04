@@ -24,7 +24,9 @@
     };
 
     hyprland = {
-      url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
+      type = "git";
+      url = "https://github.com/hyprwm/Hyprland";
+      submodules = true;
     };
 
     hyprland-plugins = {
@@ -34,7 +36,7 @@
 
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.4.1";
 
-    ags.url = "github:Aylur/ags";
+    ags.url = "github:Aylur/ags/v2";
 
     stylix = {
       url = "github:danth/stylix";
@@ -46,21 +48,33 @@
     inputs:
     let
       system = "x86_64-linux";
-      lib = import ./lib { inherit inputs; };
 
       pkgs = import inputs.nixpkgs {
         system = system;
         config.allowUnfree = true;
       };
+
+      mkSystem =
+        system: entrypoint:
+        inputs.nixpkgs.lib.nixosSystem {
+          specialArgs = {
+            inherit inputs pkgs;
+          };
+          system = system;
+          modules = [
+            entrypoint
+
+            inputs.home-manager.nixosModules.default
+            inputs.impermanence.nixosModules.impermanence
+            inputs.nix-flatpak.nixosModules.nix-flatpak
+            inputs.stylix.nixosModules.stylix
+          ];
+        };
     in
     {
       nixosConfigurations = {
-        laptop = lib.mkSystem system ./hosts/laptop;
-        pc = lib.mkSystem system ./hosts/pc;
-      };
-
-      devShells."${system}" = {
-        js = import ./shells/js.nix { inherit inputs pkgs; };
+        laptop = mkSystem system ./hosts/laptop;
+        pc = mkSystem system ./hosts/pc;
       };
     };
 }

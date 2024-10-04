@@ -1,0 +1,11 @@
+* {
+    all: unset;
+}
+
+window.Bar {
+    background-color: @theme_bg_color;
+}
+
+centerbox {
+    padding: 5pt;
+}
