@@ -21,8 +21,10 @@ in
   # Enable modules
   impermanence.enable = true;
   flatpak.enable = true;
-  hyprland.enable = true;
-  plasma.enable = true;
+
+  #hyprland.enable = true;
+  #plasma.enable = true;
+  gnome.enable = true;
 
   networking.hostName = "pc"; # Define your hostname
 

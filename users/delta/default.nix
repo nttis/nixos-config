@@ -11,12 +11,12 @@ in
   imports = [
     inputs.impermanence.nixosModules.home-manager.impermanence
     inputs.ags.homeManagerModules.default
+    inputs.nixcord.homeManagerModules.nixcord
 
     (rootPath + /modules/home)
   ];
 
   impermanence.enable = true;
-  hyprland.enable = true;
 
   home.username = "delta";
   home.homeDirectory = "/home/delta";
@@ -32,11 +32,7 @@ in
     vlc
     mpv
     sublime
-    vesktop
     gparted
-
-    # Terminal
-    fish
 
     # CLIs
     ffmpeg-full
@@ -50,7 +46,7 @@ in
 
     # Misc
     hicolor-icon-theme
-    yaru-theme
+    cbonsai
   ];
 
   gtk = {

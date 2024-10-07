@@ -37,6 +37,6 @@ Mount the partitions you made in the previous step. If you labeled them correctl
 - Mount the main partition's `nix` subvolume at `/mnt/nix`
 - If using Impermanence, mount the main partition's `persist` subvolume at `/mnt/persist`
 
-Clone this repo anywhere. Run `nixos-install --root /mnt --flake /path/to/repo --no-root-passwd` and wait.
+Clone this repo anywhere. Run `nixos-install --root /mnt --flake /path/to/repo#pc --no-root-passwd` and wait.
 
 Reboot and hopefully it should succeed (lol)
