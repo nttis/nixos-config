@@ -22,7 +22,6 @@
       # becomes available in home-manager (when?)
       extensions = with inputs.nix-vscode-extensions.extensions.${pkgs.system}.vscode-marketplace; [
         # Theming
-        akamud.vscode-theme-onedark
         vscode-icons-team.vscode-icons
 
         # General

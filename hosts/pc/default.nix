@@ -28,6 +28,10 @@ in
 
   networking.hostName = "pc"; # Define your hostname
 
+  powerManagement = {
+    cpuFreqGovernor = "performance";
+  };
+
   # Users
   users.users.delta = {
     isNormalUser = true;

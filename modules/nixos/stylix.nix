@@ -15,7 +15,7 @@
       autoEnable = true;
       polarity = "dark";
 
-      base16Scheme = "${pkgs.base16-schemes}/share/themes/everforest.yaml";
+      base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-frappe.yaml";
 
       image = config.lib.stylix.pixel "base0A";
 

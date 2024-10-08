@@ -225,6 +225,7 @@
             enable = true;
             sayOwnName = false;
             latinOnly = true;
+            voice = "kal16 flite";
           };
           vencordToolbox = {
             enable = true;

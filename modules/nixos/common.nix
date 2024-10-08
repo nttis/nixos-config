@@ -10,6 +10,8 @@
     ];
   };
 
+  nix.package = pkgs.lix;
+
   networking.networkmanager.enable = true;
 
   time.timeZone = "Asia/Ho_Chi_Minh";
@@ -23,10 +25,7 @@
   # Services
   services = {
     printing.enable = true;
-
     orca.enable = false;
-    speechd.enable = false;
-
     openssh.enable = true;
   };
 
@@ -41,6 +40,14 @@
       noto-fonts-color-emoji
       noto-fonts-emoji
     ];
+
+    fontconfig = {
+      hinting = {
+        enable = true;
+        autohint = true;
+      };
+      subpixel.rgba = "rgb";
+    };
   };
 
   # Rare system-wide programs

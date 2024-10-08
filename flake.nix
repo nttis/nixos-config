@@ -34,17 +34,31 @@
       inputs.hyprland.follows = "hyprland";
     };
 
-    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.4.1";
+    nix-flatpak = {
+      url = "github:gmodena/nix-flatpak";
+    };
 
-    ags.url = "github:Aylur/ags/v2";
+    ags = {
+      url = "github:Aylur/ags/v2";
+    };
 
+    # Temporary until stylix fixes tinted-theming...
     stylix = {
-      url = "github:danth/stylix";
+      type = "github";
+      owner = "danth";
+      repo = "stylix";
+      rev = "63426a59e714c4389c5a8e559dee05a0087a3043";
+
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nixcord = {
       url = "github:kaylorben/nixcord";
+    };
+
+    lix = {
+      url = "git+https://git.lix.systems/lix-project/nixos-module.git";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
@@ -72,6 +86,7 @@
             inputs.impermanence.nixosModules.impermanence
             inputs.nix-flatpak.nixosModules.nix-flatpak
             inputs.stylix.nixosModules.stylix
+            inputs.lix.nixosModules.default
           ];
         };
     in
