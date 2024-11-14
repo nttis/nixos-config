@@ -17,7 +17,7 @@
       config = {
         enableReactDevtools = true;
         plugins = {
-          accountPanelServiceIcon = {
+          accountPanelServerProfile = {
             enable = true;
           };
           alwaysExpandRoles = {

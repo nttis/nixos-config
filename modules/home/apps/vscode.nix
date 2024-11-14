@@ -33,6 +33,10 @@
         # JS
         oven.bun-vscode
         dbaeumer.vscode-eslint
+        biomejs.biome
+
+        svelte.svelte-vscode
+        astro-build.astro-vscode
       ];
       userSettings = {
         "security.workspace.trust.enabled" = false;

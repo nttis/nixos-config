@@ -41,7 +41,6 @@
     packages = with pkgs; [
       noto-fonts
 
-      noto-fonts-cjk
       noto-fonts-cjk-sans
       noto-fonts-cjk-serif
 
@@ -62,6 +61,11 @@
   programs.nh = {
     enable = true;
   };
+
+  programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs; [
+
+  ];
 
   environment.variables = {
     FLAKE = "/persist/nixos";

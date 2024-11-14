@@ -37,12 +37,16 @@ in
     # CLIs
     ffmpeg-full
     fastfetch
+    p7zip
+
+    (pkgs.callPackage (rootPath + /packages/heimdall.nix) { })
+    android-tools
 
     # Development
     nixd
     nixfmt-rfc-style
 
-    inputs.ags.packages.${pkgs.system}.astal
+    inputs.ags.packages.${pkgs.system}.astal4
 
     # Misc
     hicolor-icon-theme
