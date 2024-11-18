@@ -41,6 +41,7 @@ in
 
     (pkgs.callPackage (rootPath + /packages/heimdall.nix) { })
     android-tools
+    avbroot
 
     # Development
     nixd
