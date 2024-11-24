@@ -8,7 +8,6 @@
     home.persistence."/persist/delta" = {
       directories = [
         ".ssh"
-        ".gnupg"
 
         ".local/share/keyrings"
         ".local/share/direnv"
@@ -16,6 +15,7 @@
         ".local/share/flatpak"
         ".var"
 
+        ".local/share/Mindustry"
         ".config/vesktop"
 
         ".mozilla"
