@@ -5,6 +5,7 @@
 {
   pkgs,
   inputs,
+  config,
   ...
 }:
 let
@@ -20,7 +21,6 @@ in
 
   # Enable modules
   impermanence.enable = true;
-  flatpak.enable = true;
 
   #hyprland.enable = true;
   #plasma.enable = true;
@@ -31,6 +31,17 @@ in
   powerManagement = {
     cpuFreqGovernor = "performance";
   };
+
+  hardware = {
+    graphics.enable = true;
+
+    nvidia = {
+      open = false;
+      package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
+    };
+  };
+
+  services.xserver.videoDrivers = [ "nvidia" ];
 
   # Users
   users.users.delta = {

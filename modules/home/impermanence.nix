@@ -7,6 +7,8 @@
   config = lib.mkIf config.impermanence.enable {
     home.persistence."/persist/delta" = {
       directories = [
+        "Downloads"
+
         ".ssh"
 
         ".local/share/keyrings"

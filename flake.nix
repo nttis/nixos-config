@@ -39,17 +39,11 @@
     };
 
     ags = {
-      url = "github:Aylur/ags/v2";
+      url = "github:Aylur/ags";
     };
 
-    # Temporary until stylix fixes tinted-theming...
     stylix = {
-      type = "github";
-      owner = "danth";
-      repo = "stylix";
-      rev = "63426a59e714c4389c5a8e559dee05a0087a3043";
-
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:danth/stylix";
     };
 
     nixcord = {
@@ -69,7 +63,10 @@
 
       pkgs = import inputs.nixpkgs {
         system = system;
-        config.allowUnfree = true;
+        config = {
+          allowUnfree = true;
+          nvidia.acceptLicense = true;
+        };
       };
 
       mkSystem =
