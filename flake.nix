@@ -1,20 +1,16 @@
 {
-  description = "Nixos config flake";
-
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    impermanence = {
-      url = "github:nix-community/impermanence";
+    # The name "snowfall-lib" is required due to how Snowfall Lib processes your
+    # flake's inputs.
+    snowfall-lib = {
+      url = "github:snowfallorg/lib";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     home-manager = {
       url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    firefox-addons = {
-      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -23,74 +19,46 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hyprland = {
-      type = "git";
-      url = "https://github.com/hyprwm/Hyprland";
-      submodules = true;
-    };
-
-    hyprland-plugins = {
-      url = "github:hyprwm/hyprland-plugins";
-      inputs.hyprland.follows = "hyprland";
-    };
-
-    nix-flatpak = {
-      url = "github:gmodena/nix-flatpak";
-    };
-
-    ags = {
-      url = "github:Aylur/ags";
+    impermanence = {
+      url = "github:nix-community/impermanence";
     };
 
     stylix = {
       url = "github:danth/stylix";
-    };
-
-    nixcord = {
-      url = "github:kaylorben/nixcord";
-    };
-
-    lix = {
-      url = "git+https://git.lix.systems/lix-project/nixos-module.git";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs =
-    inputs:
-    let
-      system = "x86_64-linux";
+  outputs = inputs:
+    inputs.snowfall-lib.mkFlake {
+      inputs = inputs;
+      src = ./.;
 
-      pkgs = import inputs.nixpkgs {
-        system = system;
-        config = {
-          allowUnfree = true;
-          nvidia.acceptLicense = true;
+      channels-config = {
+        # Allow unfree packages.
+        allowUnfree = true;
+        nvidia = {
+          acceptLicense = true;
         };
       };
 
-      mkSystem =
-        system: entrypoint:
-        inputs.nixpkgs.lib.nixosSystem {
-          specialArgs = {
-            inherit inputs pkgs;
-          };
-          system = system;
-          modules = [
-            entrypoint
+      systems.modules.nixos = with inputs; [
+        impermanence.nixosModules.impermanence
+        stylix.nixosModules.stylix
+      ];
 
-            inputs.home-manager.nixosModules.default
-            inputs.impermanence.nixosModules.impermanence
-            inputs.nix-flatpak.nixosModules.nix-flatpak
-            inputs.stylix.nixosModules.stylix
-            inputs.lix.nixosModules.default
-          ];
+      homes.modules = with inputs; [
+        impermanence.homeManagerModules.impermanence
+      ];
+
+      snowfall = {
+        root = ./.;
+        namespace = "anima";
+
+        metadata = {
+          name = "system-flake";
+          title = "NixOS system flake configuration";
         };
-    in
-    {
-      nixosConfigurations = {
-        laptop = mkSystem system ./hosts/laptop;
-        pc = mkSystem system ./hosts/pc;
       };
     };
 }
