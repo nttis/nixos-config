@@ -4,6 +4,7 @@
   anima = {
     apps = {
       mindustry.enable = true;
+      vesktop.enable = true;
 
       vscode.enable = true;
       kitty.enable = true;

@@ -27,6 +27,10 @@
       url = "github:danth/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nixcord = {
+      url = "github:kaylorben/nixcord";
+    };
   };
 
   outputs = inputs:
@@ -49,6 +53,7 @@
 
       homes.modules = with inputs; [
         impermanence.homeManagerModules.impermanence
+        nixcord.homeManagerModules.nixcord
       ];
 
       snowfall = {
