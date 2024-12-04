@@ -3,9 +3,9 @@
 
   anima = {
     apps = {
-      mindustry.enable = true;
       vesktop.enable = true;
 
+      firefox.enable = true;
       vscode.enable = true;
       kitty.enable = true;
       git = {

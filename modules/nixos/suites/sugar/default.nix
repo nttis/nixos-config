@@ -13,6 +13,8 @@
       apps = {
         stylix.enable = true;
       };
+
+      fonts.enable = true;
     };
   };
 }

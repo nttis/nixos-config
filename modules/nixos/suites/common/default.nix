@@ -17,6 +17,8 @@
       apps = {
         nh.enable = true;
       };
+
+      desktops.xfce.enable = true;
     };
 
     programs.fish.enable = true;

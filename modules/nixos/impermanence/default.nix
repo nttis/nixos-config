@@ -52,8 +52,6 @@
         "/var/lib/nixos"
         "/var/lib/systemd/coredump"
 
-        "/var/lib/flatpak"
-
         "/etc/NetworkManager/system-connections"
 
         {

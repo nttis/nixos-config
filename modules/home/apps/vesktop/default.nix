@@ -10,6 +10,15 @@
   };
 
   config = lib.mkIf config.${namespace}.apps.vesktop.enable {
+    # Persist data if Impermanence is enabled
+    home = lib.mkIf config.${namespace}.impermanence.enable {
+      persistence."/persist/${config.snowfallorg.user.name}" = {
+        directories = [
+          ".config/vesktop"
+        ];
+      };
+    };
+
     programs.nixcord = {
       enable = true;
 
