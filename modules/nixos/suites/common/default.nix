@@ -21,6 +21,11 @@
       desktops.xfce.enable = true;
     };
 
+    networking.networkmanager = {
+      enable = true;
+    };
+
+    programs.nm-applet.enable = true;
     programs.fish.enable = true;
 
     users.mutableUsers = false;

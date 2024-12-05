@@ -3,6 +3,7 @@
 
   anima = {
     apps = {
+      mindustry.enable = true;
       vesktop.enable = true;
 
       firefox.enable = true;
