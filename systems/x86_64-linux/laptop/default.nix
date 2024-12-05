@@ -13,6 +13,7 @@
   ];
 
   networking.hostName = "laptop"; # Define your hostname
+  time.timeZone = "Asia/Ho_Chi_Minh";
 
   hardware = {
     graphics.enable = true;
