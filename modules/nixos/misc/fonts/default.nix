@@ -27,6 +27,8 @@
         material-symbols
 
         nerd-fonts.fira-code
+
+        pkgs.${namespace}.devicon
       ];
 
       fontconfig = {

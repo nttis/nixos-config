@@ -37,23 +37,9 @@
   };
 
   environment.systemPackages = [
-    pkgs.firefox
-
     pkgs.alejandra
     pkgs.nixd
   ];
-
-  nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
-
-  services.xserver = {
-    enable = true;
-    desktopManager = {
-      xterm.enable = false;
-      xfce.enable = true;
-    };
-  };
-
-  services.displayManager.defaultSession = "xfce";
 
   anima = {
     suites = {

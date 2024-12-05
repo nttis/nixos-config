@@ -1,12 +1,7 @@
 # Edit this configuration file to define what should be installed on
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-{
-  pkgs,
-  inputs,
-  config,
-  ...
-}: {
+{...}: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -24,18 +19,6 @@
     isNormalUser = true;
     extraGroups = ["wheel"];
     initialHashedPassword = "$y$j9T$vi.Fiw9MHEijNtyrqt1vF.$d8Ce0EJkAwNGZWYbdaC4ezukqk2D4xkOJ5IB18ykdk4";
-  };
-
-  environment.systemPackages = [
-    pkgs.alejandra
-    pkgs.nixd
-  ];
-
-  nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
-
-  services.libinput = {
-    enable = true;
-    touchpad.naturalScrolling = true;
   };
 
   anima = {

@@ -36,6 +36,16 @@
     nixcord = {
       url = "github:kaylorben/nixcord";
     };
+
+    astal = {
+      url = "github:aylur/astal";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    ags = {
+      url = "github:aylur/ags";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs:
@@ -44,7 +54,6 @@
       src = ./.;
 
       channels-config = {
-        # Allow unfree packages.
         allowUnfree = true;
         nvidia = {
           acceptLicense = true;

@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  inputs,
   pkgs,
   namespace,
   ...
@@ -28,7 +29,22 @@
     programs.nm-applet.enable = true;
     programs.fish.enable = true;
 
+    nix = {
+      package = pkgs.nixVersions.latest;
+      nixPath = ["nixpkgs=${inputs.nixpkgs}"];
+    };
+
+    environment.systemPackages = with pkgs; [
+      alejandra
+      nixd
+    ];
+
     users.mutableUsers = false;
     users.defaultUserShell = pkgs.fish;
+
+    services.libinput = {
+      enable = true;
+      touchpad.naturalScrolling = true;
+    };
   };
 }
