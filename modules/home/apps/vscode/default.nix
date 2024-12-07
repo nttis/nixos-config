@@ -17,9 +17,13 @@
       mutableExtensionsDir = false;
       enableUpdateCheck = false;
 
+      # Profiles when home-manager?
       extensions = with inputs.nix-vscode-extensions.extensions.${system}.vscode-marketplace; [
         jnoortheen.nix-ide
         vscode-icons-team.vscode-icons
+
+        # Dart
+        dart-code.dart-code
       ];
 
       userSettings = {
