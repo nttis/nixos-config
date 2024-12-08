@@ -14,7 +14,9 @@
         stylix.enable = true;
       };
 
-      fonts.enable = true;
+      misc = {
+        fonts.enable = true;
+      };
     };
   };
 }

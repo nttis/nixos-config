@@ -5,11 +5,11 @@
   namespace,
   ...
 }: {
-  options.${namespace}.fonts = {
+  options.${namespace}.misc.fonts = {
     enable = lib.mkEnableOption "font management";
   };
 
-  config = lib.mkIf config.${namespace}.fonts.enable {
+  config = lib.mkIf config.${namespace}.misc.fonts.enable {
     fonts = {
       enableDefaultPackages = false;
       fontDir.enable = true;

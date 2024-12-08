@@ -6,7 +6,7 @@
   ...
 }: {
   options.${namespace}.desktops.xfce = {
-    enable = lib.mkEnableOption "xfce desktop environment";
+    enable = lib.mkEnableOption "the xfce desktop environment";
   };
 
   config = lib.mkIf config.${namespace}.desktops.xfce.enable {

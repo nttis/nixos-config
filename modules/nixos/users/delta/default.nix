@@ -8,7 +8,7 @@
     enable = lib.mkEnableOption "user: delta";
   };
 
-  config = lib.mkIf config.${namespace}.users.delta {
+  config = lib.mkIf config.${namespace}.users.delta.enable {
     users.users.delta = {
       isNormalUser = true;
       extraGroups = ["wheel"];
@@ -30,7 +30,7 @@
           "/persist/nixos" = {
             Z = {
               user = "delta";
-              mode = "744";
+              mode = "700";
             };
           };
         };

@@ -28,6 +28,10 @@
         printing.enable = true;
         networking.enable = true;
       };
+
+      misc = {
+        substituters.enable = true;
+      };
     };
 
     environment.systemPackages = with pkgs; [
