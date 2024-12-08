@@ -27,6 +27,10 @@
       sugar.enable = true;
     };
 
+    users = {
+      delta.enable = true;
+    };
+
     impermanence.enable = true;
   };
 
