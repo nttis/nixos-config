@@ -19,8 +19,6 @@
         ".local/share/direnv"
 
         ".var"
-
-        ".mozilla"
       ];
       allowOther = true;
     };
