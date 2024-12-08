@@ -3,12 +3,9 @@
   config,
   namespace,
   ...
-}: {
-  options.${namespace}.fonts = {
-    enable = lib.mkEnableOption "font management";
-  };
-
-  config = lib.mkIf config.${namespace}.fonts.enable {
-    fonts.fontconfig.enable = true;
-  };
+}:
+lib.${namespace}.mkModule ./. config {
+  enable = lib.mkEnableOption "font management";
+} {
+  fonts.fontconfig.enable = true;
 }

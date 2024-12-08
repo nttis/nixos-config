@@ -1,30 +1,27 @@
 {
   lib,
   config,
-  namespace,
   pkgs,
+  namespace,
   ...
-}: {
-  options.${namespace}.desktops.xfce = {
-    enable = lib.mkEnableOption "the xfce desktop environment";
+}:
+lib.${namespace}.mkModule ./. config {
+  enable = lib.mkEnableOption "the xfce desktop environment";
+} {
+  services.xserver = {
+    enable = true;
+    excludePackages = [pkgs.xterm];
+
+    desktopManager = {
+      xterm.enable = false;
+      xfce.enable = true;
+    };
   };
 
-  config = lib.mkIf config.${namespace}.desktops.xfce.enable {
-    services.xserver = {
-      enable = true;
-      excludePackages = [pkgs.xterm];
-
-      desktopManager = {
-        xterm.enable = false;
-        xfce.enable = true;
-      };
-    };
-
-    services.picom = {
-      enable = true;
-      fade = true;
-      shadow = true;
-      fadeDelta = 4;
-    };
+  services.picom = {
+    enable = true;
+    fade = true;
+    shadow = true;
+    fadeDelta = 4;
   };
 }

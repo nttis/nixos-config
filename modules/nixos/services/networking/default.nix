@@ -3,16 +3,13 @@
   config,
   namespace,
   ...
-}: {
-  options.${namespace}.services.networking = {
-    enable = lib.mkEnableOption "networking";
+}:
+lib.${namespace}.mkModule ./. config {
+  enable = lib.mkEnableOption "networking";
+} {
+  networking.networkmanager = {
+    enable = true;
   };
 
-  config = lib.mkIf config.${namespace}.services.networking.enable {
-    networking.networkmanager = {
-      enable = true;
-    };
-
-    programs.nm-applet.enable = true;
-  };
+  programs.nm-applet.enable = true;
 }

@@ -4,37 +4,34 @@
   pkgs,
   namespace,
   ...
-}: {
-  options.${namespace}.misc.fonts = {
-    enable = lib.mkEnableOption "font management";
-  };
+}:
+lib.${namespace}.mkModule ./. config {
+  enable = lib.mkEnableOption "font management";
+} {
+  fonts = {
+    enableDefaultPackages = false;
+    fontDir.enable = true;
 
-  config = lib.mkIf config.${namespace}.misc.fonts.enable {
-    fonts = {
-      enableDefaultPackages = false;
-      fontDir.enable = true;
+    packages = with pkgs; [
+      noto-fonts
 
-      packages = with pkgs; [
-        noto-fonts
+      noto-fonts-cjk-sans
+      noto-fonts-cjk-serif
 
-        noto-fonts-cjk-sans
-        noto-fonts-cjk-serif
+      noto-fonts-emoji
+      noto-fonts-color-emoji
+      noto-fonts-monochrome-emoji
 
-        noto-fonts-emoji
-        noto-fonts-color-emoji
-        noto-fonts-monochrome-emoji
+      nerd-fonts.fira-code
+    ];
 
-        nerd-fonts.fira-code
-      ];
-
-      fontconfig = {
-        enable = true;
-        defaultFonts = {
-          serif = ["Noto Serif"];
-          sansSerif = ["Noto Sans"];
-          monospace = ["FiraCode Nerd Font"];
-          emoji = ["Noto Emoji" "Noto Color Emoji"];
-        };
+    fontconfig = {
+      enable = true;
+      defaultFonts = {
+        serif = ["Noto Serif"];
+        sansSerif = ["Noto Sans"];
+        monospace = ["FiraCode Nerd Font"];
+        emoji = ["Noto Emoji" "Noto Color Emoji"];
       };
     };
   };

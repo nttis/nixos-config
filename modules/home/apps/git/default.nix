@@ -5,8 +5,8 @@
   ...
 }: let
   cfg = config.${namespace}.apps.git;
-in {
-  options.${namespace}.apps.git = {
+in
+  lib.${namespace}.mkModule ./. config {
     enable = lib.mkEnableOption "git";
 
     userName = lib.mkOption {
@@ -27,9 +27,7 @@ in {
         default = "~/.ssh/id_ed25519.pub";
       };
     };
-  };
-
-  config = lib.mkIf cfg.enable {
+  } {
     assertions = [
       {
         assertion = cfg.userName != null;
@@ -58,5 +56,4 @@ in {
         commit.gpgsign = true;
       };
     };
-  };
-}
+  }

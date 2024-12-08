@@ -3,24 +3,21 @@
   config,
   namespace,
   ...
-}: {
-  options.${namespace}.impermanence = {
-    enable = lib.mkEnableOption "Impermanence";
-  };
+}:
+lib.${namespace}.mkModule ./. config {
+  enable = lib.mkEnableOption "Impermanence";
+} {
+  home.persistence."/persist/${config.snowfallorg.user.name}" = {
+    directories = [
+      "Downloads"
 
-  config = lib.mkIf config.${namespace}.impermanence.enable {
-    home.persistence."/persist/${config.snowfallorg.user.name}" = {
-      directories = [
-        "Downloads"
+      ".ssh"
 
-        ".ssh"
+      ".local/share/keyrings"
+      ".local/share/direnv"
 
-        ".local/share/keyrings"
-        ".local/share/direnv"
-
-        ".var"
-      ];
-      allowOther = true;
-    };
+      ".var"
+    ];
+    allowOther = true;
   };
 }

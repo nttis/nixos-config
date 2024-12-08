@@ -5,54 +5,52 @@
   pkgs,
   namespace,
   ...
-}: {
-  options.${namespace}.suites.common = {
-    enable = lib.mkEnableOption "common configurations";
+}:
+lib.${namespace}.mkModule ./. config {
+  enable = lib.mkEnableOption "common configurations";
+} {
+  anima = {
+    boot = {
+      systemd.enable = true;
+      filesystem.enable = true;
+    };
+
+    apps = {
+      nh.enable = true;
+    };
+
+    desktops = {
+      xfce.enable = true;
+    };
+
+    services = {
+      scanning.enable = true;
+      printing.enable = true;
+      networking.enable = true;
+    };
+
+    misc = {
+      substituters.enable = true;
+    };
   };
 
-  config = lib.mkIf config.${namespace}.suites.common.enable {
-    anima = {
-      boot.systemd.enable = true;
-      filesystem.enable = true;
+  environment.systemPackages = with pkgs; [
+    alejandra
+    nixd
+  ];
 
-      apps = {
-        nh.enable = true;
-      };
+  nix = {
+    package = pkgs.lix;
+    nixPath = ["nixpkgs=${inputs.nixpkgs}"];
+  };
 
-      desktops = {
-        xfce.enable = true;
-      };
+  users.mutableUsers = false;
+  users.defaultUserShell = pkgs.fish;
 
-      services = {
-        scanning.enable = true;
-        printing.enable = true;
-        networking.enable = true;
-      };
+  programs.fish.enable = true;
 
-      misc = {
-        substituters.enable = true;
-        test.enable = true;
-      };
-    };
-
-    environment.systemPackages = with pkgs; [
-      alejandra
-      nixd
-    ];
-
-    nix = {
-      package = pkgs.lix;
-      nixPath = ["nixpkgs=${inputs.nixpkgs}"];
-    };
-
-    users.mutableUsers = false;
-    users.defaultUserShell = pkgs.fish;
-
-    programs.fish.enable = true;
-
-    services.libinput = {
-      enable = true;
-      touchpad.naturalScrolling = true;
-    };
+  services.libinput = {
+    enable = true;
+    touchpad.naturalScrolling = true;
   };
 }
