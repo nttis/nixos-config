@@ -13,6 +13,7 @@
   ];
 
   networking.hostName = "pc"; # Define your hostname
+  time.timeZone = "Asia/Ho_Chi_Minh";
 
   powerManagement = {
     cpuFreqGovernor = "performance";
@@ -35,11 +36,6 @@
     extraGroups = ["wheel"];
     initialHashedPassword = "$y$j9T$vi.Fiw9MHEijNtyrqt1vF.$d8Ce0EJkAwNGZWYbdaC4ezukqk2D4xkOJ5IB18ykdk4";
   };
-
-  environment.systemPackages = [
-    pkgs.alejandra
-    pkgs.nixd
-  ];
 
   anima = {
     suites = {

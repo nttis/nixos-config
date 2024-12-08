@@ -24,18 +24,14 @@
         noto-fonts-color-emoji
         noto-fonts-monochrome-emoji
 
-        material-symbols
-
         nerd-fonts.fira-code
-
-        pkgs.${namespace}.devicon
       ];
 
       fontconfig = {
         enable = true;
         defaultFonts = {
-          serif = ["Noto Serif" "Noto Serif CJK JP"];
-          sansSerif = ["Noto Sans" "Noto Sans CJK JP"];
+          serif = ["Noto Serif"];
+          sansSerif = ["Noto Sans"];
           monospace = ["FiraCode Nerd Font"];
           emoji = ["Noto Emoji" "Noto Color Emoji"];
         };

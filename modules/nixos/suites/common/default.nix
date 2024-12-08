@@ -19,19 +19,15 @@
         nh.enable = true;
       };
 
-      desktops.xfce.enable = true;
-    };
+      desktops = {
+        xfce.enable = true;
+      };
 
-    networking.networkmanager = {
-      enable = true;
-    };
-
-    programs.nm-applet.enable = true;
-    programs.fish.enable = true;
-
-    nix = {
-      package = pkgs.nixVersions.latest;
-      nixPath = ["nixpkgs=${inputs.nixpkgs}"];
+      services = {
+        scanning.enable = true;
+        printing.enable = true;
+        networking.enable = true;
+      };
     };
 
     environment.systemPackages = with pkgs; [
@@ -39,8 +35,15 @@
       nixd
     ];
 
+    nix = {
+      package = pkgs.lix;
+      nixPath = ["nixpkgs=${inputs.nixpkgs}"];
+    };
+
     users.mutableUsers = false;
     users.defaultUserShell = pkgs.fish;
+
+    programs.fish.enable = true;
 
     services.libinput = {
       enable = true;

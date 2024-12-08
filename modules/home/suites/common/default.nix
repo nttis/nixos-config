@@ -17,6 +17,8 @@
         vscode.enable = true;
         kitty.enable = true;
         kakoune.enable = true;
+
+        xsane.enable = true;
       };
 
       fonts.enable = true;

@@ -20,7 +20,6 @@
       };
     };
 
-    services.displayManager.defaultSession = "xfce";
     services.picom = {
       enable = true;
       fade = true;
