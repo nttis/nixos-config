@@ -31,6 +31,7 @@
 
       misc = {
         substituters.enable = true;
+        test.enable = true;
       };
     };
 
