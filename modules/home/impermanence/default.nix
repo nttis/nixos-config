@@ -12,11 +12,9 @@ lib.${namespace}.mkModule ./. config {
       "Downloads"
 
       ".ssh"
-
-      ".local/share/keyrings"
-      ".local/share/direnv"
-
       ".var"
+
+      ".local/share/direnv"
     ];
     allowOther = true;
   };

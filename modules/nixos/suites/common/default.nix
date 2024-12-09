@@ -53,4 +53,15 @@ lib.${namespace}.mkModule ./. config {
     enable = true;
     touchpad.naturalScrolling = true;
   };
+
+  # TODO: maybe consider moving this to modules?
+  programs.ssh = {
+    startAgent = true;
+    enableAskPassword = true;
+    agentTimeout = null; # Maybe set a time limit??
+  };
+
+  services.openssh = {
+    enable = true;
+  };
 }
