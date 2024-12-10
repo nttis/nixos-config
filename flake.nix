@@ -51,6 +51,11 @@
       url = "github:aylur/ags";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs:
@@ -72,6 +77,7 @@
       systems.modules.nixos = with inputs; [
         impermanence.nixosModules.impermanence
         stylix.nixosModules.stylix
+        sops-nix.nixosModules.sops
       ];
 
       homes.modules = with inputs; [

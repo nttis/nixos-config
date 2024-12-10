@@ -27,6 +27,8 @@ lib.${namespace}.mkModule ./. config {
       scanning.enable = true;
       printing.enable = true;
       networking.enable = true;
+      sops-nix.enable = true;
+      ssh-client.enable = true;
     };
 
     misc = {
@@ -52,16 +54,5 @@ lib.${namespace}.mkModule ./. config {
   services.libinput = {
     enable = true;
     touchpad.naturalScrolling = true;
-  };
-
-  # TODO: maybe consider moving this to modules?
-  programs.ssh = {
-    startAgent = true;
-    enableAskPassword = true;
-    agentTimeout = null; # Maybe set a time limit??
-  };
-
-  services.openssh = {
-    enable = true;
   };
 }

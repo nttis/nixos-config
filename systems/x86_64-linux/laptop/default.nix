@@ -14,13 +14,6 @@
     graphics.enable = true;
   };
 
-  # Users
-  users.users.delta = {
-    isNormalUser = true;
-    extraGroups = ["wheel"];
-    initialHashedPassword = "$y$j9T$vi.Fiw9MHEijNtyrqt1vF.$d8Ce0EJkAwNGZWYbdaC4ezukqk2D4xkOJ5IB18ykdk4";
-  };
-
   anima = {
     suites = {
       common.enable = true;
@@ -32,17 +25,6 @@
     };
 
     impermanence.enable = true;
-  };
-
-  # Create the persistent home directories with proper permissions
-  # to allow home-manager to write to them
-  systemd.tmpfiles.settings."delta" = {
-    "/persist/delta" = {
-      d = {
-        user = "delta";
-        mode = "700";
-      };
-    };
   };
 
   # This option defines the first version of NixOS you have installed on this particular machine,

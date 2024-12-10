@@ -39,6 +39,8 @@ lib.${namespace}.mkModule ./. config {
           formatting.command = ["alejandra"];
         };
       };
+
+      "vsicons.dontShowNewVersionMessage" = true;
     };
   };
 }

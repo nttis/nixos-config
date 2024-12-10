@@ -10,4 +10,8 @@ lib.${namespace}.mkModule ./. config {
   programs.kakoune = {
     enable = true;
   };
+
+  home.sessionVariables = {
+    EDITOR = "kak";
+  };
 }

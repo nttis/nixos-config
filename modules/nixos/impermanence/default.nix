@@ -61,6 +61,7 @@ lib.${namespace}.mkModule ./. config {
     ];
     files = [
       "/etc/machine-id"
+      "/var/lib/sops-nix/keys.txt"
     ];
   };
 
