@@ -1,18 +1,19 @@
 # Edit this configuration file to define what should be installed on
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-{config, ...}: {
+{
+  lib,
+  config,
+  ...
+}: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
   ];
 
+  # Begin machine-specific configuration
   networking.hostName = "pc"; # Define your hostname
   time.timeZone = "Asia/Ho_Chi_Minh";
-
-  powerManagement = {
-    cpuFreqGovernor = "performance";
-  };
 
   hardware = {
     graphics.enable = true;
@@ -24,12 +25,16 @@
   };
 
   services.xserver.videoDrivers = ["nvidia"];
+  # End machine-specific configuration
 
   anima = {
     suites = {
       common.enable = true;
       sugar.enable = true;
     };
+
+    # This legacy NVIDIA driver doesn't even work on Linux 6.10 and up
+    boot.kernel.latest.enable = lib.mkForce false;
 
     users = {
       delta.enable = true;

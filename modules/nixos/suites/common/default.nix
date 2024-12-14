@@ -13,6 +13,7 @@ lib.${namespace}.mkModule ./. config {
     boot = {
       systemd.enable = true;
       filesystem.enable = true;
+      kernel.latest.enable = true;
     };
 
     apps = {
@@ -42,7 +43,6 @@ lib.${namespace}.mkModule ./. config {
   ];
 
   nix = {
-    package = pkgs.lix;
     nixPath = ["nixpkgs=${inputs.nixpkgs}"];
   };
 
@@ -50,6 +50,7 @@ lib.${namespace}.mkModule ./. config {
   users.defaultUserShell = pkgs.fish;
 
   programs.fish.enable = true;
+  programs.nix-ld.enable = true;
 
   services.libinput = {
     enable = true;
