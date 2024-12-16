@@ -14,7 +14,7 @@
       "${username}/signing_key" = {
         owner = username;
       };
-      "${username}/ssh_keys/pc" = {
+      "${username}/ssh_keys/primary" = {
         owner = username;
       };
     };
@@ -61,7 +61,7 @@
       serviceConfig = {
         ExecStart = ''
           ${pkgs.openssh}/bin/ssh-add \
-            /run/secrets/${username}/ssh_keys/pc \
+            /run/secrets/${username}/ssh_keys/primary \
             /run/secrets/${username}/signing_key
         '';
 

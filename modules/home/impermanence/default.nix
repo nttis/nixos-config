@@ -11,10 +11,7 @@ lib.${namespace}.mkModule ./. config {
     directories = [
       "Downloads"
 
-      ".ssh"
       ".var"
-
-      ".local/share/direnv"
     ];
     allowOther = true;
   };
