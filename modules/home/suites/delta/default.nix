@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  pkgs,
   namespace,
   ...
 }: let
@@ -21,16 +20,8 @@ in
         git = {
           enable = true;
 
-          userName = "N";
-          userEmail = "42465069+ofcoursenopewastaken@users.noreply.github.com";
-
-          signing = {
-            enable = true;
-            signingKey = "${pkgs.writeTextFile {
-              name = "signing_key.pub";
-              text = builtins.readFile ./signing_key.pub;
-            }}";
-          };
+          userName = "nttis";
+          userEmail = "42465069+nttis@users.noreply.github.com";
         };
       };
 
