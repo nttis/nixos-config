@@ -21,7 +21,7 @@ lib.${namespace}.mkModule ./. config {
   services.picom = {
     enable = true;
     fade = true;
-    shadow = true;
+    shadow = false;
     fadeDelta = 4;
   };
 }

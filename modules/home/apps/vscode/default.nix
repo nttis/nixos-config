@@ -22,17 +22,18 @@ lib.${namespace}.mkModule ./. config {
       jnoortheen.nix-ide
       vscode-icons-team.vscode-icons
 
-      # HELL ON EARTH
-      fwcd.kotlin
+      esbenp.prettier-vscode
+      tamasfe.even-better-toml
+      karunamurti.tera
+      uncenter.better-tera
 
+      # HELL ON EARTH
       dart-code.dart-code
       dart-code.flutter
 
       redhat.java
       redhat.vscode-xml
       redhat.vscode-yaml
-
-      bazelbuild.vscode-bazel
     ];
 
     userSettings = {

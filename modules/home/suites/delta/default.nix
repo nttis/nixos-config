@@ -27,4 +27,27 @@ in
 
       impermanence.enable = true;
     };
+
+    programs.helix = {
+      settings = {
+        editor.cursor-shape = {
+          insert = "bar";
+          normal = "bar";
+          select = "underline";
+        };
+      };
+    };
+
+    xfconf.settings = {
+      "xfce4-terminal" = {
+        "misc-cursor-blinks" = true;
+        "misc-cursor-shape" = "TERMINAL_CURSOR_SHAPE_IBEAM";
+        "scrolling-unlimited" = true;
+        "title-mode" = "TERMINAL_TITLE_REPLACE";
+      };
+
+      "thunar" = {
+        "last-show-hidden" = true;
+      };
+    };
   }

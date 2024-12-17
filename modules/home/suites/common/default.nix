@@ -13,8 +13,8 @@ lib.${namespace}.mkModule ./. config {
       firefox.enable = true;
 
       vscode.enable = true;
-      kitty.enable = true;
-      kakoune.enable = true;
+      helix.enable = true;
+      wezterm.enable = true;
 
       xsane.enable = true;
     };
