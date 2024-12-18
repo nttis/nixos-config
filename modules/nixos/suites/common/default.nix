@@ -28,6 +28,7 @@ lib.${namespace}.mkModule ./. config {
       scanning.enable = true;
       printing.enable = true;
       networking.enable = true;
+
       sops-nix.enable = true;
       ssh-client.enable = true;
     };

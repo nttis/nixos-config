@@ -12,6 +12,5 @@ lib.${namespace}.mkModule ./. config {
   programs.wezterm = {
     enable = true;
     package = inputs.wezterm.packages.${system}.default;
-    extraConfig = lib.readFile ./config.lua;
   };
 }
