@@ -2,11 +2,12 @@
 {
   lib,
   config,
+  pkgs,
   namespace,
   ...
 }:
 lib.${namespace}.mkModule ./. config {
-  enable = lib.mkEnableOption "enables Vesktop";
+  enable = lib.mkEnableOption "enables Equibop";
 } {
   # Persist data if Impermanence is enabled
   home = lib.mkIf config.${namespace}.impermanence.enable {
@@ -20,8 +21,29 @@ lib.${namespace}.mkModule ./. config {
   programs.nixcord = {
     enable = true;
 
-    # Use Vesktop
+    # Use Equibop
     discord.enable = false;
-    vesktop.enable = true;
+
+    vesktop = {
+      enable = true;
+      package = pkgs.makeOverridable pkgs.stdenvNoCC.mkDerivation {
+        name = "stub";
+        phases = ["installPhase"];
+
+        nativeBuildInputs = [
+          pkgs.makeWrapper
+        ];
+
+        installPhase = ''
+          mkdir -p $out
+          cp -r ${pkgs.equibop}/* $out
+
+          chmod -R 755 $out
+
+          wrapProgram $out/bin/equibop \
+            --set EQUICORD_USER_DATA_DIR ${config.xdg.configHome + "/vesktop"}
+        '';
+      };
+    };
   };
 }

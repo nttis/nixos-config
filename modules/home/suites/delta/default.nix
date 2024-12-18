@@ -12,6 +12,14 @@ in
     snowfallorg.user.name = username;
 
     anima = {
+      apps = {
+        xsane.enable = true;
+      };
+
+      misc = {
+        fonts.enable = true;
+      };
+
       users.${username} = {
         apps = {
           firefox.enable = true;
@@ -21,12 +29,9 @@ in
           git.enable = true;
           helix.enable = true;
           vscode.enable = true;
-
-          xsane.enable = true;
         };
 
         misc = {
-          fonts.enable = true;
           fcitx5.enable = true;
           xfconf.enable = true;
         };
