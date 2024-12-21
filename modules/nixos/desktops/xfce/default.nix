@@ -1,27 +1,21 @@
 {
   lib,
   config,
-  pkgs,
   namespace,
   ...
 }:
 lib.${namespace}.mkModule ./. config {
   enable = lib.mkEnableOption "the xfce desktop environment";
 } {
-  services.xserver = {
-    enable = true;
-    excludePackages = [pkgs.xterm];
-
-    desktopManager = {
-      xterm.enable = false;
-      xfce.enable = true;
+  anima = {
+    desktops = {
+      xserver.enable = true;
     };
   };
 
-  services.picom = {
-    enable = true;
-    fade = true;
-    shadow = false;
-    fadeDelta = 4;
+  services.xserver = {
+    desktopManager = {
+      xfce.enable = true;
+    };
   };
 }

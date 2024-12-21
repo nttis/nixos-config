@@ -31,6 +31,10 @@ in
           vscode.enable = true;
         };
 
+        desktops = {
+          i3.enable = true;
+        };
+
         misc = {
           fcitx5.enable = true;
           xfconf.enable = true;

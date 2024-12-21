@@ -22,6 +22,11 @@ lib.${namespace}.mkModule ./. config {
 
     desktops = {
       xfce.enable = true;
+      awesome.enable = true;
+      i3.enable = true;
+
+      xserver.enable = true;
+      greetd.enable = true;
     };
 
     services = {

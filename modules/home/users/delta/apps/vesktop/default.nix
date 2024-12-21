@@ -17,6 +17,93 @@ lib.${namespace}.mkModule ./. config {
   programs.nixcord = {
     extraConfig = {
       plugins = {
+        # Equicord plugins
+        amITyping = {
+          enable = true;
+        };
+        anammox = {
+          enable = true;
+        };
+        betterUserArea = {
+          enable = true;
+        };
+        blockKrisp = {
+          enable = true;
+        };
+        copyFileContents = {
+          enable = true;
+        };
+        deadMembers = {
+          enable = true;
+        };
+        findReply = {
+          enable = true;
+          includePings = true;
+          hideButtonIfNoReply = true;
+        };
+        friendshipRanks = {
+          enable = true;
+        };
+        fullSearchContext = {
+          enable = true;
+        };
+        greetStickerPicker = {
+          enable = true;
+          greetMode = "Message";
+        };
+        ignoreTerms = {
+          enable = true;
+        };
+        jumpToStart = {
+          enable = true;
+        };
+        noF1 = {
+          enable = true;
+        };
+        noModalAnimation = {
+          enable = true;
+        };
+        noNitroUpsell = {
+          enable = true;
+        };
+        noServerEmojis = {
+          enable = true;
+          shownEmojis = "currentServer";
+        };
+        questCompleter = {
+          enable = true;
+        };
+        reactErrorDecoder = {
+          enable = true;
+        };
+        quoter = {
+          enable = true;
+        };
+        searchFix = {
+          enable = true;
+        };
+        startupTimings = {
+          enable = true;
+        };
+        streamerModeOn = {
+          enable = true;
+        };
+        timezones = {
+          enable = true;
+        };
+        whosWatching = {
+          enable = true;
+        };
+        youtubeDescription = {
+          enable = true;
+        };
+      };
+    };
+
+    config = {
+      enabledThemes = ["stylix.theme.css"];
+
+      plugins = {
         # Vencord plugins
         accountPanelServerProfile = {
           enable = true;
@@ -252,96 +339,7 @@ lib.${namespace}.mkModule ./. config {
         webScreenShareFixes = {
           enable = true;
         };
-
-        # Equicord plugins
-        amITyping = {
-          enable = true;
-        };
-        anammox = {
-          enable = true;
-        };
-        betterUserArea = {
-          enable = true;
-        };
-        blockKrisp = {
-          enable = true;
-        };
-        copyFileContents = {
-          enable = true;
-        };
-        deadMembers = {
-          enable = true;
-        };
-        findReply = {
-          enable = true;
-          includePings = true;
-          hideButtonIfNoReply = true;
-        };
-        friendshipRanks = {
-          enable = true;
-        };
-        fullSearchContext = {
-          enable = true;
-        };
-        greetStickerPicker = {
-          enable = true;
-          greetMode = "Message";
-        };
-        ignoreTerms = {
-          enable = true;
-        };
-        jumpToStart = {
-          enable = true;
-        };
-        noF1 = {
-          enable = true;
-        };
-        noModalAnimation = {
-          enable = true;
-        };
-        noNitroUpsell = {
-          enable = true;
-        };
-        noServerEmojis = {
-          enable = true;
-          shownEmojis = "currentServer";
-        };
-        questCompleter = {
-          enable = true;
-        };
-        reactErrorDecoder = {
-          enable = true;
-        };
-        quoter = {
-          enable = true;
-        };
-        searchFix = {
-          enable = true;
-        };
-        startupTimings = {
-          enable = true;
-        };
-        streamerModeOn = {
-          enable = true;
-        };
-        teX = {
-          enable = true;
-        };
-        timezones = {
-          enable = true;
-        };
-        whosWatching = {
-          enable = true;
-        };
-        youtubeDescription = {
-          enable = true;
-        };
       };
-    };
-
-    config = {
-      enableReactDevtools = true;
-      enabledThemes = ["stylix.theme.css"];
     };
   };
 }

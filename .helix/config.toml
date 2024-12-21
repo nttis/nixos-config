@@ -1,0 +1,6 @@
+[editor.auto-save]
+after-delay.enable = true
+after-delay.timeout = 1000
+
+[editor.file-picker]
+hidden = false
