@@ -28,11 +28,11 @@ in
           wezterm.enable = true;
           git.enable = true;
           helix.enable = true;
-          vscode.enable = true;
         };
 
         desktops = {
-          i3.enable = true;
+          quickshell.enable = true;
+          hyprland.enable = true;
         };
 
         misc = {

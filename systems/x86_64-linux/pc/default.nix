@@ -17,14 +17,12 @@
 
   hardware = {
     graphics.enable = true;
-
-    nvidia = {
-      open = false;
-      package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
-    };
   };
 
-  services.xserver.videoDrivers = ["nvidia"];
+  boot.kernelParams = [
+    "nouveau.config=NvClkMode=15"
+  ];
+
   # End machine-specific configuration
 
   anima = {
@@ -32,9 +30,6 @@
       common.enable = true;
       sugar.enable = true;
     };
-
-    # This legacy NVIDIA driver doesn't even work on Linux 6.10 and up
-    boot.kernel.latest.enable = lib.mkForce false;
 
     users = {
       delta.enable = true;

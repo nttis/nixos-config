@@ -23,6 +23,8 @@ lib.${namespace}.mkModule ./. config {
       noto-fonts-monochrome-emoji
 
       nerd-fonts.fira-code
+
+      font-awesome
     ];
 
     fontconfig = {
