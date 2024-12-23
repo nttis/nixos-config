@@ -15,7 +15,6 @@ in
       apps = {
         xsane.enable = true;
         chromium.enable = true;
-        foot.enable = true;
       };
 
       misc = {
@@ -28,12 +27,13 @@ in
           vesktop.enable = true;
 
           wezterm.enable = true;
+          nushell.enable = true;
+
           git.enable = true;
           helix.enable = true;
         };
 
         desktops = {
-          quickshell.enable = true;
           hyprland.enable = true;
         };
 
