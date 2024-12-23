@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   namespace,
   ...
 }:
@@ -12,4 +13,8 @@ lib.${namespace}.mkModule ./. config {
     withUWSM = true;
     xwayland.enable = true;
   };
+
+  environment.systemPackages = [
+    pkgs.wl-clipboard
+  ];
 }
