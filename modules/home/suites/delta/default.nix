@@ -15,6 +15,7 @@ in
       apps = {
         xsane.enable = true;
         chromium.enable = true;
+        foot.enable = true;
       };
 
       misc = {

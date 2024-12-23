@@ -42,19 +42,13 @@ lib.${namespace}.mkModule ./. config {
     };
   };
 
-  environment.systemPackages = with pkgs; [
-    alejandra
-    nixd
-  ];
-
   nix = {
     nixPath = ["nixpkgs=${inputs.nixpkgs}"];
   };
 
   users.mutableUsers = false;
-  users.defaultUserShell = pkgs.fish;
+  users.defaultUserShell = pkgs.nushell;
 
-  programs.fish.enable = true;
   programs.nix-ld.enable = true;
 
   services.libinput = {
