@@ -39,7 +39,6 @@ in
 
         misc = {
           fcitx5.enable = true;
-          xfconf.enable = true;
         };
       };
 

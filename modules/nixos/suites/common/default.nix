@@ -21,10 +21,7 @@ lib.${namespace}.mkModule ./. config {
     };
 
     desktops = {
-      xfce.enable = true;
       hyprland.enable = true;
-
-      xserver.enable = true;
       greetd.enable = true;
     };
 
@@ -50,9 +47,4 @@ lib.${namespace}.mkModule ./. config {
   users.defaultUserShell = pkgs.nushell;
 
   programs.nix-ld.enable = true;
-
-  services.libinput = {
-    enable = true;
-    touchpad.naturalScrolling = true;
-  };
 }
