@@ -70,6 +70,11 @@ lib.${namespace}.mkModule ./. config {
         "$mod SHIFT, 9, movetoworkspace, 9"
         "$mod SHIFT, 0, movetoworkspace, 10"
       ];
+
+      bindel = [
+        ",XF86MonBrightnessUp, exec, ${pkgs.brightnessctl}/bin/brightnessctl s 10%+"
+        ",XF86MonBrightnessDown, exec, ${pkgs.brightnessctl}/bin/brightnessctl s 10%-"
+      ];
     };
   };
 
@@ -104,6 +109,26 @@ lib.${namespace}.mkModule ./. config {
 
       Restart = "always";
       StartLimitIntervalSec = 0;
+    };
+
+    Install = {
+      WantedBy = ["graphical-session.target"];
+    };
+  };
+
+  systemd.user.services.oneshot = {
+    Unit = {
+      Description = "Oneshot service for miscellaneous things";
+      After = ["graphical-session.target"];
+    };
+
+    Service = {
+      Type = "oneshot";
+      ExecStart = ''
+        sleep 10 # Failsafe lmao
+
+        ${pkgs.brightnessctl}/bin/brightnessctl set 100%
+      '';
     };
 
     Install = {
