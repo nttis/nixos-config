@@ -30,6 +30,12 @@ lib.${namespace}.mkModule ./. config {
         ];
       };
 
+      input = {
+        touchpad = {
+          natural_scroll = true;
+        };
+      };
+
       bind = [
         "$mod, RETURN, exec, wezterm"
         "$mod, R, exec, ${pkgs.rofi-wayland}/bin/rofi -show combi -combi-modes run,drun"
