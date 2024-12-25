@@ -50,8 +50,6 @@ lib.${namespace}.mkModule ./. config {
       "/var/lib/nixos"
       "/var/lib/systemd/coredump"
 
-      "/etc/NetworkManager/system-connections"
-
       {
         directory = "/var/lib/colord";
         user = "colord";
