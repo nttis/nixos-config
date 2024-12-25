@@ -14,7 +14,7 @@ in
     anima = {
       apps = {
         xsane.enable = true;
-        chromium.enable = true;
+        yazi.enable = true;
       };
 
       misc = {
