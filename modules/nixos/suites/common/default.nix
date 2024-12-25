@@ -47,4 +47,6 @@ lib.${namespace}.mkModule ./. config {
   users.defaultUserShell = pkgs.nushell;
 
   programs.nix-ld.enable = true;
+
+  environment.memoryAllocator.provider = "graphene-hardened-light";
 }
