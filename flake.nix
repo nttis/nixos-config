@@ -9,11 +9,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    snowfall-drift = {
-      url = "github:snowfallorg/drift";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -42,11 +37,6 @@
       url = "github:kaylorben/nixcord";
     };
 
-    quickshell = {
-      url = "git+https://git.outfoxxed.me/outfoxxed/quickshell";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -69,10 +59,6 @@
           acceptLicense = true;
         };
       };
-
-      overlays = with inputs; [
-        snowfall-drift.overlays.default
-      ];
 
       systems.modules.nixos = with inputs; [
         impermanence.nixosModules.impermanence

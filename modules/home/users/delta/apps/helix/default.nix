@@ -33,27 +33,11 @@ lib.${namespace}.mkModule ./. config {
           formatter = {command = "${pkgs.taplo}/bin/taplo";};
           auto-format = true;
         }
-
-        {
-          name = "qml";
-          auto-format = true;
-          language-servers = ["qmlls"];
-        }
       ];
 
       language-server = {
         nixd = {
           command = "${pkgs.nixd}/bin/nixd";
-        };
-
-        qmlls = {
-          command = "${pkgs.kdePackages.qtdeclarative}/bin/qmlls";
-          args = [
-            "-I"
-            "${inputs.quickshell.packages.${system}.default}/lib/qt-6/qml"
-            "-I"
-            "${pkgs.kdePackages.qtdeclarative}/lib/qt-6/qml"
-          ];
         };
       };
     };
@@ -61,7 +45,7 @@ lib.${namespace}.mkModule ./. config {
     settings = {
       editor.cursor-shape = {
         insert = "bar";
-        normal = "block";
+        normal = "bar";
         select = "underline";
       };
     };
