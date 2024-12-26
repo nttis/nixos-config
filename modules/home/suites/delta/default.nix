@@ -15,6 +15,7 @@ in
       apps = {
         xsane.enable = true;
         yazi.enable = true;
+        qutebrowser.enable = true;
       };
 
       misc = {
@@ -23,7 +24,6 @@ in
 
       users.${username} = {
         apps = {
-          firefox.enable = true;
           vesktop.enable = true;
 
           wezterm.enable = true;
