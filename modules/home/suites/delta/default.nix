@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   namespace,
   ...
 }: let
@@ -15,7 +16,6 @@ in
       apps = {
         xsane.enable = true;
         yazi.enable = true;
-        qutebrowser.enable = true;
       };
 
       misc = {
@@ -24,6 +24,7 @@ in
 
       users.${username} = {
         apps = {
+          librewolf.enable = true;
           vesktop.enable = true;
 
           wezterm.enable = true;
