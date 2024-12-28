@@ -48,5 +48,5 @@ lib.${namespace}.mkModule ./. config {
 
   programs.nix-ld.enable = true;
 
-  environment.memoryAllocator.provider = "graphene-hardened-light";
+  environment.memoryAllocator.provider = "libc";
 }
