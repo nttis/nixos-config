@@ -78,42 +78,14 @@ lib.${namespace}.mkModule ./. config {
     };
   };
 
-  systemd.user.services.mako = {
-    Unit = {
-      Description = "Service that manages mako";
-      After = ["graphical-session.target"];
-    };
-
-    Service = {
-      Type = "exec";
-      ExecStart = "${pkgs.mako}/bin/mako";
-
-      Restart = "always";
-      StartLimitIntervalSec = 0;
-    };
-
-    Install = {
-      WantedBy = ["graphical-session.target"];
-    };
+  programs.waybar = {
+    enable = true;
+    systemd.enable = true;
   };
 
-  systemd.user.services.waybar = {
-    Unit = {
-      Description = "Service that manages waybar";
-      After = ["graphical-session.target"];
-    };
-
-    Service = {
-      Type = "exec";
-      ExecStart = "${pkgs.waybar}/bin/waybar";
-
-      Restart = "always";
-      StartLimitIntervalSec = 0;
-    };
-
-    Install = {
-      WantedBy = ["graphical-session.target"];
-    };
+  services.mako = {
+    enable = true;
+    defaultTimeout = 10000;
   };
 
   systemd.user.services.oneshot = {
@@ -125,8 +97,6 @@ lib.${namespace}.mkModule ./. config {
     Service = {
       Type = "oneshot";
       ExecStart = ''
-        sleep 10 # Failsafe lmao
-
         ${pkgs.brightnessctl}/bin/brightnessctl set 100%
       '';
     };
