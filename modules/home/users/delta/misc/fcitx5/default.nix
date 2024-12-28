@@ -16,10 +16,11 @@ lib.${namespace}.mkModule ./. config {
 
   i18n.inputMethod.fcitx5.addons = with pkgs; [
     fcitx5-mozc
-    fcitx5-unikey
+    fcitx5-bamboo
   ];
 
   xdg.configFile.fcitx5 = {
+    enable = true;
     source = ./fcitx5;
   };
 }
