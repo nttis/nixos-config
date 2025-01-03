@@ -9,13 +9,9 @@
 lib.${namespace}.mkModule ./. config {
   enable = lib.mkEnableOption "user-specific librewolf configuration";
 } {
-  anima = {
-    apps = {
-      librewolf.enable = true;
-    };
-  };
-
   programs.librewolf = {
+    enable = true;
+
     # Policies to configure uBlock Origin
     policies = {
       "3rdparty" = {

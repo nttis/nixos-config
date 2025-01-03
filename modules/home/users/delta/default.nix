@@ -1,7 +1,6 @@
 {
   lib,
   config,
-  pkgs,
   namespace,
   ...
 }: let
@@ -13,22 +12,14 @@ in
     snowfallorg.user.name = username;
 
     anima = {
-      apps = {
-        xsane.enable = true;
-        yazi.enable = true;
-      };
-
-      misc = {
-        fonts.enable = true;
-      };
-
       users.${username} = {
         apps = {
           librewolf.enable = true;
           vesktop.enable = true;
 
-          wezterm.enable = true;
+          ghostty.enable = true;
           nushell.enable = true;
+          yazi.enable = true;
 
           git.enable = true;
           helix.enable = true;
@@ -39,10 +30,11 @@ in
         };
 
         misc = {
+          fonts.enable = true;
           fcitx5.enable = true;
         };
-      };
 
-      impermanence.enable = true;
+        impermanence.enable = true;
+      };
     };
   }

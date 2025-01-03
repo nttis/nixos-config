@@ -1,11 +1,12 @@
 {...}: {
   anima = {
-    suites = {
-      delta.enable = true;
-    };
-
-    apps = {
-      mindustry.enable = true;
+    users = {
+      delta = {
+        enable = true;
+        apps = {
+          mindustry.enable = true;
+        };
+      };
     };
   };
 

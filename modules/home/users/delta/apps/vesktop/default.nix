@@ -9,8 +9,10 @@ lib.${namespace}.mkModule ./. config {
   enable = lib.mkEnableOption "user-specific Equibop config";
 } {
   anima = {
-    apps = {
-      vesktop.enable = true;
+    users.common = {
+      apps = {
+        vesktop.enable = true;
+      };
     };
   };
 

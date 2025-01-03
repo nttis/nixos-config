@@ -1,6 +1,6 @@
 {...}: {
   anima = {
-    suites = {
+    users = {
       delta.enable = true;
     };
   };

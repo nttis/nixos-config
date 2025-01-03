@@ -37,7 +37,7 @@ lib.${namespace}.mkModule ./. config {
       };
 
       bind = [
-        "$mod, RETURN, exec, wezterm"
+        "$mod, RETURN, exec, ${pkgs.ghostty}/bin/ghostty"
         "$mod, R, exec, ${pkgs.rofi-wayland}/bin/rofi -show combi -combi-modes run,drun"
 
         "$mod, C, killactive, "
