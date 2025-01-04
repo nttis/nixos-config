@@ -56,7 +56,7 @@ lib.${namespace}.mkModule ./. config {
 
   environment.persistence."/persist/system" = lib.mkIf config.${namespace}.impermanence.enable {
     directories = [
-      "/var/lib/iwd"
+      "/etc/NetworkManager/system-connections"
     ];
   };
 }
