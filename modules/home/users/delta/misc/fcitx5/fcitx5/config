@@ -35,9 +35,9 @@ TogglePreedit=
 # Active By Default
 ActiveByDefault=True
 # Reset state on Focus In
-resetStateWhenFocusIn=No
+ResetStateWhenFocusIn=No
 # Share Input State
-ShareInputState=No
+ShareInputState=All
 # Show preedit in application
 PreeditEnabledByDefault=False
 # Show Input Method Information when switch input method
