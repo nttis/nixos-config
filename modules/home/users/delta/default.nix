@@ -12,6 +12,12 @@ in
     snowfallorg.user.name = username;
 
     anima = {
+      users.common = {
+        apps = {
+          anki.enable = true;
+        };
+      };
+
       users.${username} = {
         apps = {
           librewolf.enable = true;
