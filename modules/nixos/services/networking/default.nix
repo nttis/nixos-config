@@ -7,7 +7,7 @@
 lib.${namespace}.mkModule ./. config {
   enable = lib.mkEnableOption "networking";
 } {
-  # NetworkManager is the... network manager, using wpa_supplicant as the WiFi backend.
+  # NetworkManager is the... network manager, using iwd as the WiFi backend.
   #
   # NetworkManager is configured to not touch DNS (/etc/resolv.conf)
   # which means it will ignore all DNS it receives from the DHCP server.
@@ -25,6 +25,14 @@ lib.${namespace}.mkModule ./. config {
       enable = true;
       dns = "none";
       dhcp = "dhcpcd";
+
+      wifi.backend = "iwd";
+    };
+
+    wireless.iwd.settings = {
+      Settings = {
+        AutoConnect = true;
+      };
     };
 
     nameservers = ["127.0.0.1" "::1"];
@@ -57,6 +65,7 @@ lib.${namespace}.mkModule ./. config {
   environment.persistence."/persist/system" = lib.mkIf config.${namespace}.impermanence.enable {
     directories = [
       "/etc/NetworkManager/system-connections"
+      "/var/lib/iwd"
     ];
   };
 }
