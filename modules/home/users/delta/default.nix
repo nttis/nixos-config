@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   namespace,
   ...
 }: let
@@ -42,5 +43,10 @@ in
 
         impermanence.enable = true;
       };
+    };
+
+    gtk.iconTheme = {
+      package = pkgs.adwaita-icon-theme;
+      name = "Adwaita";
     };
   }
