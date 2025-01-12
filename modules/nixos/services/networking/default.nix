@@ -1,16 +1,15 @@
 {
   lib,
   config,
+  pkgs,
   namespace,
   ...
 }:
 lib.${namespace}.mkModule ./. config {
   enable = lib.mkEnableOption "networking";
 } {
-  # NetworkManager is the... network manager, using iwd as the WiFi backend.
-  #
-  # NetworkManager is configured to not touch DNS (/etc/resolv.conf)
-  # which means it will ignore all DNS it receives from the DHCP server.
+  # iwd acts as the standalone WiFi manager. It is configured to ignore
+  # name server resolution obtained from DHCP.
   #
   # Instead, the only nameserver is hardcoded to be 127.0.0.1:53, which is
   # where dnscrypt-proxy2 listens.
@@ -18,20 +17,20 @@ lib.${namespace}.mkModule ./. config {
   # dnscrypt-proxy2 acts as a local DNS nameserver resolver. It encrypts all
   # outbound DNS requests (from apps, system, etc.) with HTTPS and forward them
   # to capable remote DNS nameservers. It is configured to use cloudflare (1.1.1.1)
-  # nameserver at the present.
+  # and fallback to adguard nameserver at the present.
 
   networking = {
-    networkmanager = {
+    wireless.iwd = {
       enable = true;
-      dns = "none";
-      dhcp = "dhcpcd";
 
-      wifi.backend = "iwd";
-    };
-
-    wireless.iwd.settings = {
-      Settings = {
-        AutoConnect = true;
+      settings = {
+        Network = {
+          NameResolvingService = "none";
+          EnableIPv6 = true;
+        };
+        Settings = {
+          AutoConnect = true;
+        };
       };
     };
 
@@ -60,11 +59,8 @@ lib.${namespace}.mkModule ./. config {
 
   systemd.services.dnscrypt-proxy2.serviceConfig.StateDirectory = "dnscrypt-proxy";
 
-  programs.nm-applet.enable = true;
-
   environment.persistence."/persist/system" = lib.mkIf config.${namespace}.impermanence.enable {
     directories = [
-      "/etc/NetworkManager/system-connections"
       "/var/lib/iwd"
     ];
   };

@@ -88,6 +88,25 @@ lib.${namespace}.mkModule ./. config {
     defaultTimeout = 10000;
   };
 
+  systemd.user.services.iwgtk = {
+    Unit = {
+      Description = "Starts iwgtk system tray icon daemon";
+      After = ["graphical-session.target"];
+    };
+
+    Service = {
+      Type = "exec";
+      ExecStart = "${pkgs.iwgtk}/bin/iwgtk -i";
+
+      Restart = "always";
+      RestartSec = "1000ms";
+    };
+
+    Install = {
+      WantedBy = ["graphical-session.target"];
+    };
+  };
+
   systemd.user.services.oneshot = {
     Unit = {
       Description = "Oneshot service for miscellaneous things";
