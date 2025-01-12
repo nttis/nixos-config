@@ -58,7 +58,15 @@ lib.${namespace}.mkModule ./. config {
     ];
     files = [
       "/etc/machine-id"
-      "/var/lib/sops-nix/keys.txt"
+
+      {
+        file = "/var/lib/sops-nix/keys.txt";
+        parentDirectory = {
+          user = "root";
+          group = "root";
+          mode = "u=rw,g=r,o=";
+        };
+      }
     ];
   };
 
