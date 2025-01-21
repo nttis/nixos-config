@@ -16,6 +16,7 @@ in
       users.common = {
         apps = {
           anki.enable = true;
+          gitui.enable = true;
         };
       };
 
