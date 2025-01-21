@@ -20,6 +20,10 @@
       sugar.enable = true;
     };
 
+    services = {
+      power.enable = true;
+    };
+
     users = {
       delta.enable = true;
     };
