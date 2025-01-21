@@ -1,64 +1,33 @@
 {
+  inputs,
   lib,
   pkgs,
   config,
   namespace,
+  system,
   ...
 }:
 lib.${namespace}.mkModule ./. config {
   enable = lib.mkEnableOption "user-specific Helix config";
 } {
+  home.packages = [
+    pkgs.nixd
+
+    pkgs.taplo
+
+    pkgs.vscode-langservers-extracted
+    pkgs.typescript-language-server
+    pkgs.typescript
+    pkgs.superhtml
+
+    pkgs.bash-language-server
+
+    pkgs.zls
+  ];
+
   programs.helix = {
     enable = true;
     defaultEditor = true;
-
-    # Wraps Helix to expose language-support executables to its PATH
-    # instead of having to manually reconfigure each LSP by hand
-    package = pkgs.stdenvNoCC.mkDerivation {
-      name = "helix-wrapper";
-      phases = ["installPhase"];
-
-      nativeBuildInputs = [
-        pkgs.makeWrapper
-      ];
-
-      installPhase = let
-        pathStr = builtins.concatStringsSep ":" [
-          # Nix
-          "${pkgs.nixd}/bin"
-
-          # TOML
-          "${pkgs.taplo}/bin"
-
-          # JS, TS, CSS, HTML, JSON
-          "${pkgs.vscode-langservers-extracted}/bin"
-          "${pkgs.typescript}/bin"
-          "${pkgs.typescript-language-server}/bin"
-          "${pkgs.superhtml}/bin"
-
-          # Bash (self-explanatory lmao)
-          "${pkgs.bash-language-server}/bin"
-
-          # Markdown
-          "${pkgs.marksman}/bin"
-
-          # Zig
-          "${pkgs.zls}/bin"
-          "${pkgs.zig}/bin"
-        ];
-      in
-        /*
-        bash
-        */
-        ''
-          mkdir -p $out
-          cp -r ${pkgs.helix}/* $out
-          chmod -R 755 $out
-
-          wrapProgram $out/bin/hx \
-            --set PATH ${pathStr}
-        '';
-    };
 
     languages = {
       language = [
@@ -92,7 +61,7 @@ lib.${namespace}.mkModule ./. config {
         {
           name = "zig";
           formatter = {
-            command = "${pkgs.zig}/bin/zig";
+            command = "${inputs.zig.packages.${system}.master}/bin/zig";
             args = ["fmt" "--stdin"];
           };
           auto-format = true;
@@ -111,9 +80,11 @@ lib.${namespace}.mkModule ./. config {
       editor = {
         shell = ["${pkgs.nushell}/bin/nu" "-c"];
         cursorline = true;
+        default-yank-register = "+";
         end-of-line-diagnostics = "hint";
         auto-format = true;
-        preview-completion-insert = false;
+        preview-completion-insert = true;
+        completion-replace = true;
         true-color = true;
         color-modes = true;
         rulers = [120];
