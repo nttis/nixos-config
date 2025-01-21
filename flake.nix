@@ -36,6 +36,10 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    madness = {
+      url = "github:antithesishq/madness";
+    };
   };
 
   outputs = inputs:
@@ -54,6 +58,7 @@
         impermanence.nixosModules.impermanence
         stylix.nixosModules.stylix
         sops-nix.nixosModules.sops
+        madness.nixosModules.madness
       ];
 
       homes.modules = with inputs; [

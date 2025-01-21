@@ -46,7 +46,9 @@ lib.${namespace}.mkModule ./. config {
   users.mutableUsers = false;
   users.defaultUserShell = pkgs.nushell;
 
-  programs.nix-ld.enable = true;
+  madness = {
+    enable = true;
+  };
 
   i18n.supportedLocales = [
     "en_US.UTF-8/UTF-8"
