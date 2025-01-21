@@ -1,17 +1,16 @@
 {
   lib,
   config,
-  pkgs,
   namespace,
   ...
 }:
 lib.${namespace}.mkModule ./. config {
   enable = lib.mkEnableOption "networking";
 } {
-  # iwd acts as the standalone WiFi manager. It is configured to ignore
-  # name server resolution obtained from DHCP.
+  # Whatever network managing software is configured to ignore DNS settings
+  # it receives from DHCP.
   #
-  # Instead, the only nameserver is hardcoded to be 127.0.0.1:53, which is
+  # The only nameserver is hardcoded to be 127.0.0.1:53, which is
   # where dnscrypt-proxy2 listens.
   #
   # dnscrypt-proxy2 acts as a local DNS nameserver resolver. It encrypts all
@@ -20,19 +19,16 @@ lib.${namespace}.mkModule ./. config {
   # and fallback to adguard nameserver at the present.
 
   networking = {
-    wireless.iwd = {
+    networkmanager = {
       enable = true;
+      dns = "none";
+      dhcp = "dhcpcd";
 
-      settings = {
-        Network = {
-          NameResolvingService = "none";
-          EnableIPv6 = true;
-        };
-        Settings = {
-          AutoConnect = true;
-        };
-      };
+      wifi.powersave = true;
+      wifi.macAddress = "random";
     };
+
+    dhcpcd.extraConfig = "nohook resolv.conf";
 
     nameservers = ["127.0.0.1" "::1"];
   };
@@ -61,7 +57,7 @@ lib.${namespace}.mkModule ./. config {
 
   environment.persistence."/persist/system" = lib.mkIf config.${namespace}.impermanence.enable {
     directories = [
-      "/var/lib/iwd"
+      "/etc/NetworkManager"
     ];
   };
 }
