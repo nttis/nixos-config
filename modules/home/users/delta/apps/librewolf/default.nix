@@ -78,6 +78,7 @@ lib.${namespace}.mkModule ./. config {
       extensions = with inputs.firefox-addons.packages.${system}; [
         ublock-origin
         sponsorblock
+        bitwarden
       ];
     };
   };
