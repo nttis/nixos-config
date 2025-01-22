@@ -10,13 +10,11 @@
   servicesCfg = config.${namespace}.services;
 
   sopsCfg = lib.mkIf servicesCfg.sops-nix.enable {
-    secrets = {
-      "${username}/signing_key" = {
-        owner = username;
-      };
-      "${username}/ssh_keys/primary" = {
-        owner = username;
-      };
+    secrets."${username}/ssh_keys/primary" = {
+      format = "yaml";
+      sopsFile = lib.snowfall.fs.get-snowfall-file "secrets/delta.yaml";
+      owner = username;
+      key = "ssh_keys/primary";
     };
   };
 
@@ -61,8 +59,7 @@
       serviceConfig = {
         ExecStart = ''
           ${pkgs.openssh}/bin/ssh-add \
-            /run/secrets/${username}/ssh_keys/primary \
-            /run/secrets/${username}/signing_key
+            /run/secrets/${username}/ssh_keys/primary
         '';
 
         Restart = "on-failure";
