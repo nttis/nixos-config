@@ -7,57 +7,106 @@
 lib.${namespace}.mkModule ./. config {
   enable = lib.mkEnableOption "networking";
 } {
-  # Whatever network managing software is configured to ignore DNS settings
-  # it receives from DHCP.
+  # Behold, the holy trifecta of modern Linux networking: systemd-networkd,
+  # ~~systemd-resolved~~ ADGUARD HOME and iwd.
   #
-  # The only nameserver is hardcoded to be 127.0.0.1:53, which is
-  # where dnscrypt-proxy2 listens.
-  #
-  # dnscrypt-proxy2 acts as a local DNS nameserver resolver. It encrypts all
-  # outbound DNS requests (from apps, system, etc.) with HTTPS and forward them
-  # to capable remote DNS nameservers. It is configured to use cloudflare (1.1.1.1)
-  # and fallback to adguard nameserver at the present.
+  # systemd-networkd manages devices and interfaces and provide wired networking.
+  # iwd provides wireless networking.
+  # Adguard-Home provides encrypted DNS and DNS sinkholing.
+  systemd.network = {
+    enable = true;
 
-  networking = {
-    networkmanager = {
+    wait-online = {
       enable = true;
-      dns = "none";
-      dhcp = "dhcpcd";
-
-      wifi.powersave = true;
-      wifi.macAddress = "random";
+      anyInterface = true;
     };
 
-    dhcpcd.extraConfig = "nohook resolv.conf";
-
-    nameservers = ["127.0.0.1" "::1"];
-  };
-
-  services.dnscrypt-proxy2 = {
-    enable = true;
-    settings = {
-      sources.public-resolvers = {
-        urls = [
-          "https://raw.githubusercontent.com/DNSCrypt/dnscrypt-resolvers/master/v3/public-resolvers.md"
-          "https://download.dnscrypt.info/resolvers-list/v3/public-resolvers.md"
-        ];
-        minisign_key = "RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3"; # See https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v3/public-resolvers.md
-        cache_file = "/var/lib/dnscrypt-proxy/public-resolvers.md";
+    networks."20-generic" = {
+      matchConfig = {
+        Type = "ether wlan";
       };
 
-      require_dnssec = true;
-      require_nolog = true;
-      require_nofilter = true;
+      networkConfig = {
+        Description = "Generic network config";
+        IgnoreCarrierLoss = "5s";
+        DHCP = "yes";
+      };
 
-      server_names = ["cloudflare" "adguard"];
+      dhcpV4Config = {
+        UseDNS = false;
+        Anonymize = true;
+      };
+
+      dhcpV6Config = {
+        UseDNS = false;
+        Anonymize = true;
+      };
     };
   };
 
-  systemd.services.dnscrypt-proxy2.serviceConfig.StateDirectory = "dnscrypt-proxy";
+  services.resolved.enable = false;
+
+  networking = {
+    # Disable these services because systemd-networkd already
+    # manages DHCP
+    useDHCP = false;
+    dhcpcd.enable = false;
+    resolvconf.enable = false;
+
+    wireless = {
+      iwd = {
+        enable = true;
+        settings = {
+          General = {
+            EnableNetworkConfiguration = true;
+            AddressRandomization = "network";
+          };
+
+          Network = {
+            NameResolvingService = "none";
+          };
+        };
+      };
+    };
+
+    nameservers = ["127.0.0.1:53"];
+  };
+
+  services.adguardhome = {
+    enable = true;
+    mutableSettings = false;
+    settings = {
+      dns = {
+        port = 53;
+        ratelimit = 0;
+
+        bootstrap_dns = ["1.1.1.1" "9.9.9.9"];
+        upstream_mode = "fastest_addr";
+        upstream_dns = [
+          "https://dns.cloudflare.com/dns-query"
+          "tls://one.one.one.one"
+        ];
+
+        cache_optimistic = true;
+        enable_dnssec = true;
+      };
+
+      # Don't have to enable this because we aren't running
+      # a public DNS resolver server
+      tls = {
+        enabled = false;
+      };
+    };
+  };
 
   environment.persistence."/persist/system" = lib.mkIf config.${namespace}.impermanence.enable {
     directories = [
-      "/etc/NetworkManager"
+      {
+        directory = "/var/lib/iwd";
+        user = "root";
+        group = "root";
+        mode = "u=rw,g=rw,o=";
+      }
     ];
   };
 }

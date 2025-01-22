@@ -35,7 +35,7 @@ lib.${namespace}.mkModule ./. config {
     };
 
     misc = {
-      substituters.enable = true;
+      substituters.enable = false; # Disabled for now because they are unused
     };
   };
 
