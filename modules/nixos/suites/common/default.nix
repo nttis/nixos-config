@@ -41,6 +41,7 @@ lib.${namespace}.mkModule ./. config {
 
   nix = {
     nixPath = ["nixpkgs=${inputs.nixpkgs}"];
+    package = pkgs.lix;
   };
 
   users.mutableUsers = false;
@@ -52,6 +53,4 @@ lib.${namespace}.mkModule ./. config {
     "en_US.UTF-8/UTF-8"
     "ja_JP.UTF-8/UTF-8"
   ];
-
-  environment.memoryAllocator.provider = "libc";
 }
