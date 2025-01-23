@@ -77,6 +77,8 @@ lib.${namespace}.mkModule ./. config {
     };
 
     settings = {
+      theme = "onedark";
+
       editor = {
         shell = ["${pkgs.nushell}/bin/nu" "-c"];
         cursorline = true;

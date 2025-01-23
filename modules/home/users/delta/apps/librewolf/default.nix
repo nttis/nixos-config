@@ -67,12 +67,18 @@ lib.${namespace}.mkModule ./. config {
 
         engines = {
           "Google".metaData.hidden = true;
+          "Bing".metaData.hidden = true;
+          "Wikipedia (en)".metaData.hidden = true;
         };
       };
 
       settings = {
         "extensions.autoDisableScopes" = 0;
         "browser.translations.enable" = false;
+        "browser.search.separatePrivateDefault" = false;
+        "browser.toolbars.bookmarks.visibility" = "never";
+        "browser.search.suggest.enabled" = true;
+        "webgl.disabled" = false;
       };
 
       extensions = with inputs.firefox-addons.packages.${system}; [
