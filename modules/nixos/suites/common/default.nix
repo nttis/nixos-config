@@ -29,6 +29,7 @@ lib.${namespace}.mkModule ./. config {
       scanning.enable = true;
       printing.enable = true;
       networking.enable = true;
+      sound.enable = true;
 
       sops-nix.enable = true;
       ssh-client.enable = true;
@@ -48,6 +49,8 @@ lib.${namespace}.mkModule ./. config {
   users.defaultUserShell = pkgs.nushell;
 
   programs.nix-ld.enable = true;
+
+  hardware.enableAllFirmware = true;
 
   i18n.supportedLocales = [
     "en_US.UTF-8/UTF-8"

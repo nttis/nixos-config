@@ -28,7 +28,7 @@ lib.${namespace}.mkModule ./. config {
 
       networkConfig = {
         Description = "Generic network config";
-        IgnoreCarrierLoss = "5s";
+        IgnoreCarrierLoss = "10s";
         DHCP = "yes";
       };
 
@@ -39,7 +39,6 @@ lib.${namespace}.mkModule ./. config {
 
       dhcpV6Config = {
         UseDNS = false;
-        Anonymize = true;
       };
     };
   };
