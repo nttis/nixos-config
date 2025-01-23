@@ -37,8 +37,8 @@ lib.${namespace}.mkModule ./. config {
       };
 
       bind = [
-        "$mod, RETURN, exec, ${pkgs.ghostty}/bin/ghostty"
-        "$mod, R, exec, ${pkgs.rofi-wayland}/bin/rofi -show combi -combi-modes run,drun"
+        "$mod, RETURN, exec, ${lib.getExe pkgs.ghostty}"
+        "$mod, R, exec, ${lib.getExe pkgs.rofi-wayland} -show combi -combi-modes run,drun"
 
         "$mod, C, killactive, "
         "$mod, M, exit, "
@@ -74,6 +74,14 @@ lib.${namespace}.mkModule ./. config {
       bindel = [
         ",XF86MonBrightnessUp, exec, ${pkgs.brightnessctl}/bin/brightnessctl s 5%+"
         ",XF86MonBrightnessDown, exec, ${pkgs.brightnessctl}/bin/brightnessctl s 5%-"
+
+        ",XF86AudioRaiseVolume, exec, ${pkgs.wireplumber}/bin/wpctl set-volume -l 2 @DEFAULT_AUDIO_SINK@ 10%+"
+        ",XF86AudioLowerVolume, exec, ${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%-"
+        ",XF86AudioMute, exec, ${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+      ];
+
+      env = [
+        "XCURSOR_THEME,Bibata-Original-Ice"
       ];
     };
   };
@@ -103,6 +111,19 @@ lib.${namespace}.mkModule ./. config {
 
     Install = {
       WantedBy = ["graphical-session.target"];
+    };
+  };
+
+  gtk = {
+    enable = true;
+    theme = {
+      package = pkgs.fluent-gtk-theme;
+      name = "Fluent-Dark";
+    };
+
+    cursorTheme = {
+      package = pkgs.bibata-cursors;
+      name = "Bibata-Original-Ice";
     };
   };
 }

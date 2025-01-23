@@ -30,8 +30,8 @@ lib.${namespace}.mkModule ./. config {
     fontconfig = {
       enable = true;
       defaultFonts = {
-        serif = ["Noto Serif"];
-        sansSerif = ["Noto Sans"];
+        serif = ["Noto Serif" "Noto Serif JP"];
+        sansSerif = ["Noto Sans" "Noto Sans JP"];
         monospace = ["FiraCode Nerd Font"];
         emoji = ["Noto Emoji" "Noto Color Emoji"];
       };

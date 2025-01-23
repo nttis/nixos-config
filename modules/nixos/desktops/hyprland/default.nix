@@ -14,6 +14,9 @@ lib.${namespace}.mkModule ./. config {
     xwayland.enable = true;
   };
 
+  security.polkit.enable = true;
+  security.soteria.enable = true;
+
   environment.systemPackages = [
     pkgs.wl-clipboard
   ];
