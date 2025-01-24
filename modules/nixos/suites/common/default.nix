@@ -11,7 +11,11 @@ lib.${namespace}.mkModule ./. config {
 } {
   anima = {
     boot = {
-      systemd.enable = true;
+      bootloader = {
+        enable = true;
+        bootloader = "systemd-boot";
+      };
+
       filesystem.enable = true;
       kernel.latest.enable = true;
     };
