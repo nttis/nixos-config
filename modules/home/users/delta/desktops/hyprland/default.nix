@@ -10,6 +10,7 @@ lib.${namespace}.mkModule ./. config {
 } {
   wayland.windowManager.hyprland = {
     enable = true;
+
     settings = {
       "$mod" = "SUPER";
 
@@ -17,7 +18,7 @@ lib.${namespace}.mkModule ./. config {
         gaps_in = 2.5;
         gaps_out = 5;
 
-        border_size = 2;
+        border_size = 1;
         resize_on_border = true;
 
         layout = "dwindle";
@@ -37,8 +38,15 @@ lib.${namespace}.mkModule ./. config {
       };
 
       bind = [
+        # Terminal
         "$mod, RETURN, exec, ${lib.getExe pkgs.ghostty}"
+
+        # Rofi
         "$mod, R, exec, ${lib.getExe pkgs.rofi-wayland} -show combi -combi-modes run,drun"
+
+        # Screenshotting
+        ", PRINT, exec, ${lib.getExe pkgs.hyprshot} --mode region --clipboard-only"
+        "$mod, PRINT, exec, ${lib.getExe pkgs.hyprshot} --mode active --mode window --clipboard-only"
 
         "$mod, C, killactive, "
         "$mod, M, exit, "
