@@ -10,14 +10,23 @@ lib.${namespace}.mkModule ./. config {
   enable = lib.mkEnableOption "common configurations";
 } {
   anima = {
-    boot = {
+    core = {
       bootloader = {
         enable = true;
         bootloader = "systemd-boot";
       };
 
-      filesystem.enable = true;
-      kernel.latest.enable = true;
+      kernel = {
+        enable = true;
+        distribution = "zen";
+      };
+
+      filesystem = {
+        enable = true;
+        type = "impermanence";
+      };
+
+      plymouth.enable = true;
     };
 
     apps = {

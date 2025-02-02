@@ -7,9 +7,17 @@
 lib.${namespace}.mkModule ./. config {
   enable = lib.mkEnableOption "Impermanence";
 } {
+  assertions = [
+    {
+      assertion = config.${namespace}.core.filesystem.type == "impermanence";
+      message = "Filesystem is not set to 'impermanence', cannot enable Impermanence support.";
+    }
+  ];
+
   boot.initrd.postDeviceCommands = lib.mkAfter ''
     mkdir /btrfs_tmp
-    mount /dev/disk/by-label/nix /btrfs_tmp
+    mount /dev/disk/by-partlabel/nix /btrfs_tmp
+
     if [[ -e /btrfs_tmp/root ]]; then
         mkdir -p /btrfs_tmp/old_roots
         timestamp=$(date --date="@$(stat -c %Y /btrfs_tmp/root)" "+%Y-%m-%-d_%H:%M:%S")
@@ -34,7 +42,7 @@ lib.${namespace}.mkModule ./. config {
 
   fileSystems."/persist" = {
     neededForBoot = true;
-    device = "/dev/disk/by-label/nix";
+    device = "/dev/disk/by-partlabel/nix";
     fsType = "btrfs";
     options = [
       "subvol=persist"

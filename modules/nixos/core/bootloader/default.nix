@@ -5,17 +5,18 @@
   namespace,
   ...
 }: let
-  allowedBootloaders = ["systemd-boot" "grub"];
-  chosenBootloader = config.${namespace}.boot.bootloader.bootloader;
+  cfg = config.${namespace}.core.bootloader;
+  chosenBootloader = cfg.bootloader;
 in
   lib.${namespace}.mkModule ./. config
   {
     enable = lib.mkEnableOption "the bootloader";
+
     bootloader = lib.mkOption {
-      default = "grub";
+      default = "systemd-boot";
       example = "systemd-boot";
       description = "The bootloader to use. Supports either `systemd-boot` or `grub`";
-      type = lib.types.enum allowedBootloaders;
+      type = lib.types.enum ["grub" "systemd-boot"];
     };
   }
   {
@@ -24,7 +25,7 @@ in
       efiSupport = true;
       useOSProber = true;
 
-      device = "/dev/disk/by-label/ESP";
+      device = "/dev/disk/by-partlabel/ESP";
       forceInstall = true; # Force GRUB to install itself on the EFI System Partition
 
       theme = "${pkgs.libsForQt5.breeze-grub}/grub/themes/breeze";
