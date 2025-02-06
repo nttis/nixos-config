@@ -31,6 +31,7 @@ lib.${namespace}.mkModule ./. config {
 
     apps = {
       nh.enable = true;
+      libarchive.enable = true;
     };
 
     desktops = {

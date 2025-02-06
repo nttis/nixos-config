@@ -87,6 +87,7 @@ in
           ublock-origin
           sponsorblock
           bitwarden
+          duckduckgo-privacy-essentials
         ];
       };
     };

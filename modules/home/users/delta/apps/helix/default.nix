@@ -22,7 +22,7 @@ lib.${namespace}.mkModule ./. config {
 
     pkgs.bash-language-server
 
-    pkgs.zls
+    inputs.zls.packages.${system}.default
   ];
 
   programs.helix = {
