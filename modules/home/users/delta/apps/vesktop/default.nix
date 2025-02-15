@@ -222,9 +222,6 @@ lib.${namespace}.mkModule ./. config {
         noRPC = {
           enable = true;
         };
-        noScreensharePreview = {
-          enable = true;
-        };
         noTypingAnimation = {
           enable = true;
         };
