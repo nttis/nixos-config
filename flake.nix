@@ -57,6 +57,11 @@
       url = "github:aylur/ags";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    plasma-manager = {
+      url = "github:nix-community/plasma-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs:
@@ -80,6 +85,7 @@
       homes.modules = with inputs; [
         impermanence.homeManagerModules.impermanence
         nixcord.homeManagerModules.nixcord
+        plasma-manager.homeManagerModules.plasma-manager
       ];
 
       snowfall = {
