@@ -35,8 +35,15 @@ lib.${namespace}.mkModule ./. config {
     };
 
     desktops = {
-      hyprland.enable = true;
-      greetd.enable = true;
+      greeter = {
+        enable = true;
+        type = "greetd";
+      };
+
+      desktop = {
+        enable = true;
+        type = "hyprland";
+      };
     };
 
     services = {
@@ -59,15 +66,14 @@ lib.${namespace}.mkModule ./. config {
     package = pkgs.lix;
   };
 
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [8000 8080];
+  };
+
   users.mutableUsers = false;
   users.defaultUserShell = pkgs.nushell;
 
   programs.nix-ld.enable = true;
-
   hardware.enableAllFirmware = true;
-
-  i18n.supportedLocales = [
-    "en_US.UTF-8/UTF-8"
-    "ja_JP.UTF-8/UTF-8"
-  ];
 }
