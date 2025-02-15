@@ -22,7 +22,9 @@ lib.${namespace}.mkModule ./. config {
 
     pkgs.bash-language-server
 
-    inputs.zls.packages.${system}.default
+    (inputs.zls.packages.${system}.default.overrideAttrs {
+      doCheck = false;
+    })
   ];
 
   programs.helix = {
@@ -34,7 +36,6 @@ lib.${namespace}.mkModule ./. config {
         {
           name = "nix";
           formatter = {command = "${pkgs.alejandra}/bin/alejandra";};
-          auto-format = true;
         }
 
         {
@@ -43,19 +44,16 @@ lib.${namespace}.mkModule ./. config {
             command = "${pkgs.taplo}/bin/taplo";
             args = ["fmt" "-"];
           };
-          auto-format = true;
         }
 
         {
           name = "html";
           language-servers = ["vscode-html-language-server" "superhtml"];
-          auto-format = true;
         }
 
         {
           name = "typst";
           language-servers = ["tinymist"];
-          auto-format = true;
         }
 
         {
@@ -64,7 +62,6 @@ lib.${namespace}.mkModule ./. config {
             command = "${inputs.zig.packages.${system}.master}/bin/zig";
             args = ["fmt" "--stdin"];
           };
-          auto-format = true;
         }
       ];
 
