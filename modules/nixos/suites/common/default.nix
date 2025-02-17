@@ -66,9 +66,26 @@ lib.${namespace}.mkModule ./. config {
     package = pkgs.lix;
   };
 
-  networking.firewall = {
-    enable = true;
-    allowedTCPPorts = [8000 8080];
+  networking = {
+    nftables.enable = true;
+    firewall = {
+      enable = true;
+
+      allowedTCPPortRanges = [
+        {
+          from = 8000;
+          to = 8080;
+        }
+      ];
+
+      allowedUDPPorts = [23301];
+      allowedUDPPortRanges = [
+        {
+          from = 8000;
+          to = 8080;
+        }
+      ];
+    };
   };
 
   users.mutableUsers = false;
