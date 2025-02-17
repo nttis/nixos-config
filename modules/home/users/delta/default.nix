@@ -15,13 +15,14 @@ in
     anima = {
       users.common = {
         apps = {
-          anki.enable = true;
           gitui.enable = true;
         };
       };
 
       users.${username} = {
         apps = {
+          ajatt.enable = true;
+        
           librewolf.enable = true;
           vesktop.enable = true;
 

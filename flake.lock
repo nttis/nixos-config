@@ -513,6 +513,19 @@
         "type": "github"
       }
     },
+    "jitendex": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1739208926,
+        "narHash": "sha256-Xq6QIA5m0uEDkt2OUddYiUW257iffhfkLhlR/QMMWCY=",
+        "type": "tarball",
+        "url": "https://github.com/stephenmk/stephenmk.github.io/releases/download/2025.02.11.0/jitendex-mdict.zip"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://github.com/stephenmk/stephenmk.github.io/releases/download/2025.02.11.0/jitendex-mdict.zip"
+      }
+    },
     "lix": {
       "flake": false,
       "locked": {
@@ -644,6 +657,7 @@
         "firefox-addons": "firefox-addons",
         "home-manager": "home-manager",
         "impermanence": "impermanence",
+        "jitendex": "jitendex",
         "lix-module": "lix-module",
         "nixcord": "nixcord",
         "nixpkgs": "nixpkgs_3",
