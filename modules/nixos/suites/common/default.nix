@@ -89,7 +89,8 @@ lib.${namespace}.mkModule ./. config {
   };
 
   users.mutableUsers = false;
-  users.defaultUserShell = pkgs.nushell;
+  users.defaultUserShell = pkgs.fish;
+  programs.fish.enable = true;
 
   programs.nix-ld.enable = true;
   hardware.enableAllFirmware = true;

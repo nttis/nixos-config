@@ -39,7 +39,7 @@ lib.${namespace}.mkModule ./. config {
 
       bind = [
         # Terminal
-        "$mod, RETURN, exec, ${lib.getExe pkgs.ghostty}"
+        "$mod, RETURN, exec, ${lib.getExe pkgs.kitty}"
 
         # Rofi
         "$mod, R, exec, ${lib.getExe pkgs.rofi-wayland} -show combi -combi-modes run,drun"
@@ -124,10 +124,6 @@ lib.${namespace}.mkModule ./. config {
 
   gtk = {
     enable = true;
-    theme = {
-      package = pkgs.fluent-gtk-theme;
-      name = "Fluent-Dark";
-    };
 
     cursorTheme = {
       package = pkgs.bibata-cursors;

@@ -77,7 +77,6 @@ lib.${namespace}.mkModule ./. config {
       theme = "onedark";
 
       editor = {
-        shell = ["${pkgs.nushell}/bin/nu" "-c"];
         cursorline = true;
         default-yank-register = "+";
         end-of-line-diagnostics = "hint";

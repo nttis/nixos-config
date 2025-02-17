@@ -26,10 +26,7 @@ in
           librewolf.enable = true;
           vesktop.enable = true;
 
-          ghostty.enable = true;
-          nushell.enable = true;
-          yazi.enable = true;
-
+          terminal.enable = true;
           git.enable = true;
           helix.enable = true;
         };
