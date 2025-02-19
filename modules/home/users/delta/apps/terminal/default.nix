@@ -29,6 +29,11 @@ lib.${namespace}.mkModule ./. config {
       enableBashIntegration = true;
       enableFishIntegration = true;
     };
+
+    settings = {
+      touch_scroll_multiplier = 3.0;
+      confirm_os_window_close = 0;
+    };
   };
 
   programs.fish = {
