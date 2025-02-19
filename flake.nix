@@ -58,6 +58,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    ashell = {
+      url = "github:MalpenZibo/ashell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     /*
     INPUTS THAT MUST BE UPDATED MANUALLY
     INPUTS THAT MUST BE UPDATED MANUALLY

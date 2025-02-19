@@ -1,7 +1,9 @@
 {
+  inputs,
   lib,
   config,
   pkgs,
+  system,
   namespace,
   ...
 }:
@@ -83,8 +85,8 @@ lib.${namespace}.mkModule ./. config {
         ",XF86MonBrightnessUp, exec, ${pkgs.brightnessctl}/bin/brightnessctl s 5%+"
         ",XF86MonBrightnessDown, exec, ${pkgs.brightnessctl}/bin/brightnessctl s 5%-"
 
-        ",XF86AudioRaiseVolume, exec, ${pkgs.wireplumber}/bin/wpctl set-volume -l 2 @DEFAULT_AUDIO_SINK@ 10%+"
-        ",XF86AudioLowerVolume, exec, ${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 10%-"
+        ",XF86AudioRaiseVolume, exec, ${pkgs.wireplumber}/bin/wpctl set-volume -l 2 @DEFAULT_AUDIO_SINK@ 5%+"
+        ",XF86AudioLowerVolume, exec, ${pkgs.wireplumber}/bin/wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
         ",XF86AudioMute, exec, ${pkgs.wireplumber}/bin/wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
       ];
 
@@ -94,27 +96,25 @@ lib.${namespace}.mkModule ./. config {
     };
   };
 
-  programs.waybar = {
-    enable = true;
-    systemd.enable = true;
-  };
-
   services.mako = {
     enable = true;
     defaultTimeout = 10000;
   };
 
-  systemd.user.services.oneshot = {
+  services.swayosd = {
+    enable = true;
+  };
+
+  systemd.user.services.ashell = {
     Unit = {
-      Description = "Oneshot service for miscellaneous things";
+      Description = "ashell";
       After = ["graphical-session.target"];
     };
 
     Service = {
-      Type = "oneshot";
-      ExecStart = ''
-        ${pkgs.brightnessctl}/bin/brightnessctl set 70%
-      '';
+      Type = "simple";
+      ExecStart = "${inputs.ashell.defaultPackage.${system}}/bin/ashell";
+      Restart = "always";
     };
 
     Install = {
@@ -129,5 +129,10 @@ lib.${namespace}.mkModule ./. config {
       package = pkgs.bibata-cursors;
       name = "Bibata-Original-Ice";
     };
+  };
+
+  qt = {
+    enable = true;
+    style.name = "adwaita";
   };
 }
