@@ -10,26 +10,27 @@
 lib.${namespace}.mkModule ./. config {
   enable = lib.mkEnableOption "user-specific Helix config";
 } {
-  home.packages = [
-    pkgs.nixd
-
-    pkgs.taplo
-
-    pkgs.vscode-langservers-extracted
-    pkgs.typescript-language-server
-    pkgs.typescript
-    pkgs.superhtml
-
-    pkgs.bash-language-server
-
-    (inputs.zls.packages.${system}.default.overrideAttrs {
-      doCheck = false;
-    })
-  ];
-
   programs.helix = {
     enable = true;
     defaultEditor = true;
+
+    extraPackages = [
+      pkgs.nixd
+
+      pkgs.taplo
+
+      pkgs.vscode-langservers-extracted
+      pkgs.typescript-language-server
+      pkgs.typescript
+      pkgs.superhtml
+
+      pkgs.bash-language-server
+
+      # zls tests seem to be broken...
+      (inputs.zls.packages.${system}.default.overrideAttrs {
+        doCheck = false;
+      })
+    ];
 
     languages = {
       language = [
