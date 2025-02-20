@@ -139,6 +139,7 @@ lib.${namespace}.mkModule ./. config {
           center:
             - [WindowTitle, MediaPlayer]
           right:
+            - Tray
             - SystemInfo
             - [Clock, Privacy, Settings]
 
