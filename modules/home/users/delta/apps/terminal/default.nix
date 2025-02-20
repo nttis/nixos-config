@@ -13,7 +13,6 @@ lib.${namespace}.mkModule ./. config {
     ripgrep
     ripgrep-all
     file
-    xplr
   ];
 
   programs.fzf = {
@@ -36,12 +35,25 @@ lib.${namespace}.mkModule ./. config {
     };
   };
 
+  programs.yazi = {
+    enable = true;
+    enableBashIntegration = true;
+    enableFishIntegration = true;
+
+    settings = {
+      manager = {
+        show_hidden = true;
+        show_symlink = true;
+        linemode = "mtime";
+      };
+    };
+  };
+
   programs.fish = {
     enable = true;
     shellAliases = {
       "ls" = "${pkgs.eza}/bin/eza";
       "grep" = "${pkgs.ripgrep}/bin/rg";
-      "yazi" = "${pkgs.xplr}/bin/xplr";
 
       "sysinfo" = "${pkgs.writeScript "sysinfo.sh" ''
         ${pkgs.coreutils}/bin/uname --all
