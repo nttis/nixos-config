@@ -105,6 +105,7 @@ lib.${namespace}.mkModule ./. config {
     enable = true;
   };
 
+  # TODO: perhaps extract this to its own separate module
   systemd.user.services.ashell = {
     Unit = {
       Description = "ashell";
@@ -120,6 +121,38 @@ lib.${namespace}.mkModule ./. config {
     Install = {
       WantedBy = ["graphical-session.target"];
     };
+  };
+
+  xdg.configFile."ashell.yml" = {
+    enable = true;
+    text =
+      /*
+      yaml
+      */
+      ''
+        position: Top
+
+        modules:
+          left:
+            - AppLauncher
+            - Workspaces
+          center:
+            - [WindowTitle, MediaPlayer]
+          right:
+            - SystemInfo
+            - [Clock, Privacy, Settings]
+
+        settings:
+          audioSinksMoreCmd: "${pkgs.pavucontrol}/bin/pavucontrol -t 3"
+          audioSourcesMoreCmd: "${pkgs.pavucontrol}/bin/pavucontrol -t 4"
+
+        appLauncherCmd: "${pkgs.rofi-wayland}/bin/rofi -show drun"
+
+        truncateTitleAfterLength: 50
+
+        mediaPlayer:
+          maxTitleLength: 50
+      '';
   };
 
   gtk = {

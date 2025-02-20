@@ -51,6 +51,7 @@ lib.${namespace}.mkModule ./. config {
       printing.enable = true;
       networking.enable = true;
       sound.enable = true;
+      upower.enable = true;
 
       sops-nix.enable = true;
       ssh-client.enable = true;
