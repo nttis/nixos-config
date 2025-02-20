@@ -88,6 +88,7 @@ in
           sponsorblock
           bitwarden
           duckduckgo-privacy-essentials
+          tridactyl
         ];
       };
     };
