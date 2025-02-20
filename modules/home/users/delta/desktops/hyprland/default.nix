@@ -160,12 +160,12 @@ lib.${namespace}.mkModule ./. config {
     enable = true;
 
     cursorTheme = {
-      package = pkgs.bibata-cursors;
-      name = "Bibata-Original-Ice";
+      package = lib.mkDefault pkgs.bibata-cursors;
+      name = lib.mkDefault "Bibata-Original-Ice";
     };
   };
 
-  qt = {
+  qt = lib.mkDefault {
     enable = true;
     style.name = "adwaita";
   };

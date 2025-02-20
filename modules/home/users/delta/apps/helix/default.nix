@@ -75,7 +75,7 @@ lib.${namespace}.mkModule ./. config {
     };
 
     settings = {
-      theme = "onedark";
+      theme = lib.mkDefault "onedark";
 
       editor = {
         cursorline = true;

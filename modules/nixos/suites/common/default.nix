@@ -25,8 +25,6 @@ lib.${namespace}.mkModule ./. config {
         enable = true;
         type = "impermanence";
       };
-
-      plymouth.enable = true;
     };
 
     apps = {
