@@ -14,13 +14,47 @@ in
     programs.librewolf = {
       enable = true;
 
-      # Policies to configure uBlock Origin
-      policies = {
-        "3rdparty" = {
-          Extensions = {
+      profiles.delta = {
+        name = "delta";
+        isDefault = true;
+
+        search = {
+          default = "DuckDuckGo";
+          privateDefault = "DuckDuckGo";
+          force = true;
+
+          engines = {
+            "Google".metaData.hidden = true;
+            "Bing".metaData.hidden = true;
+            "Wikipedia (en)".metaData.hidden = true;
+          };
+        };
+
+        settings = {
+          "extensions.autoDisableScopes" = 0;
+          "browser.translations.enable" = false;
+          "browser.search.separatePrivateDefault" = false;
+          "browser.toolbars.bookmarks.visibility" = "never";
+          "browser.search.suggest.enabled" = true;
+          "webgl.disabled" = false;
+        };
+
+        extensions = {
+          force = true;
+        
+          packages = with inputs.firefox-addons.packages.${system}; [
+            ublock-origin
+            sponsorblock
+            bitwarden
+            duckduckgo-privacy-essentials
+            tridactyl
+          ];
+
+          settings = {
             "uBlock0@raymondhill.net" = {
-              toOverwrite = {
-                filterLists = [
+              force = true;
+              settings = {
+                selectedFilterLists = [
                   "ublock-filters"
                   "ublock-badware"
                   "ublock-privacy"
@@ -56,40 +90,6 @@ in
             };
           };
         };
-      };
-
-      profiles.delta = {
-        name = "delta";
-        isDefault = true;
-
-        search = {
-          default = "DuckDuckGo";
-          privateDefault = "DuckDuckGo";
-          force = true;
-
-          engines = {
-            "Google".metaData.hidden = true;
-            "Bing".metaData.hidden = true;
-            "Wikipedia (en)".metaData.hidden = true;
-          };
-        };
-
-        settings = {
-          "extensions.autoDisableScopes" = 0;
-          "browser.translations.enable" = false;
-          "browser.search.separatePrivateDefault" = false;
-          "browser.toolbars.bookmarks.visibility" = "never";
-          "browser.search.suggest.enabled" = true;
-          "webgl.disabled" = false;
-        };
-
-        extensions = with inputs.firefox-addons.packages.${system}; [
-          ublock-origin
-          sponsorblock
-          bitwarden
-          duckduckgo-privacy-essentials
-          tridactyl
-        ];
       };
     };
 
