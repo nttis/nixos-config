@@ -65,5 +65,5 @@ All options defined under `modules/home` will be available in any home config un
 - The default bootloader is `systemd-boot`. If you want to use GRUB, know that it will forcefully install GRUB into
 the ESP as well (ie. GRUB will live alongside NixOS generations and Windows bootloader if you dualboot). Therefore, I
 recommend a minimum of 500MB of space for the ESP.
-- The only desktop available is Hyprland. It is not very complete, has no ricing, and is barebones. Install GNOME or
-something else if you want an actually good desktop experience (lol)
+- Hyprland and KDE Plasma are available. Hyprland is what I use daily, so it receives attention, while Plasma is just... there.
+Note that Hyprland has very minimal styling. It is usable though (hopefully).
