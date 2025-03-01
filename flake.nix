@@ -28,10 +28,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixcord = {
-      url = "github:kaylorben/nixcord";
-    };
-
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -77,6 +73,11 @@
     jitendex = {
       url = "https://github.com/stephenmk/stephenmk.github.io/releases/download/2025.02.11.0/jitendex-mdict.zip";
       flake = false;
+    };
+
+    # Nixcord is really frequently broken...
+    nixcord = {
+      url = "github:kaylorben/nixcord?rev=677db34f35bdffcdca07246099ea3b22fc6688dc";
     };
   };
 

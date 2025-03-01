@@ -15,7 +15,7 @@ in
       anki
       ffmpeg
       yt-dlp
-      goldendict-ng
+      # goldendict-ng
     ];
 
     programs.mpv = {
