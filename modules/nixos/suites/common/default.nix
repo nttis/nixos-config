@@ -18,7 +18,7 @@ lib.${namespace}.mkModule ./. config {
 
       kernel = {
         enable = true;
-        distribution = "zen";
+        distribution = "latest";
       };
 
       filesystem = {
@@ -77,7 +77,6 @@ lib.${namespace}.mkModule ./. config {
         }
       ];
 
-      allowedUDPPorts = [23301];
       allowedUDPPortRanges = [
         {
           from = 8000;
@@ -92,5 +91,4 @@ lib.${namespace}.mkModule ./. config {
   programs.fish.enable = true;
 
   programs.nix-ld.enable = true;
-  hardware.enableAllFirmware = true;
 }

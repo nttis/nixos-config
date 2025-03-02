@@ -65,11 +65,6 @@
     INPUTS THAT MUST BE UPDATED MANUALLY
     Do remember to check for releases for these
     */
-    lix-module = {
-      url = "https://git.lix.systems/lix-project/nixos-module/archive/2.92.0.tar.gz";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     jitendex = {
       url = "https://github.com/stephenmk/stephenmk.github.io/releases/download/2025.02.11.0/jitendex-mdict.zip";
       flake = false;
