@@ -26,10 +26,7 @@ lib.${namespace}.mkModule ./. config {
 
       pkgs.bash-language-server
 
-      # zls tests seem to be broken...
-      (inputs.zls.packages.${system}.default.overrideAttrs {
-        doCheck = false;
-      })
+      inputs.zls.packages.${system}.default
     ];
 
     languages = {
