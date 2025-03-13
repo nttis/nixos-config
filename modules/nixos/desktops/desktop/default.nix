@@ -9,6 +9,7 @@ in {
   imports = [
     ./hyprland.nix
     ./plasma.nix
+    ./niri.nix
   ];
 
   options.${namespace} = {
@@ -16,7 +17,7 @@ in {
       enable = lib.mkEnableOption "a desktop";
 
       type = lib.mkOption {
-        type = lib.types.enum ["hyprland" "plasma"];
+        type = lib.types.enum ["hyprland" "plasma" "niri"];
         description = "The desktop to enable";
         default = "hyprland";
         example = "plasma";
@@ -31,6 +32,10 @@ in {
 
     (lib.mkIf (cfg.type == "plasma") {
       desktops.plasma.enable = true;
+    })
+
+    (lib.mkIf (cfg.type == "niri") {
+      desktops.niri.enable = true;
     })
   ]);
 }

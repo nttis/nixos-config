@@ -16,13 +16,14 @@ in
       users.common = {
         apps = {
           gitui.enable = true;
+          libreoffice.enable = true;
         };
       };
 
       users.${username} = {
         apps = {
           ajatt.enable = true;
-        
+
           librewolf.enable = true;
           vesktop.enable = true;
 
@@ -32,7 +33,7 @@ in
         };
 
         desktops = {
-          hyprland.enable = true;
+          niri.enable = true;
         };
 
         misc = {

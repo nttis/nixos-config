@@ -40,7 +40,7 @@ lib.${namespace}.mkModule ./. config {
 
       desktop = {
         enable = true;
-        type = "hyprland";
+        type = "niri";
       };
     };
 
@@ -70,6 +70,7 @@ lib.${namespace}.mkModule ./. config {
     firewall = {
       enable = true;
 
+      # Open common development ports
       allowedTCPPortRanges = [
         {
           from = 8000;
