@@ -41,7 +41,7 @@ in
 
         extensions = {
           force = true;
-        
+
           packages = with inputs.firefox-addons.packages.${system}; [
             ublock-origin
             sponsorblock
@@ -91,6 +91,10 @@ in
           };
         };
       };
+    };
+
+    stylix = lib.mkIf config.stylix.enable {
+      targets.librewolf.profileNames = ["delta"];
     };
 
     home.persistence."/persist/${user}" = lib.mkIf config.${namespace}.users.${user}.impermanence.enable {
