@@ -5,6 +5,7 @@
   config,
   namespace,
   system,
+  host,
   ...
 }:
 lib.${namespace}.mkModule ./. config {
@@ -25,6 +26,8 @@ lib.${namespace}.mkModule ./. config {
       pkgs.superhtml
 
       pkgs.bash-language-server
+
+      pkgs.tinymist
 
       inputs.zls.packages.${system}.default
     ];
@@ -66,7 +69,32 @@ lib.${namespace}.mkModule ./. config {
       language-server = {
         # typst-ls is already deprecated lol...
         tinymist = {
-          command = "${pkgs.tinymist}/bin/tinymist";
+          command = "tinymist";
+        };
+
+        nixd = let
+          flakeRef = lib.snowfall.fs.get-file ".";
+
+          nixdConfig = builtins.toJSON {
+            nixd = {
+              options = {
+                nixos.expr = ''
+                  (builtins.getFlake "${flakeRef}").nixosConfigurations.${host}.options
+                '';
+
+                home-manager.expr = ''
+                  (builtins.getFlake "${flakeRef}").homeConfigurations."${config.snowfallorg.user.name}@${host}".options
+                '';
+              };
+            };
+          };
+        in {
+          command = "nixd";
+
+          args = [
+            "--inlay-hints"
+            "--config=${nixdConfig}"
+          ];
         };
       };
     };
