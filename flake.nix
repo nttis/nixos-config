@@ -40,8 +40,6 @@
 
     zls = {
       url = "github:zigtools/zls";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.zig-overlay.follows = "zig";
     };
 
     ags = {
@@ -66,7 +64,7 @@
     Do remember to check for releases for these
     */
     jitendex = {
-      url = "https://github.com/stephenmk/stephenmk.github.io/releases/download/2025.02.11.0/jitendex-mdict.zip";
+      url = "https://github.com/stephenmk/stephenmk.github.io/releases/download/2025.03.04.0/jitendex-mdict.zip";
       flake = false;
     };
 
