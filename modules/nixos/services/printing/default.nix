@@ -13,8 +13,8 @@ lib.${namespace}.mkModule ./. config {
     drivers = with pkgs; [
       gutenprint
       gutenprintBin
-      hplip
-      hplipWithPlugin
+      # hplip
+      # hplipWithPlugin
       postscript-lexmark
       splix
       brlaser
