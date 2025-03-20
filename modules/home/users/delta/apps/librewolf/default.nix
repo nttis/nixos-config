@@ -19,14 +19,14 @@ in
         isDefault = true;
 
         search = {
-          default = "DuckDuckGo";
-          privateDefault = "DuckDuckGo";
+          default = "ddg";
+          privateDefault = "ddg";
           force = true;
 
           engines = {
-            "Google".metaData.hidden = true;
-            "Bing".metaData.hidden = true;
-            "Wikipedia (en)".metaData.hidden = true;
+            "google".metaData.hidden = true;
+            "bing".metaData.hidden = true;
+            "wikipedia".metaData.hidden = true;
           };
         };
 
