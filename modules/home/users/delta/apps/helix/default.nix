@@ -29,7 +29,7 @@ lib.${namespace}.mkModule ./. config {
 
       pkgs.tinymist
 
-      inputs.zls.packages.${system}.default
+      pkgs.zls
     ];
 
     languages = {
@@ -60,7 +60,7 @@ lib.${namespace}.mkModule ./. config {
         {
           name = "zig";
           formatter = {
-            command = "${inputs.zig.packages.${system}.master}/bin/zig";
+            command = "${pkgs.zig}/bin/zig";
             args = ["fmt" "--stdin"];
           };
         }
