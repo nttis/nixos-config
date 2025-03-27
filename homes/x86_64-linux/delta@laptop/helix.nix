@@ -2,6 +2,7 @@
   lib,
   config,
   pkgs,
+  namespace,
   host,
   ...
 }: {
@@ -64,6 +65,20 @@
             command = "${pkgs.zig}/bin/zig";
             args = ["fmt" "--stdin"];
           };
+        }
+
+        {
+          name = "asciidoc";
+          scope = "source.adoc";
+          injection-regex = "adoc";
+          file-types = ["adoc"];
+          comment-tokens = ["//"];
+          block-comment-tokens = [
+            {
+              start = "////";
+              end = "////";
+            }
+          ];
         }
       ];
 
@@ -162,5 +177,16 @@
         };
       };
     };
+  };
+
+  xdg.configFile."helix/runtime/queries/asciidoc" = {
+    enable = true;
+    recursive = true;
+    source = "${pkgs.${namespace}.tree-sitter-asciidoc}/queries";
+  };
+
+  xdg.configFile."helix/runtime/grammars/asciidoc.so" = {
+    enable = true;
+    source = "${pkgs.${namespace}.tree-sitter-asciidoc}/parser";
   };
 }
