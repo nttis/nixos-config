@@ -7,22 +7,16 @@
 
   networking = {
     useDHCP = false;
+    dhcpcd.enable = false;
     resolvconf.enable = false;
+    networkmanager.enable = false;
 
-    dhcpcd = {
+    wireless.iwd = {
       enable = true;
-      extraConfig = "nohook resolv.conf"; # disable dhcpcd's DNS management
-    };
-
-    networkmanager = {
-      enable = true;
-
-      dhcp = "dhcpcd";
-      dns = "none"; # will be managed by dnscrypt-proxy instead
-
-      wifi = {
-        macAddress = "random";
-        powersave = true;
+      settings = {
+        General = {
+          EnableNetworkConfiguration = true;
+        };
       };
     };
 
@@ -84,15 +78,13 @@
         cache_file = "/var/cache/dnscrypt-proxy/public-resolvers.md";
         minisign_key = "RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3";
       };
-
-      # You can choose a specific set of servers from https://github.com/DNSCrypt/dnscrypt-resolvers/blob/master/v3/public-resolvers.md
-      # server_names = [ ... ];
     };
   };
 
   environment.persistence."/persist/system" = lib.mkIf config.impermanence.enable {
     directories = [
       "/etc/NetworkManager/system-connections"
+      "/var/lib/iwd"
     ];
   };
 }

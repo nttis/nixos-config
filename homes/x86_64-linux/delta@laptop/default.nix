@@ -14,11 +14,7 @@
 
   services = {
     dunst.enable = true;
-    network-manager-applet.enable = true;
-  };
-
-  services.ssh-agent = {
-    enable = true;
+    ssh-agent.enable = true;
   };
 
   programs.ssh = {
