@@ -10,6 +10,8 @@
     ./librewolf.nix
     ./waybar.nix
     ./terminal.nix
+
+    ./i18n/default.nix
   ];
 
   services = {
