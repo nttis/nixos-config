@@ -1,11 +1,62 @@
 {
   lib,
+  pkgs,
   config,
   ...
 }: {
   imports = [];
 
+  environment.systemPackages = with pkgs; [
+    impala
+  ];
+
+  # The setup:
+  # - systemd-networkd: manages wired connections
+  # - iwd: manages wireless connections
+  # - dnscrypt-proxy2: DNS resolution and sinkholing
+
+  systemd.network = {
+    enable = true;
+
+    wait-online = {
+      enable = false;
+    };
+
+    # Let systemd-networkd manage wired/ethernet
+    networks."20-wired" = {
+      matchConfig = {
+        Type = "ether";
+      };
+
+      networkConfig = {
+        Description = "Wired devices";
+        DHCP = "yes";
+        IPv6PrivacyExtensions = true;
+      };
+
+      dhcpConfig = {
+        Anonymize = true;
+      };
+    };
+
+    netdevs."ap0" = {
+      enable = true;
+
+      netdevConfig = {
+        Kind = "wlan";
+        Name = "ap0";
+        MACAddress = "12:34:56:78:9a:bc";
+      };
+
+      wlanConfig = {
+        PhysicalDevice = 0;
+        Type = "ap";
+      };
+    };
+  };
+
   networking = {
+    # Disable external DHCP clients and DNS resolution services
     useDHCP = false;
     dhcpcd.enable = false;
     resolvconf.enable = false;
@@ -15,7 +66,10 @@
       enable = true;
       settings = {
         General = {
-          EnableNetworkConfiguration = true;
+          EnableNetworkConfiguration = true; # iwd manages wireless
+        };
+        Network = {
+          NameResolvingService = "none"; # disable DNS resolution
         };
       };
     };
@@ -83,7 +137,6 @@
 
   environment.persistence."/persist/system" = lib.mkIf config.impermanence.enable {
     directories = [
-      "/etc/NetworkManager/system-connections"
       "/var/lib/iwd"
     ];
   };
