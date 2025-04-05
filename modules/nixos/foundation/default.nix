@@ -38,6 +38,10 @@
     flake = "/persist/nixos";
   };
 
+  services.dbus = {
+    implementation = "broker";
+  };
+
   users = {
     mutableUsers = false;
     defaultUserShell = pkgs.fish;
