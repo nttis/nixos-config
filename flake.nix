@@ -28,6 +28,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-flatpak = {
+      url = "github:gmodena/nix-flatpak";
+    };
+
+    nixpak = {
+      url = "github:nixpak/nixpak";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Nixcord is really frequently broken...
     nixcord = {
       url = "github:kaylorben/nixcord";
@@ -48,6 +57,11 @@
         impermanence.nixosModules.impermanence
         home-manager.nixosModules.home-manager
         stylix.nixosModules.stylix
+      ];
+
+      homes.modules = with inputs; [
+        nix-flatpak.homeManagerModules.nix-flatpak
+        nixcord.homeManagerModules.nixcord
       ];
 
       snowfall = {
