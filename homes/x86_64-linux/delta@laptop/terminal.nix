@@ -54,6 +54,8 @@
         ${pkgs.pciutils}/bin/lspci -v
         ${pkgs.fastfetch}/bin/fastfetch
       ''}";
+
+      "bottom" = "${pkgs.bottom}/bin/btm --tree";
     };
   };
 
