@@ -10,6 +10,7 @@
     ./librewolf.nix
     ./waybar.nix
     ./terminal.nix
+    ./equibop.nix
 
     ./i18n/default.nix
   ];
@@ -25,20 +26,55 @@
     compression = true;
   };
 
-  home.packages = [
-    pkgs.libreoffice
-  ];
+  services.flatpak = {
+    enable = true;
+
+    packages = [
+      "org.vinegarhq.Sober"
+      "org.vinegarhq.Vinegar"
+    ];
+  };
 
   xdg.configFile."niri/config.kdl" = {
     enable = true;
     source = ./niri/config.kdl;
   };
 
+  systemd.user.services.xwayland-satellite = {
+    Unit = {
+      Description = "Start xwayland-satellite";
+      After = ["graphical-session.target"];
+    };
+
+    Service = {
+      Type = "exec";
+      ExecStart = "${pkgs.xwayland-satellite}/bin/xwayland-satellite";
+      Restart = "always";
+    };
+
+    Install = {
+      WantedBy = ["graphical-session.target"];
+    };
+  };
+
+  home.sessionVariables = {
+    DISPLAY = ":0";
+  };
+
+  home.packages = [
+    pkgs.libreoffice
+    pkgs.bottom
+  ];
+
   home.persistence."/persist/delta" = lib.mkIf systemOptions.impermanence.enable {
     directories = [
       "Downloads"
 
       ".ssh"
+
+      # Flatpak stuff
+      ".local/share/flatpak"
+      ".var/app"
     ];
 
     allowOther = true;

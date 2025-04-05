@@ -1,8 +1,9 @@
 {pkgs, ...}: {
   imports = [];
 
-  programs.niri = {
-    enable = true;
+  programs = {
+    xwayland.enable = true;
+    niri.enable = true;
   };
 
   services.greetd = {
@@ -18,8 +19,11 @@
   security = {
     polkit.enable = true;
     rtkit.enable = true;
-    soteria.enable = true;
   };
+
+  xdg.portal.xdgOpenUsePortal = true;
+
+  services.flatpak.enable = true;
 
   services.pipewire = {
     enable = true;
