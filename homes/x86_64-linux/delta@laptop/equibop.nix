@@ -18,12 +18,6 @@
 
       flatpak = {
         appId = "com.discordapp.Discord";
-
-        info = {
-          Instance = {
-            instance-id = "0";
-          };
-        };
       };
 
       dbus.policies = {
@@ -41,11 +35,10 @@
       };
 
       bubblewrap = {
-        shareIpc = true;
+        shareIpc = false;
         network = true;
 
         sockets = {
-          pipewire = true;
           pulse = true;
           wayland = true;
         };
