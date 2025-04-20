@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  lib,
+  pkgs,
+  ...
+}: {
   imports = [];
 
   i18n.inputMethod = {
@@ -10,8 +14,10 @@
     };
   };
 
-  xdg.configFile."fcitx5" = {
+  xdg.configFile."fcitx5" = lib.mkForce {
     enable = true;
     source = ./fcitx5;
   };
+
+  stylix.targets.fcitx5.enable = false;
 }
