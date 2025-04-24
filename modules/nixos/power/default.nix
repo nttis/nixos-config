@@ -1,21 +1,31 @@
 # Powersaving options
-{...}: {
+{
+  lib,
+  config,
+  ...
+}: {
   imports = [];
 
-  services.thermald = {
-    enable = true;
+  options.power = {
+    enable = lib.mkEnableOption "power-saving";
   };
 
-  services.tlp = {
-    enable = true;
-    settings = {
-      CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
-      CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
+  config = lib.mkIf config.power.enable {
+    services.thermald = {
+      enable = true;
+    };
 
-      CPU_MAX_PERF_ON_BAT = 25;
+    services.tlp = {
+      enable = true;
+      settings = {
+        CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+        CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
 
-      START_CHARGE_THRESH_BAT0 = 85;
-      STOP_CHARGE_THRES_BAT0 = 90;
+        CPU_MAX_PERF_ON_BAT = 25;
+
+        START_CHARGE_THRESH_BAT0 = 85;
+        STOP_CHARGE_THRES_BAT0 = 90;
+      };
     };
   };
 }
