@@ -36,6 +36,14 @@
     };
   };
 
+  virtualisation = {
+    containers.enable = true;
+    podman = {
+      enable = true;
+      dockerCompat = true;
+    };
+  };
+
   fonts = {
     packages = with pkgs; [
       noto-fonts
