@@ -1,11 +1,8 @@
 {
-  inputs,
   lib,
-  config,
   pkgs,
-  system,
-  namespace,
-  host,
+  osConfig,
+  self,
   ...
 }: {
   imports = [];
@@ -100,20 +97,12 @@
         };
 
         nixd = let
-          flakePath = lib.snowfall.fs.get-file "";
+          flakePath = "${self}";
 
           nixdConfig = builtins.toJSON {
-            nixd = {
-              options = {
-                nixos.expr = ''
-                  (builtins.getFlake "${flakePath}").nixosConfigurations.${host}.options
-                '';
-
-                home-manager.expr = ''
-                  (builtins.getFlake "${flakePath}").homeConfigurations."${config.snowfallorg.user.name}@${host}".options
-                '';
-              };
-            };
+            nixd.options.nixos.expr = ''
+              (builtins.getFlake "${flakePath}").nixosConfigurations.${osConfig.networking.hostName}.options
+            '';
           };
         in {
           command = "nixd";
@@ -192,21 +181,21 @@
 
   # asciidoc
   xdg.configFile."helix/runtime/queries/asciidoc" = {
-    source = "${pkgs.${namespace}.tree-sitter-asciidoc}/queries";
+    source = "${pkgs.tree-sitter-asciidoc}/queries";
     recursive = true;
   };
 
   xdg.configFile."helix/runtime/grammars/asciidoc.so" = {
-    source = "${pkgs.${namespace}.tree-sitter-asciidoc}/parser";
+    source = "${pkgs.tree-sitter-asciidoc}/parser";
   };
 
   # ziggy
   xdg.configFile."helix/runtime/grammars/ziggy.so" = {
-    source = "${pkgs.${namespace}.tree-sitter-ziggy}/parser";
+    source = "${pkgs.tree-sitter-ziggy}/parser";
   };
 
   xdg.configFile."helix/runtime/queries/ziggy" = {
-    source = "${pkgs.${namespace}.tree-sitter-ziggy}/queries";
+    source = "${pkgs.tree-sitter-ziggy}/queries";
     recursive = true;
   };
 }

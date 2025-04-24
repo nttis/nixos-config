@@ -1,16 +1,16 @@
 {
+  self,
   pkgs,
-  config,
+  system,
   ...
 }: {
   imports = [];
 
-  home-manager.extraSpecialArgs = {
-    # Options propagated down to home-manager
-    systemOptions = {
-      impermanence.enable = config.impermanence.enable;
-    };
-  };
+  nixpkgs.overlays = [
+    # This overlay applies all of our self-defined packages to nixpkgs globally
+    # so we can simply refer to them with `pkgs.package-name` everywhere.
+    (final: prev: self.packages.${system})
+  ];
 
   hardware = {
     graphics.enable = true;
@@ -28,7 +28,6 @@
   nix.settings = {
     show-trace = true;
     auto-optimise-store = true;
-
     experimental-features = ["nix-command" "flakes"];
   };
 
@@ -36,10 +35,6 @@
   programs.nh = {
     enable = true;
     flake = "/persist/nixos";
-  };
-
-  services.dbus = {
-    implementation = "broker";
   };
 
   users = {

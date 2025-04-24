@@ -1,18 +1,21 @@
 {
+  inputs,
   lib,
   pkgs,
   osConfig,
   ...
 }: {
   imports = [
-    ../delta/helix.nix
-    ../delta/git.nix
-    ../delta/librewolf.nix
-    ../delta/waybar.nix
-    ../delta/terminal.nix
-    ../delta/equibop.nix
+    inputs.impermanence.homeManagerModules.impermanence
+    inputs.nix-flatpak.homeManagerModules.nix-flatpak
+    inputs.nixcord.homeModules.nixcord
 
-    ../delta/i18n/default.nix
+    ./helix.nix
+    ./git.nix
+    ./librewolf.nix
+    ./waybar.nix
+    ./terminal.nix
+    ./i18n/default.nix
   ];
 
   services = {
@@ -37,7 +40,7 @@
 
   xdg.configFile."niri/config.kdl" = {
     enable = true;
-    source = ../delta/niri/config.kdl;
+    source = ./niri/config.kdl;
   };
 
   systemd.user.services.xwayland-satellite = {

@@ -2,13 +2,6 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    # The name "snowfall-lib" is required due to how Snowfall Lib processes your
-    # flake's inputs.
-    snowfall-lib = {
-      url = "github:snowfallorg/lib";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -32,7 +25,7 @@
       url = "github:gmodena/nix-flatpak";
     };
 
-    # Override it to a PR that implements Flatpak shimming
+    # Overridden to a PR that implements Flatpak shimming
     nixpak = {
       url = "github:nixpak/nixpak?ref=960898f79e83aa68c75876794450019ddfdb9157";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -41,38 +34,66 @@
     # Nixcord is really frequently broken...
     nixcord = {
       url = "github:kaylorben/nixcord";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = inputs:
-    inputs.snowfall-lib.mkFlake {
-      inherit inputs;
-      src = ./.;
+  outputs = inputs @ {
+    self,
+    nixpkgs,
+    ...
+  }: let
+    forAllSystems = nixpkgs.lib.genAttrs ["x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin"];
 
-      channels-config = {
-        allowUnfree = true;
-        android_sdk.accept_license = true;
-      };
-
-      systems.modules.nixos = with inputs; [
-        impermanence.nixosModules.impermanence
-        home-manager.nixosModules.home-manager
-        stylix.nixosModules.stylix
-      ];
-
-      homes.modules = with inputs; [
-        nix-flatpak.homeManagerModules.nix-flatpak
-        nixcord.homeModules.nixcord
-      ];
-
-      snowfall = {
-        root = ./.;
-        namespace = "anima";
-
-        meta = {
-          name = "anima";
-          title = "NixOS configuration";
+    mkSystem = systemArch: configFilePath:
+      nixpkgs.lib.nixosSystem rec {
+        specialArgs = {
+          inputs = inputs;
+          self = self;
+          system = systemArch;
         };
+
+        modules = [
+          inputs.impermanence.nixosModules.impermanence
+          inputs.home-manager.nixosModules.home-manager
+          inputs.stylix.nixosModules.stylix
+
+          configFilePath
+
+          # Pardon the intrusion
+          {
+            home-manager.extraSpecialArgs = specialArgs;
+            home-manager.useGlobalPkgs = true;
+          }
+        ];
       };
+  in {
+    nixosConfigurations = {
+      pc = mkSystem "x86_64-linux" ./systems/pc;
+      laptop = mkSystem "x86_64-linux" ./systems/laptop;
     };
+
+    # homeManagerConfigurations = {
+    #   delta = let
+    #     pkgs = import nixpkgs {
+    #       system = "x86_64-linux"; # hmm...
+    #     };
+    #   in
+    #     inputs.home-manager.lib.homeManagerConfiguration {
+    #       pkgs = pkgs;
+    #       modules = [
+    #         ./homes/delta
+    #       ];
+    #     };
+    # };
+
+    packages = forAllSystems (system: let
+      pkgs = import nixpkgs {
+        system = system;
+      };
+    in {
+      tree-sitter-ziggy = pkgs.callPackage ./packages/tree-sitter-ziggy {};
+      tree-sitter-asciidoc = pkgs.callPackage ./packages/tree-sitter-asciidoc {};
+    });
+  };
 }

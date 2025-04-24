@@ -3,7 +3,7 @@
   lib,
   config,
   system,
-  systemOptions,
+  osConfig,
   ...
 }: {
   programs.librewolf = {
@@ -27,10 +27,12 @@
 
       settings = {
         "extensions.autoDisableScopes" = 0;
+
         "browser.translations.enable" = false;
         "browser.search.separatePrivateDefault" = false;
         "browser.toolbars.bookmarks.visibility" = "never";
         "browser.search.suggest.enabled" = true;
+
         "webgl.disabled" = false;
       };
 
@@ -91,7 +93,7 @@
     targets.librewolf.profileNames = ["delta"];
   };
 
-  home.persistence."/persist/delta" = lib.mkIf systemOptions.impermanence.enable {
+  home.persistence."/persist/delta" = lib.mkIf osConfig.impermanence.enable {
     directories = [".librewolf"];
   };
 }

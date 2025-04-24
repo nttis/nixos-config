@@ -2,16 +2,14 @@
   lib,
   config,
   ...
-}: let
-  cfg = config.impermanence;
-in {
+}: {
   imports = [];
 
   options.impermanence = {
     enable = lib.mkEnableOption "Impermanence";
   };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf config.impermanence.enable {
     boot.initrd.postDeviceCommands = lib.mkAfter ''
       mkdir /btrfs_tmp
       mount /dev/disk/by-partlabel/nix /btrfs_tmp
