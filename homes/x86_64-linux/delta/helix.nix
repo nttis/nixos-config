@@ -1,7 +1,9 @@
 {
+  inputs,
   lib,
   config,
   pkgs,
+  system,
   namespace,
   host,
   ...
@@ -18,19 +20,13 @@
 
     extraPackages = [
       pkgs.nixd
-
       pkgs.taplo
-
       pkgs.vscode-langservers-extracted
       pkgs.typescript-language-server
       pkgs.typescript
-
       pkgs.bash-language-server
-
       pkgs.marksman
-
       pkgs.tinymist
-
       pkgs.zls
     ];
 
@@ -65,6 +61,21 @@
             command = "${pkgs.zig}/bin/zig";
             args = ["fmt" "--stdin"];
           };
+        }
+
+        {
+          name = "ziggy";
+          scope = "text.ziggy";
+          roots = [];
+          injection-regex = "ziggy|zgy";
+          file-types = ["ziggy" "zgy"];
+          comment-token = "//";
+          auto-format = true;
+          formatter = {
+            command = "ziggy";
+            args = ["fmt" "--stdin"];
+          };
+          language-servers = ["ziggy-lsp"];
         }
 
         {
@@ -116,7 +127,7 @@
     };
 
     settings = {
-      theme = lib.mkDefault "onedark";
+      theme = lib.mkForce "onedark";
 
       editor = {
         cursorline = true;
@@ -179,14 +190,23 @@
     };
   };
 
+  # asciidoc
   xdg.configFile."helix/runtime/queries/asciidoc" = {
-    enable = true;
-    recursive = true;
     source = "${pkgs.${namespace}.tree-sitter-asciidoc}/queries";
+    recursive = true;
   };
 
   xdg.configFile."helix/runtime/grammars/asciidoc.so" = {
-    enable = true;
     source = "${pkgs.${namespace}.tree-sitter-asciidoc}/parser";
+  };
+
+  # ziggy
+  xdg.configFile."helix/runtime/grammars/ziggy.so" = {
+    source = "${pkgs.${namespace}.tree-sitter-ziggy}/parser";
+  };
+
+  xdg.configFile."helix/runtime/queries/ziggy" = {
+    source = "${pkgs.${namespace}.tree-sitter-ziggy}/queries";
+    recursive = true;
   };
 }
