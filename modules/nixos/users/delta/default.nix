@@ -5,7 +5,7 @@
     password = "admin";
     isNormalUser = true;
 
-    extraGroups = ["wheel" "networkmanager"];
+    extraGroups = ["wheel"];
   };
 
   home-manager.users.delta = {

@@ -62,7 +62,7 @@
 
       homes.modules = with inputs; [
         nix-flatpak.homeManagerModules.nix-flatpak
-        nixcord.homeManagerModules.nixcord
+        nixcord.homeModules.nixcord
       ];
 
       snowfall = {
