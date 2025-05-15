@@ -37,6 +37,10 @@
     flake = "/persist/nixos";
   };
 
+  programs.nix-ld = {
+    enable = true;
+  };
+
   users = {
     mutableUsers = false;
     defaultUserShell = pkgs.fish;
