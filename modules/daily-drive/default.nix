@@ -66,8 +66,4 @@
     brightnessctl
     wireplumber
   ];
-
-  environment.variables = {
-    DISPLAY = ":0";
-  };
 }
