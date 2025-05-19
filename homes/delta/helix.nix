@@ -17,27 +17,44 @@
 
     extraPackages = [
       pkgs.nixd
+      pkgs.alejandra
+
       pkgs.taplo
+
       pkgs.vscode-langservers-extracted
       pkgs.typescript-language-server
       pkgs.typescript
+
       pkgs.bash-language-server
       pkgs.marksman
       pkgs.tinymist
+
+      pkgs.zig
       pkgs.zls
+
+      pkgs.gotools
+      pkgs.gopls
+
+      pkgs.luau-lsp
+      pkgs.stylua
     ];
 
     languages = {
       language = [
         {
           name = "nix";
-          formatter = {command = "${pkgs.alejandra}/bin/alejandra";};
+          formatter = {command = "alejandra";};
+        }
+
+        {
+          name = "go";
+          formatter = {command = "goimports";};
         }
 
         {
           name = "toml";
           formatter = {
-            command = "${pkgs.taplo}/bin/taplo";
+            command = "taplo";
             args = ["fmt" "-"];
           };
         }
@@ -55,7 +72,7 @@
         {
           name = "zig";
           formatter = {
-            command = "${pkgs.zig}/bin/zig";
+            command = "zig";
             args = ["fmt" "--stdin"];
           };
         }
@@ -88,21 +105,55 @@
             }
           ];
         }
+
+        {
+          name = "luau";
+          scope = "source.luau";
+          injection-regex = "^luau$";
+          file-types = ["luau"];
+          comment-tokens = ["--" "---"];
+          block-comment-tokens = [
+            {
+              start = "--[[";
+              end = "]]";
+            }
+            {
+              start = "--[=[";
+              end = "]=]";
+            }
+            {
+              start = "--[==[";
+              end = "]==]";
+            }
+          ];
+          roots = ["default.project.json" "wally.toml"];
+          language-servers = ["luau-lsp"];
+          formatter = {command = "stylua";};
+        }
       ];
 
       language-server = {
+        luau-lsp = {
+          command = "luau-lsp";
+          args = ["lsp"];
+        };
+
         # typst-ls is already deprecated lol...
         tinymist = {
           command = "tinymist";
         };
 
         nixd = let
-          flakePath = "${self}";
-
           nixdConfig = builtins.toJSON {
-            nixd.options.nixos.expr = ''
-              (builtins.getFlake "${flakePath}").nixosConfigurations.${osConfig.networking.hostName}.options
-            '';
+            nixd.options = {
+              nixos.expr = ''
+                (builtins.getFlake "${self}").nixosConfigurations.${osConfig.networking.hostName}.options
+              '';
+
+              home-manager.expr = ''
+                (builtins.getFlake "${self}").nixosConfigurations.${osConfig.networking.hostName}.options.home-manager.users.type.getSubOptions []
+              '';
+            };
           };
         in {
           command = "nixd";
@@ -196,6 +247,16 @@
 
   xdg.configFile."helix/runtime/queries/ziggy" = {
     source = "${pkgs.tree-sitter-ziggy}/queries";
+    recursive = true;
+  };
+
+  # luau
+  xdg.configFile."helix/runtime/grammars/luau.so" = {
+    source = "${pkgs.tree-sitter-luau}/parser";
+  };
+
+  xdg.configFile."helix/runtime/queries/luau" = {
+    source = "${pkgs.tree-sitter-luau}/queries";
     recursive = true;
   };
 }
