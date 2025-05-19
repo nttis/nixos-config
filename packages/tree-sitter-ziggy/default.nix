@@ -12,14 +12,14 @@ pkgs.stdenv.mkDerivation rec {
 
   buildPhase = ''
     runHook preBuild
-    $CC -shared -o ziggy.so tree-sitter-ziggy/src/*.c
+    $CC -shared -o parser tree-sitter-ziggy/src/*.c
     runHook postBuild
   '';
 
   installPhase = ''
     mkdir -p $out
 
-    cp ziggy.so $out/parser
+    cp parser $out/parser
     cp -r tree-sitter-ziggy/queries $out/
   '';
 }

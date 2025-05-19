@@ -12,14 +12,14 @@ pkgs.stdenv.mkDerivation rec {
 
   buildPhase = ''
     runHook preBuild
-    $CC -shared -o asciidoc.so tree-sitter-asciidoc/src/*.c
+    $CC -shared -o parser tree-sitter-asciidoc/src/*.c
     runHook postBuild
   '';
 
   installPhase = ''
     mkdir -p $out
 
-    cp asciidoc.so $out/parser
+    cp parser $out/parser
     cp -r tree-sitter-asciidoc/queries $out/
   '';
 }
