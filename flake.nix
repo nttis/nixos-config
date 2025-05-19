@@ -21,6 +21,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    flake-utils = {
+      url = "github:numtide/flake-utils";
+    };
+
     nix-flatpak = {
       url = "github:gmodena/nix-flatpak";
     };
@@ -43,7 +47,19 @@
     nixpkgs,
     ...
   }: let
-    forAllSystems = nixpkgs.lib.genAttrs ["x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin"];
+    config = inputs.flake-utils.lib.eachDefaultSystem (
+      system: let
+        pkgs = import nixpkgs {
+          system = system;
+        };
+      in {
+        packages = {
+          tree-sitter-ziggy = pkgs.callPackage ./packages/tree-sitter-ziggy {};
+          tree-sitter-asciidoc = pkgs.callPackage ./packages/tree-sitter-asciidoc {};
+          tree-sitter-luau = pkgs.callPackage ./packages/tree-sitter-luau {};
+        };
+      }
+    );
 
     mkSystem = systemArch: configFilePath:
       nixpkgs.lib.nixosSystem rec {
@@ -58,42 +74,31 @@
           inputs.home-manager.nixosModules.home-manager
           inputs.stylix.nixosModules.stylix
 
-          configFilePath
-
           # Pardon the intrusion
           {
-            home-manager.extraSpecialArgs = specialArgs;
-            home-manager.useGlobalPkgs = true;
+            nixpkgs = {
+              overlays = [inputs.firefox-addons.overlays.default];
+              config.allowUnfree = true;
+            };
+
+            home-manager = {
+              extraSpecialArgs = specialArgs;
+              useGlobalPkgs = true;
+              useUserPackages = true;
+            };
           }
+
+          configFilePath
         ];
       };
-  in {
+
     nixosConfigurations = {
       pc = mkSystem "x86_64-linux" ./systems/pc;
       laptop = mkSystem "x86_64-linux" ./systems/laptop;
     };
-
-    # homeManagerConfigurations = {
-    #   delta = let
-    #     pkgs = import nixpkgs {
-    #       system = "x86_64-linux"; # hmm...
-    #     };
-    #   in
-    #     inputs.home-manager.lib.homeManagerConfiguration {
-    #       pkgs = pkgs;
-    #       modules = [
-    #         ./homes/delta
-    #       ];
-    #     };
-    # };
-
-    packages = forAllSystems (system: let
-      pkgs = import nixpkgs {
-        system = system;
-      };
-    in {
-      tree-sitter-ziggy = pkgs.callPackage ./packages/tree-sitter-ziggy {};
-      tree-sitter-asciidoc = pkgs.callPackage ./packages/tree-sitter-asciidoc {};
-    });
-  };
+  in
+    config
+    // {
+      nixosConfigurations = nixosConfigurations;
+    };
 }
