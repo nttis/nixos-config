@@ -3,6 +3,7 @@
 
   stylix = {
     enable = true;
+    enableReleaseChecks = false;
 
     polarity = "dark";
     base16Scheme = "${pkgs.base16-schemes}/share/themes/onedark.yaml";
@@ -25,8 +26,8 @@
         package = pkgs.noto-fonts;
       };
       monospace = {
-        name = "FiraCode Nerd Font";
-        package = pkgs.nerd-fonts.fira-code;
+        name = "0xProto Nerd Font";
+        package = pkgs.nerd-fonts._0xproto;
       };
       emoji = {
         name = "Noto Emoji";
