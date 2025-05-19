@@ -12,9 +12,10 @@
 
     ./helix.nix
     ./git.nix
-    ./librewolf.nix
     ./waybar.nix
     ./terminal.nix
+    ./firefox
+
     ./i18n/default.nix
   ];
 
@@ -58,6 +59,11 @@
     Install = {
       WantedBy = ["graphical-session.target"];
     };
+  };
+
+  gtk.iconTheme = {
+    package = pkgs.papirus-icon-theme;
+    name = "Papirus-Light";
   };
 
   home.sessionVariables = {
