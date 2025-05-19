@@ -17,7 +17,7 @@
     };
 
     stylix = {
-      url = "github:danth/stylix";
+      url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -27,18 +27,6 @@
 
     nix-flatpak = {
       url = "github:gmodena/nix-flatpak";
-    };
-
-    # Overridden to a PR that implements Flatpak shimming
-    nixpak = {
-      url = "github:nixpak/nixpak?ref=960898f79e83aa68c75876794450019ddfdb9157";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # Nixcord is really frequently broken...
-    nixcord = {
-      url = "github:kaylorben/nixcord";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 

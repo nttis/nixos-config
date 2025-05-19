@@ -8,7 +8,6 @@
   imports = [
     inputs.impermanence.homeManagerModules.impermanence
     inputs.nix-flatpak.homeManagerModules.nix-flatpak
-    inputs.nixcord.homeModules.nixcord
 
     ./helix.nix
     ./git.nix
