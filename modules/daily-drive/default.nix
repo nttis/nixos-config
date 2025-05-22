@@ -52,7 +52,7 @@
       noto-fonts-cjk-sans
       noto-fonts-cjk-serif
 
-      nerd-fonts.fira-code
+      nerd-fonts._0xproto
     ];
   };
 
