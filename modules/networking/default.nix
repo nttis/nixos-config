@@ -38,21 +38,6 @@
         Anonymize = true;
       };
     };
-
-    netdevs."ap0" = {
-      enable = true;
-
-      netdevConfig = {
-        Kind = "wlan";
-        Name = "ap0";
-        MACAddress = "12:34:56:78:9a:bc";
-      };
-
-      wlanConfig = {
-        PhysicalDevice = 0;
-        Type = "ap";
-      };
-    };
   };
 
   networking = {
@@ -66,10 +51,10 @@
       enable = true;
       settings = {
         General = {
-          EnableNetworkConfiguration = true; # iwd manages wireless
+          EnableNetworkConfiguration = true; # does DHCP
         };
         Network = {
-          NameResolvingService = "none"; # disable DNS resolution
+          NameResolvingService = "none"; # but don't do DNS resolution
         };
       };
     };
@@ -83,6 +68,11 @@
 
     firewall = {
       enable = true;
+
+      # To facilitate hotspot wifi sharing
+      allowedTCPPorts = [67];
+      allowedUDPPorts = [67];
+      trustedInterfaces = ["ap0"];
 
       # Open common development ports
       allowedTCPPortRanges = [
@@ -118,7 +108,10 @@
       require_nolog = true;
       require_nofilter = true;
 
-      bootstrap_resolvers = ["9.9.9.11:53" "8.8.8.8:53"];
+      cache = true;
+      listen_addresses = ["127.0.0.1:53"];
+
+      bootstrap_resolvers = ["1.1.1.1:53" "9.9.9.9:53"];
 
       # Add this to test if dnscrypt-proxy is actually used to resolve DNS requests
       query_log.file = "/var/log/dnscrypt-proxy/query.log";
