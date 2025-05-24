@@ -60,6 +60,7 @@
     helix
     kitty
     libarchive
+    aria2
 
     wl-clipboard
     rofi-wayland

@@ -70,7 +70,8 @@
   };
 
   home.packages = [
-    pkgs.libreoffice
+    pkgs.onlyoffice-desktopeditors
+    pkgs.localsend
     pkgs.bottom
   ];
 
