@@ -31,7 +31,6 @@
     experimental-features = ["nix-command" "flakes"];
   };
 
-  programs.fish.enable = true;
   programs.nh = {
     enable = true;
     flake = "/persist/nixos";
@@ -40,6 +39,8 @@
   programs.nix-ld = {
     enable = true;
   };
+
+  programs.fish.enable = true;
 
   users = {
     mutableUsers = false;

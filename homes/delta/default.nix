@@ -65,10 +65,6 @@
     name = "Papirus-Light";
   };
 
-  home.sessionVariables = {
-    DISPLAY = ":0";
-  };
-
   home.packages = [
     pkgs.onlyoffice-desktopeditors
     pkgs.localsend

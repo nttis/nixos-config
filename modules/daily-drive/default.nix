@@ -56,15 +56,20 @@
     ];
   };
 
-  environment.systemPackages = with pkgs; [
-    helix
-    kitty
-    libarchive
-    aria2
+  environment = {
+    systemPackages = with pkgs; [
+      helix
+      kitty
+      libarchive
+      aria2
+      wl-clipboard
+      rofi-wayland
+      brightnessctl
+      wireplumber
+    ];
 
-    wl-clipboard
-    rofi-wayland
-    brightnessctl
-    wireplumber
-  ];
+    variables = {
+      DISPLAY = ":0";
+    };
+  };
 }
