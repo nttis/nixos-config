@@ -26,6 +26,7 @@
       pkgs.typescript
 
       pkgs.bash-language-server
+
       pkgs.marksman
       pkgs.tinymist
 
@@ -167,7 +168,7 @@
     };
 
     settings = {
-      theme = lib.mkForce "onedark";
+      # theme = lib.mkForce "onedark";
 
       editor = {
         cursorline = true;

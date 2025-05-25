@@ -20,5 +20,5 @@
     source = ./fcitx5;
   };
 
-  stylix.targets.fcitx5.enable = false;
+  # stylix.targets.fcitx5.enable = false;
 }
