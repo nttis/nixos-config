@@ -2,8 +2,6 @@
   inputs,
   pkgs,
   lib,
-  self,
-  config,
   osConfig,
   ...
 }: {
@@ -15,6 +13,7 @@
     ./git.nix
     ./waybar.nix
     ./terminal.nix
+    ./swww.nix
     ./firefox
 
     ./i18n/default.nix
