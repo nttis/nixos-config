@@ -2,7 +2,6 @@
   imports = [];
 
   programs = {
-    xwayland.enable = true;
     niri.enable = true;
   };
 

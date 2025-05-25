@@ -1,7 +1,9 @@
 {
   inputs,
-  lib,
   pkgs,
+  lib,
+  self,
+  config,
   osConfig,
   ...
 }: {
@@ -40,24 +42,8 @@
 
   xdg.configFile."niri/config.kdl" = {
     enable = true;
+    force = true;
     source = ./niri/config.kdl;
-  };
-
-  systemd.user.services.xwayland-satellite = {
-    Unit = {
-      Description = "Start xwayland-satellite";
-      After = ["graphical-session.target"];
-    };
-
-    Service = {
-      Type = "exec";
-      ExecStart = "${pkgs.xwayland-satellite}/bin/xwayland-satellite";
-      Restart = "always";
-    };
-
-    Install = {
-      WantedBy = ["graphical-session.target"];
-    };
   };
 
   gtk.iconTheme = {
