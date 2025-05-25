@@ -145,23 +145,19 @@
         };
 
         nixd = let
-          nixdConfig = builtins.toJSON {
-            nixd.options = {
-              nixos.expr = ''
-                (builtins.getFlake "${self}").nixosConfigurations.${osConfig.networking.hostName}.options
-              '';
-
-              home-manager.expr = ''
-                (builtins.getFlake "${self}").nixosConfigurations.${osConfig.networking.hostName}.options.home-manager.users.type.getSubOptions []
-              '';
-            };
-          };
+          options = ''
+            (builtins.getFlake "${self}").nixosConfigurations.${osConfig.networking.hostName}.options
+          '';
         in {
           command = "nixd";
 
+          config.nixd.options = {
+            nixos.expr = options;
+            home-manager.expr = options + ".home-manager.users.type.getSubOptions []";
+          };
+
           args = [
             "--inlay-hints"
-            "--config=${nixdConfig}"
           ];
         };
       };
