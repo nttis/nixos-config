@@ -66,9 +66,5 @@
       brightnessctl
       wireplumber
     ];
-
-    variables = {
-      DISPLAY = ":0";
-    };
   };
 }

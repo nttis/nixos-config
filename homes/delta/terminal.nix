@@ -26,10 +26,6 @@
       touch_scroll_multiplier = 3.0;
       confirm_os_window_close = 0;
     };
-
-    environment = {
-      DISPLAY = ":0";
-    };
   };
 
   programs.yazi = {
