@@ -34,7 +34,7 @@
     enableBashIntegration = true;
 
     settings = {
-      manager = {
+      mgr = {
         show_hidden = true;
         sort_by = "alphabetical";
         sort_dir_first = true;
