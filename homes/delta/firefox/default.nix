@@ -82,7 +82,7 @@
         packages = with pkgs.firefox-addons; [
           ublock-origin
           sponsorblock
-          bitwarden
+          keepassxc-browser
           duckduckgo-privacy-essentials # Just to enable the use of Duck emails smh
           tampermonkey
         ];
@@ -91,6 +91,27 @@
           "firefox@tampermonkey.net" = {
             force = true;
             settings = builtins.fromJSON (lib.readFile ./tampermonkey.json);
+          };
+
+          "keepassxc-browser@keepassxc.org" = {
+            force = true;
+            settings = {
+              settings = {
+                passkeys = true;
+              };
+            };
+          };
+
+          # The DDG extension
+          "jid1-ZAdIEUB7XOzOJw@jetpack" = {
+            force = true;
+            settings = {
+              settings = {};
+              companyData = {};
+              totalPages = 0;
+              totalPagesWithTrackers = 0;
+              lastStatsResetDate = 0;
+            };
           };
 
           "sponsorBlocker@ajay.app" = {
