@@ -1,8 +1,8 @@
 {pkgs, ...}: let
   wallpapers = pkgs.fetchzip {
-    url = "https://files.catbox.moe/9pcpr3.zip";
+    url = "https://files.catbox.moe/w884wb.zip";
     stripRoot = false;
-    hash = "sha256-3s7NhcgYy6Np+slHidN3oToD2Rip4e+y/wFQ12tG+KI=";
+    hash = "sha256-eCNMTl8uLjeiRDbE4biPS71qwyVmi1iGF5hCDdMxMxA=";
   };
 in {
   services.swww.enable = true;
