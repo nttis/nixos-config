@@ -14,6 +14,7 @@
     ./waybar.nix
     ./terminal.nix
     ./swww.nix
+    ./keepassxc.nix
     ./firefox
 
     ./i18n/default.nix
