@@ -1,5 +1,4 @@
 {
-  lib,
   pkgs,
   osConfig,
   self,
@@ -129,7 +128,10 @@
           ];
           roots = ["default.project.json" "wally.toml"];
           language-servers = ["luau-lsp"];
-          formatter = {command = "stylua";};
+          formatter = {
+            command = "stylua";
+            args = ["-"];
+          };
         }
       ];
 
