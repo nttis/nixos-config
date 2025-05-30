@@ -13,14 +13,19 @@
       isDefault = true;
 
       search = {
-        default = "ddg";
-        privateDefault = "ddg";
+        default = "searx";
+        privateDefault = "searx";
         force = true;
 
         engines = {
           "google".metaData.hidden = true;
           "bing".metaData.hidden = true;
           "wikipedia".metaData.hidden = true;
+
+          "searx" = {
+            name = "SearX";
+            urls = [{template = "https://searx.perennialte.ch?q={searchTerms}&category_general=1";}];
+          };
         };
       };
 
