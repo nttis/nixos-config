@@ -53,6 +53,7 @@
 
   home.packages = [
     pkgs.onlyoffice-desktopeditors
+    pkgs.xwayland-satellite
     pkgs.localsend
     pkgs.bottom
   ];
