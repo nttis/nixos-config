@@ -74,6 +74,8 @@
         "toolkit.telemetry.updatePing.enabled" = false;
 
         "identity.fxaccounts.enabled" = false;
+
+        "media.webrtc.camera.allow-pipewire" = true;
       };
 
       extensions = {
