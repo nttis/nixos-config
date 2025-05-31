@@ -14,6 +14,8 @@
 
       Browser = {
         Enabled = true;
+        AllowGetDatabaseEntriesRequest = true;
+        AlwaysAllowAccess = true;
       };
 
       SSHAgent = {
