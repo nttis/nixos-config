@@ -15,20 +15,13 @@
     ./terminal.nix
     ./swww.nix
     ./keepassxc.nix
-    ./firefox
-
+    ./firefox/default.nix
+    ./gpg/default.nix
     ./i18n/default.nix
   ];
 
   services = {
     dunst.enable = true;
-    ssh-agent.enable = true;
-  };
-
-  programs.ssh = {
-    enable = true;
-    addKeysToAgent = "yes";
-    compression = true;
   };
 
   services.flatpak = {
@@ -55,14 +48,14 @@
     pkgs.onlyoffice-desktopeditors
     pkgs.xwayland-satellite
     pkgs.localsend
-    pkgs.bottom
+    pkgs.kdePackages.kleopatra
   ];
 
   home.persistence."/persist/delta" = lib.mkIf osConfig.impermanence.enable {
     directories = [
       "Downloads"
 
-      ".ssh"
+      ".gnupg/private-keys-v1.d"
 
       # Flatpak stuff
       ".local/share/flatpak"
