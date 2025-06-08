@@ -60,8 +60,7 @@
     };
 
     nameservers = [
-      "127.0.0.1"
-      "::1"
+      "1.1.1.1"
     ];
 
     nftables.enable = true;
@@ -92,7 +91,7 @@
   };
 
   services.dnscrypt-proxy2 = {
-    enable = true;
+    enable = false;
 
     # Settings reference:
     # https://github.com/DNSCrypt/dnscrypt-proxy/blob/master/dnscrypt-proxy/example-dnscrypt-proxy.toml
