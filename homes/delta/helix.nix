@@ -23,6 +23,7 @@
       pkgs.vscode-langservers-extracted
       pkgs.typescript-language-server
       pkgs.typescript
+      pkgs.nodePackages.prettier
 
       pkgs.bash-language-server
 
@@ -131,6 +132,46 @@
           formatter = {
             command = "stylua";
             args = ["-"];
+          };
+        }
+
+        {
+          name = "javascript";
+          formatter = {
+            command = "prettier";
+            args = ["--parser" "typescript"];
+          };
+        }
+
+        {
+          name = "typescript";
+          formatter = {
+            command = "prettier";
+            args = ["--parser" "typescript"];
+          };
+        }
+
+        {
+          name = "html";
+          formatter = {
+            command = "prettier";
+            args = ["--parser" "html"];
+          };
+        }
+
+        {
+          name = "css";
+          formatter = {
+            command = "prettier";
+            args = ["--parser" "css"];
+          };
+        }
+
+        {
+          name = "json";
+          formatter = {
+            command = "prettier";
+            args = ["--parser" "json"];
           };
         }
       ];
