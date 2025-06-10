@@ -6,18 +6,18 @@
 
     publicKeys = [
       {
-        source = ./pubkeys/0xF7FA9198_public.asc;
-        trust = "full";
+        source = ./pubkeys/datto_0x72023C25_public.asc;
+        trust = 5;
       }
 
       {
         source = ./pubkeys/0x44DB1FA6B33CEF5C_public.asc;
-        trust = "full";
+        trust = 5;
       }
 
       {
         source = ./pubkeys/0xB6A5EA06478F6A48_public.asc;
-        trust = "ultimate";
+        trust = 5;
       }
     ];
   };
