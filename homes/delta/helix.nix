@@ -152,6 +152,14 @@
         }
 
         {
+          name = "tsx";
+          formatter = {
+            command = "prettier";
+            args = ["--parser" "typescript"];
+          };
+        }
+
+        {
           name = "html";
           formatter = {
             command = "prettier";
