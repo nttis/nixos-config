@@ -15,6 +15,7 @@
     ./terminal.nix
     ./swww.nix
     ./keepassxc.nix
+    ./easyeffects.nix
     ./firefox/default.nix
     ./gpg/default.nix
     ./i18n/default.nix

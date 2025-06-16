@@ -3,6 +3,9 @@
 
   programs = {
     niri.enable = true;
+    dconf.enable = true;
+  };
+
   };
 
   services.greetd = {
