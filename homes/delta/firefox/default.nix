@@ -13,8 +13,8 @@
       isDefault = true;
 
       search = {
-        default = "searx";
-        privateDefault = "searx";
+        default = "ddg";
+        privateDefault = "ddg";
         force = true;
 
         engines = {
