@@ -12,9 +12,6 @@
     (final: prev: self.packages.${system})
   ];
 
-  hardware = {
-    graphics.enable = true;
-  };
 
   # Disable bloat:tm:
   programs.nano.enable = false;

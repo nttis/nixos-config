@@ -6,6 +6,8 @@
     dconf.enable = true;
   };
 
+  hardware = {
+    graphics.enable = true;
   };
 
   services.greetd = {
