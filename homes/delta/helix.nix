@@ -1,6 +1,8 @@
 {
+  inputs,
   pkgs,
   osConfig,
+  system,
   self,
   ...
 }: {
@@ -13,6 +15,7 @@
   programs.helix = {
     enable = true;
     defaultEditor = true;
+    package = inputs.helix.packages.${system}.default;
 
     extraPackages = [
       pkgs.nixd
