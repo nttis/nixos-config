@@ -16,6 +16,7 @@
     ./swww.nix
     ./keepassxc.nix
     ./easyeffects.nix
+
     ./firefox/default.nix
     ./gpg/default.nix
     ./i18n/default.nix
@@ -32,6 +33,10 @@
       "org.vinegarhq.Sober"
       "org.vinegarhq.Vinegar"
     ];
+  };
+
+  services.podman = {
+    enable = true;
   };
 
   xdg.configFile."niri/config.kdl" = {
