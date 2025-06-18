@@ -1,1 +1,4 @@
-.helix
+.helix/
+
+houseki/node_modules/
+houseki/@girs/
