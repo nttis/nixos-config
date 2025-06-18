@@ -1,0 +1,9 @@
+@use "./style/ActivateLinux.scss";
+@use "./style/Bar.scss";
+
+$text-color: #{"@theme_text_color"};
+
+:root {
+    font-size: 16px;
+    color: $text-color;
+}

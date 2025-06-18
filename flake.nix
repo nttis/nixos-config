@@ -28,6 +28,11 @@
     nix-flatpak = {
       url = "github:gmodena/nix-flatpak";
     };
+
+    ags = {
+      url = "github:aylur/ags";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs @ {
@@ -45,6 +50,20 @@
           tree-sitter-ziggy = pkgs.callPackage ./packages/tree-sitter-ziggy {};
           tree-sitter-asciidoc = pkgs.callPackage ./packages/tree-sitter-asciidoc {};
           tree-sitter-luau = pkgs.callPackage ./packages/tree-sitter-luau {};
+
+          houseki = inputs.ags.lib.bundle {
+            pkgs = pkgs;
+            src = ./houseki;
+            name = "houseki";
+            entry = "app.ts";
+            gtk4 = true;
+          };
+        };
+
+        devShells.houseki = pkgs.mkShellNoCC {
+          packages = [
+            inputs.ags.packages.${system}.default
+          ];
         };
       }
     );
