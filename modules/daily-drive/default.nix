@@ -1,8 +1,17 @@
-{pkgs, ...}: {
+{
+  inputs,
+  pkgs,
+  system,
+  ...
+}: {
   imports = [];
 
   programs = {
-    niri.enable = true;
+    niri = {
+      enable = true;
+      package = inputs.niri.packages.${system}.default;
+    };
+
     dconf.enable = true;
   };
 
