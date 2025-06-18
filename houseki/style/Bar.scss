@@ -1,0 +1,9 @@
+$bg-color: #{"@theme_bg_color"};
+
+window.bar {
+  background-color: $bg-color;
+
+  * {
+    color: #fff;
+  }
+}
