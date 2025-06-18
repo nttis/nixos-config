@@ -1,4 +1,5 @@
 {
+  inputs,
   self,
   pkgs,
   system,
@@ -10,8 +11,9 @@
     # This overlay applies all of our self-defined packages to nixpkgs globally
     # so we can simply refer to them with `pkgs.package-name` everywhere.
     (final: prev: self.packages.${system})
-  ];
 
+    inputs.firefox-addons.overlays.default
+  ];
 
   # Disable bloat:tm:
   programs.nano.enable = false;
@@ -30,7 +32,7 @@
 
   programs.nh = {
     enable = true;
-    flake = "/persist/nixos";
+    flake = self.outPath;
   };
 
   programs.nix-ld = {

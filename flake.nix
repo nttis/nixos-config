@@ -84,7 +84,6 @@
           # Pardon the intrusion
           {
             nixpkgs = {
-              overlays = [inputs.firefox-addons.overlays.default];
               config.allowUnfree = true;
             };
 
