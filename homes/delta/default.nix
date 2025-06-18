@@ -42,7 +42,7 @@
 
   gtk.iconTheme = {
     package = pkgs.papirus-icon-theme;
-    name = "Papirus";
+    name = "Papirus-Dark";
   };
 
   home.packages = [
