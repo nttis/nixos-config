@@ -35,16 +35,11 @@
     ];
   };
 
-  programs.nh = {
-    enable = true;
-    flake = flake.outPath;
+  programs = {
+    nh.enable = true;
+    nix-ld.enable = true;
+    fish.enable = true;
   };
-
-  programs.nix-ld = {
-    enable = true;
-  };
-
-  programs.fish.enable = true;
 
   users = {
     mutableUsers = false;
