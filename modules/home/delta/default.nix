@@ -40,6 +40,10 @@
     name = "Papirus-Dark";
   };
 
+  stylix = lib.mkIf osConfig.stylix.enable {
+    targets.xfce.enable = true;
+  };
+
   home.packages = [
     pkgs.onlyoffice-desktopeditors
     pkgs.localsend
