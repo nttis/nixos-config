@@ -44,7 +44,6 @@
     xwayland-satellite = {
       url = "github:Supreeeme/xwayland-satellite";
       inputs.nixpkgs.follows = "nixpkgs";
-      # inputs.rust-overlay.follows = "";
     };
   };
 

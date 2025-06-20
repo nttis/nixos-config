@@ -1,6 +1,7 @@
 {
   inputs,
   flake,
+  lib,
   ...
 }: {
   imports = [
@@ -13,7 +14,6 @@
     flake.nixosModules.foundation
     flake.nixosModules.daily-drive
     flake.nixosModules.impermanence
-    flake.nixosModules.power
     flake.nixosModules.networking
     flake.nixosModules.stylix
   ];
@@ -26,6 +26,18 @@
     extraGroups = ["wheel"];
   };
 
-  networking.hostName = "laptop"; # Define your hostname
+  services.xserver = {
+    enable = lib.mkForce true;
+    desktopManager = {
+      xfce.enable = true;
+      xterm.enable = false;
+    };
+  };
+
+  boot.kernelParams = [
+    "nouveau.config=NvClkMode=15"
+  ];
+
+  networking.hostName = "pc"; # Define your hostname
   time.timeZone = "Asia/Ho_Chi_Minh";
 }
