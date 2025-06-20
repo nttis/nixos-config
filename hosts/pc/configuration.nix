@@ -36,7 +36,7 @@
   nixpkgs.config.nvidia.acceptLicense = true;
 
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
-  boot.kernelPackages = lib.mkForce pkgs.linuxPackages_6_12;
+  boot.kernelPackages = lib.mkForce pkgs.linuxPackages_6_6;
 
   services.xserver = {
     enable = lib.mkForce true;
