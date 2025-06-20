@@ -34,7 +34,11 @@
     rtkit.enable = true;
   };
 
-  xdg.portal.xdgOpenUsePortal = true;
+  xdg.portal = {
+    enable = true;
+    xdgOpenUsePortal = true;
+    extraPortals = [pkgs.xdg-desktop-portal-gnome];
+  };
 
   services.flatpak.enable = true;
 
