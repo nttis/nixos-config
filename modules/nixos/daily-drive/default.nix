@@ -1,7 +1,6 @@
 {
-  inputs,
   pkgs,
-  system,
+  perSystem,
   ...
 }: {
   imports = [];
@@ -9,7 +8,7 @@
   programs = {
     niri = {
       enable = true;
-      package = inputs.niri.packages.${system}.default;
+      package = perSystem.niri.default;
     };
 
     dconf.enable = true;
@@ -72,6 +71,8 @@
       rofi-wayland
       brightnessctl
       wireplumber
+
+      perSystem.xwayland-satellite.default
     ];
   };
 }

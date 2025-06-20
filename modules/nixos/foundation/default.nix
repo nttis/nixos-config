@@ -1,17 +1,14 @@
 {
   inputs,
-  self,
+  flake,
   pkgs,
-  system,
   ...
 }: {
   imports = [];
 
-  nixpkgs.overlays = [
-    # This overlay applies all of our self-defined packages to nixpkgs globally
-    # so we can simply refer to them with `pkgs.package-name` everywhere.
-    (final: prev: self.packages.${system})
+  nixpkgs.config.allowUnfree = true;
 
+  nixpkgs.overlays = [
     inputs.firefox-addons.overlays.default
   ];
 
@@ -40,7 +37,7 @@
 
   programs.nh = {
     enable = true;
-    flake = self.outPath;
+    flake = flake.outPath;
   };
 
   programs.nix-ld = {

@@ -7,7 +7,6 @@
 }: {
   imports = [
     inputs.impermanence.homeManagerModules.impermanence
-    inputs.nix-flatpak.homeManagerModules.nix-flatpak
 
     ./helix.nix
     ./git.nix
@@ -24,15 +23,6 @@
 
   services = {
     dunst.enable = true;
-  };
-
-  services.flatpak = {
-    enable = true;
-
-    packages = [
-      "org.vinegarhq.Sober"
-      "org.vinegarhq.Vinegar"
-    ];
   };
 
   services.podman = {
@@ -52,7 +42,6 @@
 
   home.packages = [
     pkgs.onlyoffice-desktopeditors
-    pkgs.xwayland-satellite
     pkgs.localsend
     pkgs.kdePackages.kleopatra
   ];

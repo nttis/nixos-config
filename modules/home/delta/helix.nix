@@ -1,9 +1,8 @@
 {
-  inputs,
   pkgs,
+  perSystem,
+  flake,
   osConfig,
-  system,
-  self,
   ...
 }: {
   imports = [];
@@ -15,7 +14,7 @@
   programs.helix = {
     enable = true;
     defaultEditor = true;
-    package = inputs.helix.packages.${system}.default;
+    package = perSystem.helix.default;
 
     extraPackages = [
       pkgs.nixd
@@ -200,7 +199,7 @@
 
         nixd = let
           options = ''
-            (builtins.getFlake "${self}").nixosConfigurations.${osConfig.networking.hostName}.options
+            (builtins.getFlake "${flake.outPath}").nixosConfigurations.${osConfig.networking.hostName}.options
           '';
         in {
           command = "nixd";
@@ -283,31 +282,31 @@
 
   # asciidoc
   xdg.configFile."helix/runtime/queries/asciidoc" = {
-    source = "${pkgs.tree-sitter-asciidoc}/queries";
+    source = "${perSystem.self.tree-sitter-asciidoc}/queries";
     recursive = true;
   };
 
   xdg.configFile."helix/runtime/grammars/asciidoc.so" = {
-    source = "${pkgs.tree-sitter-asciidoc}/parser";
+    source = "${perSystem.self.tree-sitter-asciidoc}/parser";
   };
 
   # ziggy
   xdg.configFile."helix/runtime/grammars/ziggy.so" = {
-    source = "${pkgs.tree-sitter-ziggy}/parser";
+    source = "${perSystem.self.tree-sitter-ziggy}/parser";
   };
 
   xdg.configFile."helix/runtime/queries/ziggy" = {
-    source = "${pkgs.tree-sitter-ziggy}/queries";
+    source = "${perSystem.self.tree-sitter-ziggy}/queries";
     recursive = true;
   };
 
   # luau
   xdg.configFile."helix/runtime/grammars/luau.so" = {
-    source = "${pkgs.tree-sitter-luau}/parser";
+    source = "${perSystem.self.tree-sitter-luau}/parser";
   };
 
   xdg.configFile."helix/runtime/queries/luau" = {
-    source = "${pkgs.tree-sitter-luau}/queries";
+    source = "${perSystem.self.tree-sitter-luau}/queries";
     recursive = true;
   };
 }
