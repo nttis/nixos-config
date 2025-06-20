@@ -15,22 +15,10 @@
       "runs-on": "ubuntu-latest",
       "steps": [
         {
-          "name": "Remove Hosted Tool Cache",
-          "run": "sudo rm -rf /opt/hostedtoolcache"
+          "name": "Reclaim space",
+          "run": "sudo rm -rf /opt/hostedtoolcache && sudo rm -rf /usr/local/share/powershell && sudo rm -rf /usr/local/lib/android && sudo rm -rf /usr/local/.ghcup && sudo rm -rf /usr/share/swift && sudo rm -rf /usr/share/dotnet"
         },
-
-        # Commented out for now because it takes too long to remove
-        # while we don't need the space yet
-        # {
-        #   "name": "Remove Android SDKs",
-        #   "run": "sudo rm -rf /usr/local/lib/android"
-        # },
-
-        {
-          "name": "Remove GHC",
-          "run": "sudo rm -rf /usr/local/.ghcup"
-        },
-
+      
         {
           "name": "Install Nix",
           "uses": "cachix/install-nix-action@17fe5fb4a23ad6cbbe47d6b3f359611ad276644c", # v31.4.0
@@ -56,7 +44,7 @@
         {
           "name": "Build",
           "run": "nix build .#nixosConfigurations.laptop.config.system.build.toplevel"
-        },
+        }
       ]
     }
   }
