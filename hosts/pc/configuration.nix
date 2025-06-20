@@ -1,5 +1,7 @@
 {
+  config,
   inputs,
+  pkgs,
   flake,
   lib,
   ...
@@ -26,18 +28,33 @@
     extraGroups = ["wheel"];
   };
 
+  networking.hostName = "pc"; # Define your hostname
+  time.timeZone = "Asia/Ho_Chi_Minh";
+
+  # fuck
+
+  nixpkgs.config.nvidia.acceptLicense = true;
+
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
+  boot.kernelPackages = lib.mkForce pkgs.linuxPackages_6_12;
+
   services.xserver = {
     enable = lib.mkForce true;
+
+    videoDrivers = ["nvidia"];
+
     desktopManager = {
       xfce.enable = true;
       xterm.enable = false;
     };
+
+    displayManager.lightdm = {
+      enable = true;
+      greeters.gtk.enable = true;
+    };
   };
 
-  boot.kernelParams = [
-    "nouveau.config=NvClkMode=15"
-  ];
+  programs.niri.enable = lib.mkForce false;
 
-  networking.hostName = "pc"; # Define your hostname
-  time.timeZone = "Asia/Ho_Chi_Minh";
+  services.greetd.enable = lib.mkForce false;
 }
