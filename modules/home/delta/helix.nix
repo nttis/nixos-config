@@ -7,14 +7,9 @@
 }: {
   imports = [];
 
-  home.sessionVariables = {
-    EDITOR = "hx";
-  };
-
   programs.helix = {
     enable = true;
     defaultEditor = true;
-    package = perSystem.helix.default;
 
     extraPackages = [
       pkgs.nixd
