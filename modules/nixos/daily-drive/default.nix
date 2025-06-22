@@ -78,5 +78,9 @@
 
       perSystem.xwayland-satellite.default
     ];
+
+    sessionVariables = {
+      EDITOR = "hx";
+    };
   };
 }

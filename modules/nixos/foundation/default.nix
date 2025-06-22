@@ -1,16 +1,16 @@
 {
   inputs,
-  flake,
   pkgs,
   ...
 }: {
   imports = [];
 
-  nixpkgs.config.allowUnfree = true;
-
-  nixpkgs.overlays = [
-    inputs.firefox-addons.overlays.default
-  ];
+  nixpkgs = {
+    config.allowUnfree = true;
+    overlays = [
+      inputs.firefox-addons.overlays.default
+    ];
+  };
 
   # Disable bloat:tm:
   programs.nano.enable = false;
@@ -25,6 +25,7 @@
     show-trace = true;
     auto-optimise-store = true;
     experimental-features = ["nix-command" "flakes"];
+    flake-registry = "";
 
     substituters = [
       "https://nttis.cachix.org"
