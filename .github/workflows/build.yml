@@ -15,16 +15,21 @@ jobs:
       - name: "Purge"
         uses: "wimpysworld/nothing-but-nix@6af122a9403f936ef689e44cc013ae3f3e2f1c3b" # v6
         with:
+          hatchet-protocol: "holster"
           nix-permission-edict: true
 
       - name: "Install Nix"
         uses: "nixbuild/nix-quick-install-action@889f3180bb5f064ee9e3201428d04ae9e41d54ad" # v31
 
-      - name: Checkout
+      - name: "Install Cachix"
+        uses: "cachix/cachix-action@0fc020193b5a1fa3ac4575aa3a7d3aa6a35435ad" # v16
+        with:
+          name: "nttis"
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+
+      - name: "Checkout"
         uses: "actions/checkout@v4"
 
-      - name: Commence the build
-        env:
-          CACHIX_AUTH_TOKEN: ${{ secrets.CACHIX_AUTH_TOKEN }}
+      - name: "Commence the build"
         run: |
-          nix run --inputs-from . nixpkgs#nix-fast-build -- --no-nom --skip-cached --cachix-cache nttis
+          nix run --inputs-from . nixpkgs#nix-fast-build -- --no-nom --skip-cached
