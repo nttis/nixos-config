@@ -19,6 +19,7 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.loader.systemd-boot = {
     enable = true;
+    memtest86.enable = true;
   };
 
   nix.settings = {
