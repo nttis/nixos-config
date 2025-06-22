@@ -1,12 +1,12 @@
 {pkgs, ...}:
-pkgs.stdenv.mkDerivation rec {
+pkgs.stdenv.mkDerivation (final: {
   pname = "tree-sitter-luau";
   version = "ec187cafba510cddac265329ca7831ec6f3b9955";
 
   src = pkgs.fetchFromGitHub {
     owner = "polychromatist";
     repo = "tree-sitter-luau";
-    rev = version;
+    rev = final.version;
     hash = "sha256-a+TJFLt77G4UyvcLz5Nsc6gvsgCTwmpZDNyfN8YUJDc=";
   };
 
@@ -22,4 +22,4 @@ pkgs.stdenv.mkDerivation rec {
     cp parser.so $out/parser
     cp -r helix-queries $out/queries
   '';
-}
+})

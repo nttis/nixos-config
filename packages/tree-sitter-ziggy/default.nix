@@ -1,12 +1,12 @@
 {pkgs, ...}:
-pkgs.stdenv.mkDerivation rec {
+pkgs.stdenv.mkDerivation (final: {
   pname = "tree-sitter-ziggy";
   version = "fe3bf9389e7ff213cf3548caaf9c6f3d4bb38647";
 
   src = pkgs.fetchFromGitHub {
     owner = "kristoff-it";
     repo = "ziggy";
-    rev = version;
+    rev = final.version;
     hash = "sha256-w2WO2N3+XJWhWnt9swOux2ynKxmePbB4VojXM8K5GAo=";
   };
 
@@ -22,4 +22,4 @@ pkgs.stdenv.mkDerivation rec {
     cp parser $out/parser
     cp -r tree-sitter-ziggy/queries $out/
   '';
-}
+})
