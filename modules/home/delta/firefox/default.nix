@@ -169,7 +169,7 @@
     targets.firefox.profileNames = ["delta"];
   };
 
-  home.persistence."/persist/delta" = lib.mkIf osConfig.impermanence.enable {
+  home.persistence."/persist/delta" = {
     directories = [".mozilla/firefox"];
   };
 }

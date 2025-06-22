@@ -1,13 +1,8 @@
-{
-  lib,
-  pkgs,
-  config,
-  ...
-}: {
+{pkgs, ...}: {
   imports = [];
 
-  environment.systemPackages = with pkgs; [
-    impala
+  environment.systemPackages = [
+    pkgs.impala
   ];
 
   # The setup:
@@ -127,7 +122,7 @@
     };
   };
 
-  environment.persistence."/persist/system" = lib.mkIf config.impermanence.enable {
+  environment.persistence."/persist/system" = {
     directories = [
       "/var/lib/iwd"
     ];

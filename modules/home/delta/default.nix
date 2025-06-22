@@ -50,10 +50,14 @@
     pkgs.kdePackages.kleopatra
   ];
 
-  home.persistence."/persist/delta" = lib.mkIf osConfig.impermanence.enable {
+  home.persistence."/persist/delta" = {
     directories = [
       "Downloads"
 
+      # Nix eval cache to help with eval times through reboots
+      ".cache/nix/eval-cache-v5"
+
+      # GPG keys
       ".gnupg/private-keys-v1.d"
 
       # Flatpak stuff
