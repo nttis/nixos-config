@@ -19,6 +19,7 @@
 
       pkgs.vscode-langservers-extracted
       pkgs.typescript-language-server
+      pkgs.yaml-language-server
       pkgs.typescript
       pkgs.nodePackages.prettier
 
@@ -30,6 +31,7 @@
       pkgs.zig
       pkgs.zls
 
+      pkgs.go
       pkgs.gotools
       pkgs.gopls
 
@@ -177,6 +179,14 @@
           formatter = {
             command = "prettier";
             args = ["--parser" "json"];
+          };
+        }
+
+        {
+          name = "yaml";
+          formatter = {
+            command = "prettier";
+            args = ["--parser" "yaml"];
           };
         }
       ];
