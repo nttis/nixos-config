@@ -18,6 +18,7 @@
 
     blueprint = {
       url = "github:numtide/blueprint";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     stylix = {
