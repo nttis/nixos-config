@@ -11,4 +11,18 @@
   programs.gitui = {
     enable = true;
   };
+
+  programs.jujutsu = {
+    enable = true;
+    settings = {
+      user = {
+        name = "nttis";
+        email = "slush-gulf-rural@duck.com";
+      };
+
+      ui = {
+        paginate = "never";
+      };
+    };
+  };
 }
