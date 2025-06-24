@@ -34,7 +34,7 @@
 
     pinentry = {
       package = pkgs.pinentry-all;
-      program = "pinentry";
+      program = "pinentry-gnome3";
     };
   };
 }
