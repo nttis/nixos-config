@@ -1,8 +1,6 @@
 {
   inputs,
   pkgs,
-  lib,
-  osConfig,
   ...
 }: {
   imports = [
@@ -33,15 +31,6 @@
     enable = true;
     force = true;
     source = ./niri/config.kdl;
-  };
-
-  gtk.iconTheme = {
-    package = pkgs.papirus-icon-theme;
-    name = "Papirus-Dark";
-  };
-
-  stylix = lib.mkIf osConfig.stylix.enable {
-    targets.xfce.enable = true;
   };
 
   home.packages = [

@@ -6,7 +6,7 @@
     enableReleaseChecks = false;
 
     polarity = "dark";
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/everforest.yaml";
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/onedark.yaml";
 
     image = null;
 
@@ -35,4 +35,15 @@
       };
     };
   };
+
+  home-manager.sharedModules = [
+    {
+      stylix.iconTheme = {
+        enable = true;
+        package = pkgs.papirus-icon-theme;
+        dark = "Papirus-Dark";
+        light = "Papirus-Light";
+      };
+    }
+  ];
 }
