@@ -21,6 +21,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-github-actions = {
+      url = "github:nix-community/nix-github-actions";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     stylix = {
       url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -46,5 +51,10 @@
   outputs = inputs:
     inputs.blueprint {
       inherit inputs;
+    }
+    // {
+      githubActions = inputs.nix-github-actions.lib.mkGithubMatrix {
+        inherit (inputs.self) checks;
+      };
     };
 }
