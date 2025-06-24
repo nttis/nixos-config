@@ -54,7 +54,7 @@
     }
     // {
       githubActions = inputs.nix-github-actions.lib.mkGithubMatrix {
-        inherit (inputs.self) checks;
+        checks = inputs.nixpkgs.lib.getAttrs ["x86_64-linux"] inputs.self.checks;
       };
     };
 }
