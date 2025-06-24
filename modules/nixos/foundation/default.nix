@@ -3,7 +3,9 @@
   pkgs,
   ...
 }: {
-  imports = [];
+  imports = [
+    inputs.lix-module.nixosModules.default
+  ];
 
   nixpkgs = {
     config.allowUnfree = true;
