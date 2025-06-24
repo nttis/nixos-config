@@ -13,13 +13,16 @@ jobs:
     runs-on: "ubuntu-latest"
     steps:
       - name: "Purge"
-        uses: "wimpysworld/nothing-but-nix@6af122a9403f936ef689e44cc013ae3f3e2f1c3b" # v6
-        with:
-          hatchet-protocol: "holster"
-          nix-permission-edict: true
+        run: |
+          sudo rm -rf /opt/hostedtoolcache \
+                      /usr/local/lib/android \
+                      /usr/local/.ghcup \
+                      /usr/share/dotnet
 
       - name: "Install Nix"
-        uses: "nixbuild/nix-quick-install-action@889f3180bb5f064ee9e3201428d04ae9e41d54ad" # v31
+        uses: "cachix/install-nix-action@f0fe604f8a612776892427721526b4c7cfb23aba" # v31.4.1
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: "Install Cachix"
         uses: "cachix/cachix-action@0fc020193b5a1fa3ac4575aa3a7d3aa6a35435ad" # v16
@@ -32,4 +35,4 @@ jobs:
 
       - name: "Commence the build"
         run: |
-          nix run --inputs-from . nixpkgs#nix-fast-build -- --no-nom --skip-cached
+          nix flake check
