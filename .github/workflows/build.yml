@@ -28,7 +28,7 @@ jobs:
         id: "define-matrix"
         run: |
           set -Eeu
-          matrix="$(nix eval --json '.#githubActions.matrix')"
+          matrix="$(nix eval --inputs-from . --json '.#githubActions.matrix')"
           echo "matrix=$matrix" >> "$GITHUB_OUTPUT"
 
   build:
@@ -63,4 +63,4 @@ jobs:
 
       - name: "Commence the build"
         run: |
-          nix build --print-build-logs .#'${{ matrix.attr }}'
+          nix build --inputs-from . --print-build-logs .#'${{ matrix.attr }}'
