@@ -23,7 +23,7 @@ jobs:
         uses: "cachix/install-nix-action@f0fe604f8a612776892427721526b4c7cfb23aba" # v31.4.1
         with:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
-          install_url: "https://releases.nixos.org/nix/nix-2.28.3/install"
+          install_url: "https://releases.nixos.org/nix/nix-2.28.4/install"
 
       - name: "Generate matrix"
         id: "define-matrix"
@@ -52,7 +52,7 @@ jobs:
         uses: "cachix/install-nix-action@f0fe604f8a612776892427721526b4c7cfb23aba" # v31.4.1
         with:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
-          install_url: "https://releases.nixos.org/nix/nix-2.28.3/install"
+          install_url: "https://releases.nixos.org/nix/nix-2.28.4/install"
 
       - name: "Install Cachix"
         uses: "cachix/cachix-action@0fc020193b5a1fa3ac4575aa3a7d3aa6a35435ad" # v16
