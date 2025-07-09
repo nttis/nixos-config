@@ -8,7 +8,7 @@
   programs = {
     niri = {
       enable = true;
-      package = perSystem.niri.default;
+      # package = perSystem.niri.default;
     };
 
     dconf.enable = true;
@@ -76,7 +76,7 @@
       brightnessctl
       wireplumber
 
-      perSystem.xwayland-satellite.default
+      # perSystem.xwayland-satellite.default
     ];
 
     sessionVariables = {
