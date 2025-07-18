@@ -1,8 +1,4 @@
-{
-  pkgs,
-  perSystem,
-  ...
-}: {
+{pkgs, ...}: {
   imports = [];
 
   programs = {
@@ -75,8 +71,7 @@
       rofi-wayland
       brightnessctl
       wireplumber
-
-      # perSystem.xwayland-satellite.default
+      xwayland-satellite
     ];
 
     sessionVariables = {
