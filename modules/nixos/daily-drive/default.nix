@@ -65,12 +65,14 @@
     systemPackages = with pkgs; [
       helix
       kitty
+      yazi
       libarchive
       aria2
       wl-clipboard
       rofi-wayland
       brightnessctl
       wireplumber
+      pwvucontrol
       xwayland-satellite
     ];
 
