@@ -37,6 +37,7 @@
     pkgs.onlyoffice-desktopeditors
     pkgs.localsend
     pkgs.kdePackages.kleopatra
+    pkgs.ghc
   ];
 
   home.persistence."/persist/delta" = {
