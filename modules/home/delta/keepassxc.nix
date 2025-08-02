@@ -1,5 +1,6 @@
-{...}: {
-  imports = [];
+{ config, ... }:
+{
+  imports = [ ];
 
   programs.keepassxc = {
     enable = true;
@@ -10,6 +11,7 @@
 
       General = {
         AutoSaveAfterEveryChange = false;
+        LastOpenedDatabases = "${config.home.homeDirectory}/Downloads/Passwords.kdbx";
       };
 
       Browser = {
