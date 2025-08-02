@@ -43,8 +43,18 @@
 
   programs = {
     nh.enable = true;
-    nix-ld.enable = true;
     fish.enable = true;
+
+    nix-ld = {
+      enable = true;
+      libraries = with pkgs; [
+        pulseaudio
+        pipewire
+        wayland
+        sdl3
+        SDL2
+      ];
+    };
   };
 
   users = {
