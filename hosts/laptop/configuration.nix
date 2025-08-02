@@ -12,6 +12,7 @@
 
     flake.nixosModules.foundation
     flake.nixosModules.daily-drive
+    flake.nixosModules.niri
     flake.nixosModules.impermanence
     flake.nixosModules.power
     flake.nixosModules.networking

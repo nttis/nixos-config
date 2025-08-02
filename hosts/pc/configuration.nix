@@ -51,7 +51,4 @@
       greeters.gtk.enable = true;
     };
   };
-
-  programs.niri.enable = lib.mkForce false;
-  services.greetd.enable = lib.mkForce false;
 }

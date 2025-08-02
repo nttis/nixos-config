@@ -14,9 +14,10 @@
     ./keepassxc.nix
     ./easyeffects.nix
 
-    ./firefox/default.nix
-    ./gpg/default.nix
-    ./i18n/default.nix
+    ./niri
+    ./firefox
+    ./gpg
+    ./i18n
   ];
 
   services = {

@@ -1,28 +1,9 @@
 {pkgs, ...}: {
   imports = [];
 
-  programs = {
-    niri = {
-      enable = true;
-      # package = perSystem.niri.default;
-    };
-
-    dconf.enable = true;
-  };
-
   hardware = {
     enableRedistributableFirmware = true;
     graphics.enable = true;
-  };
-
-  services.greetd = {
-    enable = true;
-    settings = {
-      default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time";
-        user = "greeter";
-      };
-    };
   };
 
   security = {
@@ -33,19 +14,19 @@
   xdg.portal = {
     enable = true;
     xdgOpenUsePortal = true;
-    extraPortals = [pkgs.xdg-desktop-portal-gnome];
   };
 
-  services.flatpak.enable = true;
-
-  services.pipewire = {
-    enable = true;
-    audio.enable = true;
-    pulse.enable = true;
-    wireplumber.enable = true;
-    alsa = {
+  services = {
+    flatpak.enable = true;
+    pipewire = {
       enable = true;
-      support32Bit = true;
+      audio.enable = true;
+      pulse.enable = true;
+      wireplumber.enable = true;
+      alsa = {
+        enable = true;
+        support32Bit = true;
+      };
     };
   };
 
@@ -88,7 +69,6 @@
       brightnessctl
       wireplumber
       pwvucontrol
-      xwayland-satellite
     ];
 
     sessionVariables = {
