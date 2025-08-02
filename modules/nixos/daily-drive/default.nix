@@ -61,6 +61,21 @@
     ];
   };
 
+  system.replaceDependencies.replacements = [
+    {
+      oldDependency = pkgs.xdg-utils;
+      newDependency = pkgs.xdg-utils.overrideAttrs (prev: {
+        postFixup = let
+          handlr-script = pkgs.writeShellScript "xdg-open" ''
+            ${pkgs.lib.getExe pkgs.handlr-regex} open "$@"
+          '';
+        in ''
+          cp ${handlr-script} $out/bin/xdg-open
+        '';
+      });
+    }
+  ];
+
   environment = {
     systemPackages = with pkgs; [
       helix
