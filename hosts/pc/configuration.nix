@@ -49,7 +49,17 @@
 
     displayManager.lightdm = {
       enable = true;
-      greeters.gtk.enable = true;
+      greeters.slick.enable = true;
     };
   };
+
+  xdg.portal.extraPortals = with pkgs; [
+    xdg-desktop-portal-gtk
+    xdg-desktop-portal-xapp
+  ];
+
+  environment.systemPackages = with pkgs; [
+    xfce.xfce4-clipman-plugin
+    xfce.xfce4-notifyd
+  ];
 }
