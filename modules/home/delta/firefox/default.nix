@@ -3,7 +3,8 @@
   pkgs,
   config,
   ...
-}: {
+}:
+{
   programs.firefox = {
     enable = true;
 
@@ -102,8 +103,8 @@
           "jid1-ZAdIEUB7XOzOJw@jetpack" = {
             force = true;
             settings = {
-              settings = {};
-              companyData = {};
+              settings = { };
+              companyData = { };
               totalPages = 0;
               totalPagesWithTrackers = 0;
               lastStatsResetDate = 0;
@@ -160,10 +161,10 @@
   };
 
   stylix = lib.mkIf config.stylix.enable {
-    targets.firefox.profileNames = ["default"];
+    targets.firefox.profileNames = [ "default" ];
   };
 
   home.persistence."/persist/delta" = {
-    directories = [".mozilla/firefox"];
+    directories = [ ".mozilla/firefox" ];
   };
 }

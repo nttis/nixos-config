@@ -1,5 +1,6 @@
-{lib, ...}: {
-  imports = [];
+{ lib, ... }:
+{
+  imports = [ ];
 
   boot.initrd.postDeviceCommands = lib.mkAfter ''
     mkdir /btrfs_tmp
@@ -31,7 +32,7 @@
     "/" = {
       device = "/dev/disk/by-partlabel/nix";
       fsType = "btrfs";
-      options = ["subvol=root"];
+      options = [ "subvol=root" ];
     };
 
     "/nix" = {

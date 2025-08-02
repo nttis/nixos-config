@@ -5,7 +5,8 @@
   flake,
   lib,
   ...
-}: {
+}:
+{
   imports = [
     ./hardware-configuration.nix
 
@@ -23,7 +24,7 @@
   users.users.delta = {
     hashedPassword = "$y$j9T$xL4SLWPnBD84BSCranVgE/$RltD31LVzUEpqWONk01QUQKzcEZj0F7D2Ephjns4BLB";
     isNormalUser = true;
-    extraGroups = ["wheel"];
+    extraGroups = [ "wheel" ];
   };
 
   networking.hostName = "pc"; # Define your hostname
@@ -39,7 +40,7 @@
   services.xserver = {
     enable = lib.mkForce true;
 
-    videoDrivers = ["nvidia"];
+    videoDrivers = [ "nvidia" ];
 
     desktopManager = {
       xfce.enable = true;

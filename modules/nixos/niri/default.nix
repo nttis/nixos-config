@@ -2,7 +2,8 @@
   flake,
   pkgs,
   ...
-}: {
+}:
+{
   programs = {
     niri.enable = true;
     dconf.enable = true;

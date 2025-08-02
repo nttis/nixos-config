@@ -2,7 +2,8 @@
   inputs,
   pkgs,
   ...
-}: {
+}:
+{
   imports = [
     inputs.impermanence.homeManagerModules.impermanence
 
@@ -28,7 +29,10 @@
   systemd.user.services.mic-volume = {
     Unit = {
       Description = "Lower microphone volume";
-      After = ["graphical-session.target" "wireplumber.target"];
+      After = [
+        "graphical-session.target"
+        "wireplumber.target"
+      ];
     };
 
     Service = {
@@ -38,7 +42,10 @@
     };
 
     Install = {
-      WantedBy = ["graphical-session.target" "wireplumber.target"];
+      WantedBy = [
+        "graphical-session.target"
+        "wireplumber.target"
+      ];
     };
   };
 

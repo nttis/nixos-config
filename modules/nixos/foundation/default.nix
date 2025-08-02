@@ -2,8 +2,9 @@
   inputs,
   pkgs,
   ...
-}: {
-  imports = [];
+}:
+{
+  imports = [ ];
 
   nixpkgs = {
     config.allowUnfree = true;
@@ -25,7 +26,10 @@
   nix.settings = {
     show-trace = true;
     auto-optimise-store = true;
-    experimental-features = ["nix-command" "flakes"];
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
     flake-registry = "";
 
     substituters = [

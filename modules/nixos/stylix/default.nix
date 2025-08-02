@@ -1,5 +1,6 @@
-{pkgs, ...}: {
-  imports = [];
+{ pkgs, ... }:
+{
+  imports = [ ];
 
   stylix = {
     enable = true;

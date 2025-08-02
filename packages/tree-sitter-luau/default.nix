@@ -1,4 +1,4 @@
-{pkgs, ...}:
+{ pkgs, ... }:
 pkgs.stdenv.mkDerivation (final: {
   pname = "tree-sitter-luau";
   version = "ec187cafba510cddac265329ca7831ec6f3b9955";

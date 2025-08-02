@@ -1,16 +1,18 @@
-{pkgs, ...}: let
+{ pkgs, ... }:
+let
   wallpapers = pkgs.fetchzip {
     url = "https://files.catbox.moe/w884wb.zip";
     stripRoot = false;
     hash = "sha256-eCNMTl8uLjeiRDbE4biPS71qwyVmi1iGF5hCDdMxMxA=";
   };
-in {
+in
+{
   services.swww.enable = true;
 
   systemd.user.services.swww-cycle = {
     Unit = {
       Description = "Cycle wallpaper with swww";
-      After = ["graphical-session.target"];
+      After = [ "graphical-session.target" ];
     };
 
     Service = {
@@ -22,14 +24,14 @@ in {
     };
 
     Install = {
-      WantedBy = ["graphical-session.target"];
+      WantedBy = [ "graphical-session.target" ];
     };
   };
 
   systemd.user.timers.swww-cycle = {
     Unit = {
       Description = "Timer to activate swww-cycle.service";
-      After = ["graphical-session.target"];
+      After = [ "graphical-session.target" ];
     };
 
     Timer = {
@@ -37,7 +39,7 @@ in {
     };
 
     Install = {
-      WantedBy = ["graphical-session.target"];
+      WantedBy = [ "graphical-session.target" ];
     };
   };
 }

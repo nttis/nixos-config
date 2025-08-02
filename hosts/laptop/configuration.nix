@@ -2,7 +2,8 @@
   inputs,
   flake,
   ...
-}: {
+}:
+{
   imports = [
     ./hardware-configuration.nix
 
@@ -22,7 +23,7 @@
   users.users.delta = {
     hashedPassword = "$y$j9T$xL4SLWPnBD84BSCranVgE/$RltD31LVzUEpqWONk01QUQKzcEZj0F7D2Ephjns4BLB";
     isNormalUser = true;
-    extraGroups = ["wheel"];
+    extraGroups = [ "wheel" ];
   };
 
   networking.hostName = "laptop"; # Define your hostname

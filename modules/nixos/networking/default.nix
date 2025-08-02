@@ -1,5 +1,6 @@
-{pkgs, ...}: {
-  imports = [];
+{ pkgs, ... }:
+{
+  imports = [ ];
 
   environment.systemPackages = [
     pkgs.impala
@@ -64,9 +65,9 @@
       enable = true;
 
       # To facilitate hotspot wifi sharing
-      allowedTCPPorts = [67];
-      allowedUDPPorts = [67];
-      trustedInterfaces = ["ap0"];
+      allowedTCPPorts = [ 67 ];
+      allowedUDPPorts = [ 67 ];
+      trustedInterfaces = [ "ap0" ];
 
       # Open common development ports
       allowedTCPPortRanges = [
@@ -103,9 +104,12 @@
       require_nofilter = true;
 
       cache = true;
-      listen_addresses = ["127.0.0.1:53"];
+      listen_addresses = [ "127.0.0.1:53" ];
 
-      bootstrap_resolvers = ["1.1.1.1:53" "9.9.9.9:53"];
+      bootstrap_resolvers = [
+        "1.1.1.1:53"
+        "9.9.9.9:53"
+      ];
 
       # Add this to test if dnscrypt-proxy is actually used to resolve DNS requests
       query_log.file = "/var/log/dnscrypt-proxy/query.log";

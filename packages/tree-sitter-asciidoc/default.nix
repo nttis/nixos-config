@@ -1,4 +1,4 @@
-{pkgs, ...}:
+{ pkgs, ... }:
 pkgs.stdenv.mkDerivation (final: {
   pname = "tree-sitter-asciidoc";
   version = "0.3.0";

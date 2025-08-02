@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   programs.feh = {
     enable = true;
 
@@ -9,10 +10,22 @@
       zoom_in = "equal";
       zoom_out = "minus";
 
-      scroll_left = ["Left" "h"];
-      scroll_right = ["Right" "l"];
-      scroll_up = ["Up" "j"];
-      scroll_down = ["Down" "k"];
+      scroll_left = [
+        "Left"
+        "h"
+      ];
+      scroll_right = [
+        "Right"
+        "l"
+      ];
+      scroll_up = [
+        "Up"
+        "j"
+      ];
+      scroll_down = [
+        "Down"
+        "k"
+      ];
     };
   };
 }

@@ -1,5 +1,6 @@
-{pkgs, ...}: {
-  imports = [];
+{ pkgs, ... }:
+{
+  imports = [ ];
 
   hardware = {
     enableRedistributableFirmware = true;
@@ -46,13 +47,15 @@
     {
       oldDependency = pkgs.xdg-utils;
       newDependency = pkgs.xdg-utils.overrideAttrs (prev: {
-        postFixup = let
-          handlr-script = pkgs.writeShellScript "xdg-open" ''
-            ${pkgs.lib.getExe pkgs.handlr-regex} open "$@"
+        postFixup =
+          let
+            handlr-script = pkgs.writeShellScript "xdg-open" ''
+              ${pkgs.lib.getExe pkgs.handlr-regex} open "$@"
+            '';
+          in
+          ''
+            cp ${handlr-script} $out/bin/xdg-open
           '';
-        in ''
-          cp ${handlr-script} $out/bin/xdg-open
-        '';
       });
     }
   ];

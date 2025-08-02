@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   imports = [
     ./feh.nix
   ];
@@ -8,8 +9,8 @@
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
-      "image/*" = ["feh.desktop"];
-      "audio/*" = ["mpv.desktop"];
+      "image/*" = [ "feh.desktop" ];
+      "audio/*" = [ "mpv.desktop" ];
     };
   };
 }

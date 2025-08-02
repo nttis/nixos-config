@@ -1,7 +1,9 @@
-{config, ...}: let
+{ config, ... }:
+let
   colors = config.lib.stylix.colors.withHashtag;
-in {
-  imports = [];
+in
+{
+  imports = [ ];
 
   programs.waybar = {
     enable = true;
@@ -11,9 +13,19 @@ in {
         layer = "top";
         height = 30;
 
-        modules-right = ["tray" "privacy" "backlight" "pulseaudio" "network" "battery"];
-        modules-center = ["clock"];
-        modules-left = ["niri/workspaces" "niri/window"];
+        modules-right = [
+          "tray"
+          "privacy"
+          "backlight"
+          "pulseaudio"
+          "network"
+          "battery"
+        ];
+        modules-center = [ "clock" ];
+        modules-left = [
+          "niri/workspaces"
+          "niri/window"
+        ];
 
         clock = {
           format = "{:%A, %B %d, %Y (%R)}";
@@ -46,7 +58,13 @@ in {
 
         battery = {
           format = "{icon} {capacity}%";
-          format-icons = ["" "" "" "" ""];
+          format-icons = [
+            ""
+            ""
+            ""
+            ""
+            ""
+          ];
 
           tooltip-format = "{timeTo}, {power}W, {cycles} cycles";
         };
@@ -59,7 +77,13 @@ in {
 
           tooltip-format = "{ifname}, default gateway: {gwaddr}, subnet mask: {netmask}, signal strength: {signalStrength}%, frequency: {frequency}";
 
-          format-icons = ["󰤯" "󰤟" "󰤢" "󰤥" "󰤨"];
+          format-icons = [
+            "󰤯"
+            "󰤟"
+            "󰤢"
+            "󰤥"
+            "󰤨"
+          ];
         };
 
         privacy = {
@@ -72,21 +96,29 @@ in {
           format-bluetooth = "󰂯{icon} {volume}%";
 
           format-icons = {
-            default = ["󰕿" "󰖀" "󰕾"];
+            default = [
+              "󰕿"
+              "󰖀"
+              "󰕾"
+            ];
           };
         };
 
         backlight = {
           format = "{icon} {percent}%";
-          format-icons = ["󰪞" "󰪠" "󰪡" "󰪣" "󰪥"];
+          format-icons = [
+            "󰪞"
+            "󰪠"
+            "󰪡"
+            "󰪣"
+            "󰪥"
+          ];
         };
       };
     };
 
     style =
-      /*
-      css
-      */
+      # css
       ''
         #network {
           padding: 0 0.5em 0 0.5em;

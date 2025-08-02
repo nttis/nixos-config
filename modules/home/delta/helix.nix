@@ -4,8 +4,9 @@
   flake,
   osConfig,
   ...
-}: {
-  imports = [];
+}:
+{
+  imports = [ ];
 
   programs.helix = {
     enable = true;
@@ -51,56 +52,70 @@
 
         {
           name = "go";
-          formatter = {command = "goimports";};
+          formatter = {
+            command = "goimports";
+          };
         }
 
         {
           name = "toml";
           formatter = {
             command = "taplo";
-            args = ["fmt" "-"];
+            args = [
+              "fmt"
+              "-"
+            ];
           };
         }
 
         {
           name = "html";
-          language-servers = ["vscode-html-language-server"];
+          language-servers = [ "vscode-html-language-server" ];
         }
 
         {
           name = "typst";
-          language-servers = ["tinymist"];
+          language-servers = [ "tinymist" ];
         }
 
         {
           name = "zig";
           formatter = {
             command = "zig";
-            args = ["fmt" "--stdin"];
+            args = [
+              "fmt"
+              "--stdin"
+            ];
           };
         }
 
         {
           name = "ziggy";
           scope = "text.ziggy";
-          roots = [];
+          roots = [ ];
           injection-regex = "ziggy|zgy";
-          file-types = ["ziggy" "zgy"];
+          file-types = [
+            "ziggy"
+            "zgy"
+          ];
           comment-token = "//";
           auto-format = true;
           formatter = {
             command = "ziggy";
-            args = ["fmt" "--stdin"];
+            args = [
+              "fmt"
+              "--stdin"
+            ];
           };
-          language-servers = ["ziggy-lsp"];
+          language-servers = [ "ziggy-lsp" ];
         }
 
         {
           name = "asciidoc";
           scope = "source.adoc";
           injection-regex = "adoc";
-          file-types = ["adoc"];
-          comment-tokens = ["//"];
+          file-types = [ "adoc" ];
+          comment-tokens = [ "//" ];
           block-comment-tokens = [
             {
               start = "////";
@@ -113,8 +128,11 @@
           name = "luau";
           scope = "source.luau";
           injection-regex = "^luau$";
-          file-types = ["luau"];
-          comment-tokens = ["--" "---"];
+          file-types = [ "luau" ];
+          comment-tokens = [
+            "--"
+            "---"
+          ];
           block-comment-tokens = [
             {
               start = "--[[";
@@ -129,11 +147,14 @@
               end = "]==]";
             }
           ];
-          roots = ["default.project.json" "wally.toml"];
-          language-servers = ["luau-lsp"];
+          roots = [
+            "default.project.json"
+            "wally.toml"
+          ];
+          language-servers = [ "luau-lsp" ];
           formatter = {
             command = "stylua";
-            args = ["-"];
+            args = [ "-" ];
           };
         }
 
@@ -141,7 +162,10 @@
           name = "javascript";
           formatter = {
             command = "prettier";
-            args = ["--parser" "typescript"];
+            args = [
+              "--parser"
+              "typescript"
+            ];
           };
         }
 
@@ -149,7 +173,10 @@
           name = "typescript";
           formatter = {
             command = "prettier";
-            args = ["--parser" "typescript"];
+            args = [
+              "--parser"
+              "typescript"
+            ];
           };
         }
 
@@ -157,7 +184,10 @@
           name = "tsx";
           formatter = {
             command = "prettier";
-            args = ["--parser" "typescript"];
+            args = [
+              "--parser"
+              "typescript"
+            ];
           };
         }
 
@@ -165,7 +195,10 @@
           name = "html";
           formatter = {
             command = "prettier";
-            args = ["--parser" "html"];
+            args = [
+              "--parser"
+              "html"
+            ];
           };
         }
 
@@ -173,7 +206,10 @@
           name = "css";
           formatter = {
             command = "prettier";
-            args = ["--parser" "css"];
+            args = [
+              "--parser"
+              "css"
+            ];
           };
         }
 
@@ -181,7 +217,10 @@
           name = "json";
           formatter = {
             command = "prettier";
-            args = ["--parser" "json"];
+            args = [
+              "--parser"
+              "json"
+            ];
           };
         }
 
@@ -189,7 +228,10 @@
           name = "yaml";
           formatter = {
             command = "prettier";
-            args = ["--parser" "yaml"];
+            args = [
+              "--parser"
+              "yaml"
+            ];
           };
         }
       ];
@@ -197,7 +239,7 @@
       language-server = {
         luau-lsp = {
           command = "luau-lsp";
-          args = ["lsp"];
+          args = [ "lsp" ];
         };
 
         # typst-ls is already deprecated lol...
@@ -205,22 +247,24 @@
           command = "tinymist";
         };
 
-        nixd = let
-          options = ''
-            (builtins.getFlake "${flake.outPath}").nixosConfigurations.${osConfig.networking.hostName}.options
-          '';
-        in {
-          command = "nixd";
+        nixd =
+          let
+            options = ''
+              (builtins.getFlake "${flake.outPath}").nixosConfigurations.${osConfig.networking.hostName}.options
+            '';
+          in
+          {
+            command = "nixd";
 
-          config.nixd.options = {
-            nixos.expr = options;
-            home-manager.expr = options + ".home-manager.users.type.getSubOptions []";
+            config.nixd.options = {
+              nixos.expr = options;
+              home-manager.expr = options + ".home-manager.users.type.getSubOptions []";
+            };
+
+            args = [
+              "--inlay-hints"
+            ];
           };
-
-          args = [
-            "--inlay-hints"
-          ];
-        };
       };
     };
 
@@ -236,7 +280,7 @@
         completion-replace = true;
         true-color = true;
         color-modes = true;
-        rulers = [120];
+        rulers = [ 120 ];
         text-width = 100;
       };
 
@@ -266,7 +310,13 @@
       };
 
       editor.statusline = {
-        right = ["diagnostics" "register" "position" "file-encoding" "version-control"];
+        right = [
+          "diagnostics"
+          "register"
+          "position"
+          "file-encoding"
+          "version-control"
+        ];
       };
 
       editor.cursor-shape = {

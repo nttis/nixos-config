@@ -1,4 +1,4 @@
-{pkgs, ...}:
+{ pkgs, ... }:
 pkgs.stdenv.mkDerivation (final: {
   pname = "tree-sitter-ziggy";
   version = "fe3bf9389e7ff213cf3548caaf9c6f3d4bb38647";

@@ -1,6 +1,7 @@
 # Powersaving options
-{...}: {
-  imports = [];
+{ ... }:
+{
+  imports = [ ];
 
   services.thermald = {
     enable = true;

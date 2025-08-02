@@ -1,8 +1,9 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   systemd.user.services.xwayland-satellite = {
     Unit = {
       Description = "Autostart xwayland-satellite";
-      After = ["graphical-session.target"];
+      After = [ "graphical-session.target" ];
     };
 
     Service = {
@@ -12,7 +13,7 @@
     };
 
     Install = {
-      WantedBy = ["graphical-session.target"];
+      WantedBy = [ "graphical-session.target" ];
     };
   };
 
