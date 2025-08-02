@@ -13,7 +13,7 @@
 
     extraPackages = [
       pkgs.nixd
-      pkgs.alejandra
+      pkgs.nixfmt
 
       pkgs.taplo
 
@@ -43,7 +43,10 @@
       language = [
         {
           name = "nix";
-          formatter = {command = "alejandra";};
+          formatter = {
+            command = "nixfmt";
+            arguments = [ "-" ];
+          };
         }
 
         {
