@@ -41,12 +41,10 @@
     };
   };
 
-
-  home.packages = [
-    pkgs.onlyoffice-desktopeditors
-    pkgs.localsend
-    pkgs.kdePackages.kleopatra
-    pkgs.ghc
+  home.packages = with pkgs; [
+    onlyoffice-desktopeditors
+    kdePackages.kleopatra
+    ghc
   ];
 
   home.persistence."/persist/delta" = {

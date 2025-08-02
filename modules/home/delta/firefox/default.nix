@@ -2,14 +2,13 @@
   lib,
   pkgs,
   config,
-  osConfig,
   ...
 }: {
   programs.firefox = {
     enable = true;
 
-    profiles.delta = {
-      name = "delta";
+    profiles.default = {
+      name = "Default";
       isDefault = true;
 
       search = {
@@ -21,11 +20,6 @@
           "google".metaData.hidden = true;
           "bing".metaData.hidden = true;
           "wikipedia".metaData.hidden = true;
-
-          "searx" = {
-            name = "SearX";
-            urls = [{template = "https://searx.perennialte.ch?q={searchTerms}&category_general=1";}];
-          };
         };
       };
 
@@ -166,7 +160,7 @@
   };
 
   stylix = lib.mkIf config.stylix.enable {
-    targets.firefox.profileNames = ["delta"];
+    targets.firefox.profileNames = ["default"];
   };
 
   home.persistence."/persist/delta" = {
