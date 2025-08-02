@@ -28,11 +28,6 @@
     enable = true;
   };
 
-  xdg.configFile."niri/config.kdl" = {
-    enable = true;
-    force = true;
-    source = ./niri/config.kdl;
-  };
 
   home.packages = [
     pkgs.onlyoffice-desktopeditors

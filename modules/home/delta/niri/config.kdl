@@ -62,7 +62,11 @@ window-rule {
 
 prefer-no-csd
 
-screenshot-path "~/Downloads/Screenshot from %Y-%m-%d %H-%M-%S.png"
+screenshot-path null
+
+environment {
+    DISPLAY ":0"
+}
 
 // Open the Firefox picture-in-picture player as floating by default.
 window-rule {
