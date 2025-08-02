@@ -12,6 +12,7 @@
     ./terminal.nix
     ./swww.nix
     ./keepassxc.nix
+    ./mimetypes.nix
 
     ./niri
     ./firefox
