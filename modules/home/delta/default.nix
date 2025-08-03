@@ -1,6 +1,8 @@
 {
   inputs,
+  lib,
   pkgs,
+  options,
   ...
 }:
 {
@@ -49,26 +51,32 @@
     };
   };
 
-  home.packages = with pkgs; [
-    onlyoffice-desktopeditors
-    kdePackages.kleopatra
-    ghc
+  home = lib.mkMerge [
+    {
+      packages = with pkgs; [
+        onlyoffice-desktopeditors
+        kdePackages.kleopatra
+        ghc
+      ];
+
+      stateVersion = "24.05";
+    }
+
+    (lib.optionalAttrs (options ? home.persistence) {
+      persistence."/persist/delta" = {
+        directories = [
+          "Downloads"
+
+          # GPG keys
+          ".gnupg/private-keys-v1.d"
+
+          # Flatpak stuff
+          ".local/share/flatpak"
+          ".var/app"
+        ];
+
+        allowOther = true;
+      };
+    })
   ];
-
-  home.persistence."/persist/delta" = {
-    directories = [
-      "Downloads"
-
-      # GPG keys
-      ".gnupg/private-keys-v1.d"
-
-      # Flatpak stuff
-      ".local/share/flatpak"
-      ".var/app"
-    ];
-
-    allowOther = true;
-  };
-
-  home.stateVersion = "24.05";
 }
