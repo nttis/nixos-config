@@ -1,10 +1,11 @@
-{ pkgs, ... }:
+{
+  pkgs,
+  lib,
+  options,
+  ...
+}:
 {
   imports = [ ];
-
-  environment.systemPackages = [
-    pkgs.impala
-  ];
 
   # The setup:
   # - systemd-networkd: manages wired connections
@@ -126,9 +127,20 @@
     };
   };
 
-  environment.persistence."/persist/system" = {
-    directories = [
-      "/var/lib/iwd"
-    ];
-  };
+  environment = lib.mkMerge [
+    {
+      systemPackages = [
+        pkgs.impala
+      ];
+    }
+
+    (lib.optionalAttrs (options ? environment.persistence) {
+      persistence."/persist/system" = {
+        directories = [
+          "/var/lib/iwd"
+        ];
+      };
+
+    })
+  ];
 }

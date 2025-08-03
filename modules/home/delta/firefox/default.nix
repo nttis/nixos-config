@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  options,
   config,
   ...
 }:
@@ -164,7 +165,9 @@
     targets.firefox.profileNames = [ "default" ];
   };
 
-  home.persistence."/persist/delta" = {
-    directories = [ ".mozilla/firefox" ];
+  home = lib.optionalAttrs (options ? home.persistence) {
+    persistence."/persist/delta" = {
+      directories = [ ".mozilla/firefox" ];
+    };
   };
 }
