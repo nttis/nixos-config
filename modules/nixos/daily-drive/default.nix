@@ -19,6 +19,12 @@
 
   services = {
     flatpak.enable = true;
+
+    upower = {
+      enable = true;
+      noPollBatteries = true;
+    };
+
     pipewire = {
       enable = true;
       audio.enable = true;
