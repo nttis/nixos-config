@@ -12,8 +12,8 @@
     image = null;
 
     cursor = {
-      package = pkgs.bibata-cursors;
-      name = "Bibata-Original-Ice";
+      package = pkgs.phinger-cursors;
+      name = "phinger-cursors-light";
       size = 28;
     };
 
