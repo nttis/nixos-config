@@ -45,6 +45,9 @@
       noto-fonts-cjk-sans
       noto-fonts-cjk-serif
 
+      material-symbols
+      roboto
+
       nerd-fonts._0xproto
     ];
   };
