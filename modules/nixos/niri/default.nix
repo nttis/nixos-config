@@ -19,10 +19,26 @@
     };
   };
 
-  xdg.portal.extraPortals = [
-    pkgs.xdg-desktop-portal-gnome
-    pkgs.xdg-desktop-portal-gtk
-  ];
+  xdg.portal = {
+    extraPortals = [
+      pkgs.xdg-desktop-portal-gnome
+      pkgs.xdg-desktop-portal-gtk
+    ];
+
+    config =
+      let
+        portalConf = {
+          default = [
+            "gnome"
+            "gtk"
+          ];
+        };
+      in
+      {
+        common = portalConf;
+        niri = portalConf;
+      };
+  };
 
   environment.sessionVariables = {
     DISPLAY = ":0";
