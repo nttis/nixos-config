@@ -20,6 +20,10 @@
         AlwaysAllowAccess = true;
       };
 
+      FdoSecrets = {
+        Enabled = true;
+      };
+
       SSHAgent = {
         Enabled = true;
         UseOpenSSH = true;
