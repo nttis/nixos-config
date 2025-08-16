@@ -9,6 +9,14 @@
   programs.firefox = {
     enable = true;
 
+    policies = {
+      ExtensionSettings = {
+        "uBlock0@raymondhill.net" = {
+          private_browsing = true;
+        };
+      };
+    };
+
     profiles.default = {
       name = "Default";
       isDefault = true;
@@ -45,6 +53,7 @@
         "signon.rememberSignons" = false;
 
         "app.shield.optoutstudies.enabled" = false;
+        "browser.shell.checkDefaultBrowser" = false;
         "browser.discovery.enabled" = false;
         "browser.newtabpage.activity-stream.feeds.telemetry" = false;
         "browser.newtabpage.activity-stream.telemetry" = false;
@@ -81,34 +90,16 @@
           ublock-origin
           sponsorblock
           keepassxc-browser
-          duckduckgo-privacy-essentials # Just to enable the use of Duck emails smh
-          tampermonkey
+          greasemonkey
         ];
 
         settings = {
-          "firefox@tampermonkey.net" = {
-            force = true;
-            settings = builtins.fromJSON (lib.readFile ./tampermonkey.json);
-          };
-
           "keepassxc-browser@keepassxc.org" = {
             force = true;
             settings = {
               settings = {
                 passkeys = true;
               };
-            };
-          };
-
-          # The DDG extension
-          "jid1-ZAdIEUB7XOzOJw@jetpack" = {
-            force = true;
-            settings = {
-              settings = { };
-              companyData = { };
-              totalPages = 0;
-              totalPagesWithTrackers = 0;
-              lastStatsResetDate = 0;
             };
           };
 
@@ -158,6 +149,7 @@
           };
         };
       };
+
     };
   };
 
