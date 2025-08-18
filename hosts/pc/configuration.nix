@@ -39,27 +39,20 @@
 
   services.xserver = {
     enable = lib.mkForce true;
-
     videoDrivers = [ "nvidia" ];
-
-    desktopManager = {
-      xfce.enable = true;
-      xterm.enable = false;
-    };
-
-    displayManager.lightdm = {
-      enable = true;
-      greeters.slick.enable = true;
-    };
   };
 
-  xdg.portal.extraPortals = with pkgs; [
-    xdg-desktop-portal-gtk
-    xdg-desktop-portal-xapp
-  ];
+  services = {
+    displayManager = {
+      defaultSession = "plasmax11";
+      sddm = {
+        enable = true;
+        wayland.enable = false;
+      };
+    };
 
-  environment.systemPackages = with pkgs; [
-    xfce.xfce4-clipman-plugin
-    xfce.xfce4-notifyd
-  ];
+    desktopManager.plasma6 = {
+      enable = true;
+    };
+  };
 }
