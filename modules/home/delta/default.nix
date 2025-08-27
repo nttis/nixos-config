@@ -54,9 +54,7 @@
   home = lib.mkMerge [
     {
       packages = with pkgs; [
-        onlyoffice-desktopeditors
-        kdePackages.kleopatra
-        ghc
+        libreoffice
       ];
 
       stateVersion = "24.05";

@@ -48,6 +48,7 @@
     nix-ld = {
       enable = true;
       libraries = with pkgs; [
+        alsa-lib
         pulseaudio
         pipewire
         wayland

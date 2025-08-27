@@ -41,7 +41,7 @@ let
     builtins.concatLists [
       (mapAssocs "audio/" [ "mpv.desktop" ] audio)
       (mapAssocs "image/" [ "feh.desktop" ] images)
-      (mapAssocs "x-scheme-handler/" [ "org.qutebrowser.qutebrowser.desktop" "firefox.desktop" ] schemes)
+      (mapAssocs "x-scheme-handler/" [ "firefox.desktop" "org.qutebrowser.qutebrowser.desktop" ] schemes)
     ]
   );
 in
