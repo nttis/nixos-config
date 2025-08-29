@@ -269,7 +269,7 @@
     };
 
     settings = {
-      # theme = lib.mkForce "onedark";
+      theme = "onedark";
 
       editor = {
         cursorline = true;

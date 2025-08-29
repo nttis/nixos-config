@@ -153,10 +153,6 @@
     };
   };
 
-  stylix = lib.mkIf config.stylix.enable {
-    targets.firefox.profileNames = [ "default" ];
-  };
-
   home = lib.optionalAttrs (options ? home.persistence) {
     persistence."/persist/delta" = {
       directories = [ ".mozilla/firefox" ];

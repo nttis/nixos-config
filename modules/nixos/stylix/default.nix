@@ -5,6 +5,7 @@
   stylix = {
     enable = true;
     enableReleaseChecks = false;
+    autoEnable = false;
 
     polarity = "dark";
     base16Scheme = "${pkgs.base16-schemes}/share/themes/onedark.yaml";
@@ -37,6 +38,10 @@
     };
   };
 
+  stylix.targets = {
+    console.enable = true;
+  };
+
   home-manager.sharedModules = [
     {
       stylix.iconTheme = {
@@ -44,6 +49,20 @@
         package = pkgs.papirus-icon-theme;
         dark = "Papirus-Dark";
         light = "Papirus-Light";
+      };
+
+      stylix.targets = {
+        kitty.enable = true;
+        fish.enable = true;
+        font-packages.enable = true;
+        fontconfig.enable = true;
+        yazi.enable = true;
+        waybar.enable = true;
+
+        gtk = {
+          enable = true;
+          flatpakSupport.enable = true;
+        };
       };
     }
   ];
