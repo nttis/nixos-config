@@ -8,17 +8,17 @@
   imports = [ ];
 
   # The setup:
-  # - systemd-networkd: manages wired connections
-  # - iwd: manages wireless connections
+  # - systemd-networkd: manages DHCP
+  # - iwd: route wireless connections
   # - systemd-resolved: provides DNS resolution with DNS over TLS
 
   systemd.network = {
     enable = true;
 
-    # Enable systemd-networkd to manage wired connections
-    networks."20-wired" = {
+    # Enable systemd-networkd to manage DHCP for both wired and wireless.
+    networks."20-all" = {
       matchConfig = {
-        Type = "ether";
+        Type = "ether wlan";
       };
 
       networkConfig = {
@@ -39,17 +39,21 @@
   };
 
   networking = {
-    # Disable external DHCP clients and DNS resolution services
+    # Disable all other DHCP clients and DNS resolution services
     useDHCP = false;
     dhcpcd.enable = false;
     resolvconf.enable = false;
     networkmanager.enable = false;
 
+    useNetworkd = true;
+
     wireless.iwd = {
       enable = true;
       settings = {
         General = {
-          EnableNetworkConfiguration = true; # Use iwd's built-in DHCP client
+          # Don't use iwd's built-in DHCP client because systemd-networkd
+          # is already taking care of it
+          EnableNetworkConfiguration = false;
         };
         Network = {
           NameResolvingService = "systemd";
