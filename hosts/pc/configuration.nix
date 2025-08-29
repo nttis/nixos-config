@@ -1,9 +1,9 @@
 {
-  config,
   inputs,
-  pkgs,
   flake,
+  config,
   lib,
+  pkgs,
   ...
 }:
 {
@@ -30,28 +30,16 @@
   networking.hostName = "pc"; # Define your hostname
   time.timeZone = "Asia/Ho_Chi_Minh";
 
-  # fuck
-
   nixpkgs.config.nvidia.acceptLicense = true;
-
+  boot.kernelPackages = lib.mkForce pkgs.linuxKernel.packages.linux_6_12;
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
-  boot.kernelPackages = lib.mkForce pkgs.linuxPackages_6_12;
 
   services.xserver = {
     enable = lib.mkForce true;
+    enableTearFree = true;
     videoDrivers = [ "nvidia" ];
-  };
 
-  services = {
-    displayManager = {
-      defaultSession = "plasmax11";
-      sddm = {
-        enable = true;
-        wayland.enable = false;
-      };
-    };
-
-    desktopManager.plasma6 = {
+    desktopManager.cinnamon = {
       enable = true;
     };
   };
