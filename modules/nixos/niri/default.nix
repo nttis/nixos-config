@@ -1,5 +1,4 @@
 {
-  flake,
   pkgs,
   ...
 }:
@@ -40,11 +39,9 @@
       };
   };
 
-  environment.sessionVariables = {
-    DISPLAY = ":0";
-  };
-
-  home-manager.sharedModules = [
-    flake.homeModules.xwayland-satellite
+  environment.systemPackages = with pkgs; [
+    wl-clipboard
+    rofi-wayland
+    xwayland-satellite
   ];
 }
