@@ -15,6 +15,7 @@
     flake.nixosModules.daily-drive
     flake.nixosModules.niri
     flake.nixosModules.impermanence
+    flake.nixosModules.bluetooth
     flake.nixosModules.power
     flake.nixosModules.networking
     flake.nixosModules.stylix
