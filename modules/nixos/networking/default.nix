@@ -8,35 +8,30 @@
   imports = [ ];
 
   # The setup:
-  # - systemd-networkd: manages DHCP
-  # - iwd: route wireless connections
-  # - systemd-resolved: provides DNS resolution with DNS over TLS
+  # - systemd-networkd: manages wired connections
+  # - iwd: manages wireless connections
+  # - dnscrypt-proxy2: DNS resolution and sinkholing
 
   systemd.network = {
     enable = true;
 
-    # Enable systemd-networkd to manage DHCP for both wired and wireless.
-    networks."20-all" = {
+    networks."60-ether" = {
       matchConfig = {
-        Type = "ether wlan";
+        Type = "ether";
       };
 
       networkConfig = {
         DHCP = "yes";
-        IPv6PrivacyExtensions = true;
+        IgnoreCarrierLoss = "3s";
       };
 
-      dhcpConfig = {
-        Anonymize = true;
+      dhcpV4Config = {
+        UseDNS = false; # Ignore nameservers from DHCP
       };
     };
   };
 
-  services.resolved = {
-    enable = true;
-    dnssec = "true";
-    dnsovertls = "true";
-  };
+  services.resolved.enable = lib.mkForce false;
 
   networking = {
     # Disable all other DHCP clients and DNS resolution services
@@ -45,26 +40,21 @@
     resolvconf.enable = false;
     networkmanager.enable = false;
 
-    useNetworkd = true;
-
     wireless.iwd = {
       enable = true;
       settings = {
         General = {
-          # Don't use iwd's built-in DHCP client because systemd-networkd
-          # is already taking care of it
-          EnableNetworkConfiguration = false;
+          EnableNetworkConfiguration = true;
         };
         Network = {
-          NameResolvingService = "systemd";
+          NameResolvingService = "none";
         };
       };
     };
 
-    # These nameservers are read by systemd-resolved and is used globally
     nameservers = [
-      "1.1.1.1#cloudflare-dns.com"
-      "1.0.0.1#cloudflare-dns.com"
+      "127.0.0.1"
+      "::1"
     ];
 
     nftables.enable = true;
@@ -74,7 +64,9 @@
 
       # To facilitate hotspot wifi sharing
       allowedUDPPorts = [ 67 ];
-      trustedInterfaces = [ "ap0" ];
+      trustedInterfaces = [
+        "ap0"
+      ];
 
       # Open common development ports
       allowedTCPPortRanges = [
@@ -93,6 +85,39 @@
     };
   };
 
+  services.dnscrypt-proxy = {
+    enable = true;
+    settings = {
+      sources.public-resolvers = {
+        urls = [
+          "https://download.dnscrypt.info/resolvers-list/v2/public-resolvers.md"
+          "https://raw.githubusercontent.com/DNSCrypt/dnscrypt-resolvers/master/v3/public-resolvers.md"
+        ];
+        cache_file = "/var/lib/dnscrypt-proxy2/public-resolvers.md";
+        minisign_key = "RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3";
+        refresh_delay = 72;
+      };
+
+      bootstrap_resolvers = [
+        "9.9.9.9:53"
+        "1.1.1.1:53"
+        "1.0.0.1:53"
+      ];
+
+      require_dnssec = false;
+      require_nolog = true;
+      require_nofilter = true;
+
+      dnscrypt_servers = true;
+      doh_servers = true;
+      odoh_servers = true;
+
+      lb_estimator = false;
+    };
+  };
+
+  systemd.services.dnscrypt-proxy2.serviceConfig.StateDirectory = "dnscrypt-proxy2";
+
   environment = lib.mkMerge [
     {
       systemPackages = [
@@ -104,6 +129,7 @@
       persistence."/persist/system" = {
         directories = [
           "/var/lib/iwd"
+          "/var/lib/dnscrypt-proxy2"
         ];
       };
     })
