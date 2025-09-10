@@ -23,25 +23,11 @@
       pkgs.xdg-desktop-portal-gnome
       pkgs.xdg-desktop-portal-gtk
     ];
-
-    config =
-      let
-        portalConf = {
-          default = [
-            "gnome"
-            "gtk"
-          ];
-        };
-      in
-      {
-        common = portalConf;
-        niri = portalConf;
-      };
   };
 
   environment.systemPackages = with pkgs; [
     wl-clipboard
-    rofi-wayland
+    rofi
     xwayland-satellite
   ];
 }
