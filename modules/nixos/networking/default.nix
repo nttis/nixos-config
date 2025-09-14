@@ -14,6 +14,7 @@
 
   systemd.network = {
     enable = true;
+    wait-online.enable = false;
 
     networks."60-ether" = {
       matchConfig = {
