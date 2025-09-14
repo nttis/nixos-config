@@ -12,14 +12,7 @@
     rtkit.enable = true;
   };
 
-  xdg.portal = {
-    enable = true;
-    xdgOpenUsePortal = true;
-  };
-
   services = {
-    flatpak.enable = true;
-
     upower = {
       enable = true;
       noPollBatteries = true;

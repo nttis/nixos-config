@@ -5,24 +5,28 @@
 {
   programs = {
     niri.enable = true;
-    dconf.enable = true;
-  };
-
-  services.greetd = {
-    enable = true;
-    settings = {
-      default_session = {
-        command = "${pkgs.tuigreet}/bin/tuigreet --time";
-        user = "greeter";
-      };
-    };
   };
 
   xdg.portal = {
-    extraPortals = [
-      pkgs.xdg-desktop-portal-gnome
-      pkgs.xdg-desktop-portal-gtk
-    ];
+    xdgOpenUsePortal = true;
+  };
+
+  services = {
+    greetd = {
+      enable = true;
+      settings = {
+        default_session = {
+          command = "${pkgs.tuigreet}/bin/tuigreet --time";
+          user = "greeter";
+        };
+      };
+    };
+
+    flatpak = {
+      enable = true;
+    };
+
+    gnome.gnome-keyring.enable = false;
   };
 
   environment.systemPackages = with pkgs; [
