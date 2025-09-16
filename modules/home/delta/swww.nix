@@ -12,7 +12,6 @@ in
   systemd.user.services.swww-cycle = {
     Unit = {
       Description = "Cycle wallpaper with swww";
-      After = [ "graphical-session.target" ];
     };
 
     Service = {
@@ -21,10 +20,6 @@ in
         let file = ls ${wallpapers} | shuffle | first | get name | path expand
         ${pkgs.swww}/bin/swww img $file
       '';
-    };
-
-    Install = {
-      WantedBy = [ "graphical-session.target" ];
     };
   };
 
