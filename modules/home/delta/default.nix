@@ -11,7 +11,6 @@
 
     ./helix.nix
     ./git.nix
-    ./waybar.nix
     ./terminal.nix
     ./swww.nix
     ./keepassxc.nix
