@@ -1,0 +1,46 @@
+[templates.kitty]
+input_path = "./kitty_template.conf"
+output_path = "~/.config/kitty/colors.conf"
+post_hook = "pkill -SIGUSR1 kitty"
+
+[templates.gtk3]
+input_path = "./gtk_template.css"
+output_path = "~/.config/gtk-3.0/colors.css"
+
+[templates.gtk4]
+input_path = "./gtk_template.css"
+output_path = "~/.config/gtk-4.0/colors.css"
+
+[templates.qt5ct]
+input_path = './qtct_template.conf'
+output_path = '~/.config/qt5ct/colors/matugen.conf'
+
+[templates.qt6ct]
+input_path = './qtct_template.conf'
+output_path = '~/.config/qt6ct/colors/matugen.conf'
+
+[config.custom_colors]
+base00 = { color = "#282c34", blend = true }
+base01 = { color = "#3f4451", blend = true }
+base02 = { color = "#4f5666", blend = true }
+base03 = { color = "#545862", blend = true }
+base04 = { color = "#9196a1", blend = true }
+base05 = { color = "#abb2bf", blend = true }
+base06 = { color = "#e6e6e6", blend = true }
+base07 = { color = "#ffffff", blend = true }
+base08 = { color = "#e05561", blend = true }
+base09 = { color = "#d18f52", blend = true }
+base0A = { color = "#e6b965", blend = true }
+base0B = { color = "#8cc265", blend = true }
+base0C = { color = "#42b3c2", blend = true }
+base0D = { color = "#4aa5f0", blend = true }
+base0E = { color = "#c162de", blend = true }
+base0F = { color = "#bf4034", blend = true }
+base10 = { color = "#21252b", blend = true }
+base11 = { color = "#181a1f", blend = true }
+base12 = { color = "#ff616e", blend = true }
+base13 = { color = "#f0a45d", blend = true }
+base14 = { color = "#a5e075", blend = true }
+base15 = { color = "#4cd1e0", blend = true }
+base16 = { color = "#4dc4ff", blend = true }
+base17 = { color = "#de73ff", blend = true }

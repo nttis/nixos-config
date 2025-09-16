@@ -16,6 +16,7 @@
     ./keepassxc.nix
     ./mimetypes.nix
 
+    ./rice
     ./niri
     ./firefox
     ./gpg
