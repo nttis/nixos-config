@@ -9,7 +9,6 @@
 
     inputs.impermanence.nixosModules.impermanence
     inputs.home-manager.nixosModules.home-manager
-    inputs.stylix.nixosModules.stylix
 
     flake.nixosModules.foundation
     flake.nixosModules.daily-drive
@@ -18,7 +17,6 @@
     flake.nixosModules.bluetooth
     flake.nixosModules.power
     flake.nixosModules.networking
-    flake.nixosModules.stylix
   ];
 
   users.users.delta = {

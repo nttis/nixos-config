@@ -24,6 +24,4 @@
     enable = true;
     source = ./fcitx5;
   };
-
-  # stylix.targets.fcitx5.enable = false;
 }
