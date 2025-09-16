@@ -9,10 +9,6 @@
     userEmail = "slush-gulf-rural@duck.com";
   };
 
-  programs.gitui = {
-    enable = true;
-  };
-
   programs.jujutsu = {
     enable = true;
     settings = {
