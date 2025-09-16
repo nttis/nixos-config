@@ -69,12 +69,10 @@
             ];
 
             text = ''
-              # Weirdness: enable 802.11ax will not allow any clients access to Internet??
               sudo create_ap \
                 wlan0 wlan0 \
                 "Mercurial Snake" "eternalmoment" \
                 --ieee80211ac \
-                --country VN \
                 --dhcp-dns 1.1.1.1 \
                 -w 3
             '';
