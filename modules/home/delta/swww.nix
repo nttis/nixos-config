@@ -30,6 +30,7 @@ in
     };
 
     Timer = {
+      OnStartupSec = 5;
       OnUnitActiveSec = 600;
     };
 
