@@ -1,6 +1,5 @@
 {
   pkgs,
-  perSystem,
   flake,
   osConfig,
   ...
@@ -340,31 +339,31 @@
 
   # asciidoc
   xdg.configFile."helix/runtime/queries/asciidoc" = {
-    source = "${perSystem.self.tree-sitter-asciidoc}/queries";
+    source = "${pkgs.tree-sitter-asciidoc}/queries";
     recursive = true;
   };
 
   xdg.configFile."helix/runtime/grammars/asciidoc.so" = {
-    source = "${perSystem.self.tree-sitter-asciidoc}/parser";
+    source = "${pkgs.tree-sitter-asciidoc}/parser";
   };
 
   # ziggy
   xdg.configFile."helix/runtime/grammars/ziggy.so" = {
-    source = "${perSystem.self.tree-sitter-ziggy}/parser";
+    source = "${pkgs.tree-sitter-ziggy}/parser";
   };
 
   xdg.configFile."helix/runtime/queries/ziggy" = {
-    source = "${perSystem.self.tree-sitter-ziggy}/queries";
+    source = "${pkgs.tree-sitter-ziggy}/queries";
     recursive = true;
   };
 
   # luau
   xdg.configFile."helix/runtime/grammars/luau.so" = {
-    source = "${perSystem.self.tree-sitter-luau}/parser";
+    source = "${pkgs.tree-sitter-luau}/parser";
   };
 
   xdg.configFile."helix/runtime/queries/luau" = {
-    source = "${perSystem.self.tree-sitter-luau}/queries";
+    source = "${pkgs.tree-sitter-luau}/queries";
     recursive = true;
   };
 }

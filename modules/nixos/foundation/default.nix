@@ -10,6 +10,14 @@
     config.allowUnfree = true;
     overlays = [
       inputs.firefox-addons.overlays.default
+
+      (
+        prev: final:
+        final.lib.packagesFromDirectoryRecursive {
+          inherit (final) callPackage newScope;
+          directory = "${inputs.nttpkgs}/packages";
+        }
+      )
     ];
   };
 
