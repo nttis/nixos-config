@@ -9,6 +9,12 @@
 
   xdg.portal = {
     xdgOpenUsePortal = true;
+    config.common = {
+      default = [
+        "gnome"
+        "gtk"
+      ];
+    };
   };
 
   services = {
@@ -30,6 +36,7 @@
   };
 
   environment.systemPackages = with pkgs; [
+    nautilus
     wl-clipboard
     rofi
     xwayland-satellite
