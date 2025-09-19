@@ -2,7 +2,6 @@
   lib,
   pkgs,
   options,
-  config,
   ...
 }:
 {
@@ -81,6 +80,7 @@
         "identity.fxaccounts.enabled" = false;
 
         "media.webrtc.camera.allow-pipewire" = true;
+        "widget.use-xdg-desktop-portal.file-picker" = 1;
       };
 
       extensions = {
