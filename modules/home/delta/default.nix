@@ -33,7 +33,7 @@
     Unit = {
       Description = "Lower microphone volume";
       After = [
-        "graphical-session.target"
+        "default.target"
         "wireplumber.target"
       ];
     };
@@ -46,7 +46,7 @@
 
     Install = {
       WantedBy = [
-        "graphical-session.target"
+        "default.target"
         "wireplumber.target"
       ];
     };
