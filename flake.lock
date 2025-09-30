@@ -29,11 +29,11 @@
       },
       "locked": {
         "dir": "pkgs/firefox-addons",
-        "lastModified": 1758600213,
-        "narHash": "sha256-YP7+UxybMCzHPd5k93pulILnFvSisjgUAGUB/cxWbqU=",
+        "lastModified": 1759172068,
+        "narHash": "sha256-gZZcpBuggJpoz6abCIILvxRM38MwmBAOsLLrcD5g24U=",
         "owner": "rycee",
         "repo": "nur-expressions",
-        "rev": "8a0333bf11a0fab386c80fa018617bb050156ec5",
+        "rev": "32143b55aab289393dea26a78098517a11187465",
         "type": "gitlab"
       },
       "original": {
@@ -50,11 +50,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1758692005,
-        "narHash": "sha256-bNRMXWSLM4K9cF1YaHYjLol60KIAWW4GzAoJDp5tA0w=",
+        "lastModified": 1759236626,
+        "narHash": "sha256-1BjCUU2csqhR5umGYFnOOTU8r8Bi+bnB2SLsr0FLcws=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "6ce2e18007ff022db41d9cc042f8838e8c51ed66",
+        "rev": "9e0453a9b0c8ef22de0355b731d712707daa6308",
         "type": "github"
       },
       "original": {
@@ -100,17 +100,32 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1758427187,
-        "narHash": "sha256-pHpxZ/IyCwoTQPtFIAG2QaxuSm8jWzrzBGjwQZIttJc=",
+        "lastModified": 1759036355,
+        "narHash": "sha256-0m27AKv6ka+q270dw48KflE0LwQYrO7Fm4/2//KCVWg=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "554be6495561ff07b6c724047bdd7e0716aa7b46",
+        "rev": "e9f00bd893984bc8ce46c895c3bf7cac95331127",
         "type": "github"
       },
       "original": {
         "owner": "nixos",
         "ref": "nixos-unstable",
         "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nttpkgs": {
+      "locked": {
+        "lastModified": 1759246640,
+        "narHash": "sha256-zcIMcCfHyPgNuilt50avwmOYDVJs/rj9OHgGpr/52+s=",
+        "owner": "nttis",
+        "repo": "nttpkgs",
+        "rev": "4ef08db6cba1d90d328d69d9be452be00b6e6fb7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nttis",
+        "repo": "nttpkgs",
         "type": "github"
       }
     },
@@ -121,7 +136,8 @@
         "home-manager": "home-manager",
         "impermanence": "impermanence",
         "nix-github-actions": "nix-github-actions",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "nttpkgs": "nttpkgs"
       }
     },
     "systems": {
