@@ -70,6 +70,7 @@
       helix
       kitty
       yazi
+      trashy
       libarchive
       aria2
       brightnessctl
@@ -77,6 +78,10 @@
       pwvucontrol
       qpwgraph
     ];
+
+    shellAliases = {
+      rm = ''echo "rm is aliased away, use 'trash' instead"; false'';
+    };
 
     sessionVariables = {
       EDITOR = "hx";
