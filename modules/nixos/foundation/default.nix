@@ -69,6 +69,10 @@
     };
   };
 
+  environment.systemPackages = [
+    pkgs.pinentry-all
+  ];
+
   users = {
     mutableUsers = false;
     defaultUserShell = pkgs.fish;
