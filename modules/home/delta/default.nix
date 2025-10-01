@@ -26,6 +26,7 @@
   services = {
     dunst.enable = true;
     podman.enable = true;
+    udiskie.enable = true;
   };
 
   systemd.user.services.mic-volume = {

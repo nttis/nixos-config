@@ -19,7 +19,6 @@
     };
 
     udisks2.enable = true;
-    devmon.enable = true;
 
     pipewire = {
       enable = true;
