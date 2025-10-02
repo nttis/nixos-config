@@ -69,6 +69,8 @@
     };
   };
 
+  hardware.uinput.enable = true;
+
   environment.systemPackages = [
     pkgs.pinentry-all
   ];
