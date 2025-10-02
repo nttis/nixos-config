@@ -30,6 +30,8 @@
         support32Bit = true;
       };
     };
+
+    gpm.enable = true;
   };
 
   fonts = {
