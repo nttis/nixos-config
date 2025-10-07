@@ -1,4 +1,4 @@
-{ self, ... }:
+{ self, inputs, ... }:
 let
   name = "delta";
 in
@@ -29,19 +29,21 @@ in
   flake.modules.homeManager."users.${name}" =
     { lib, pkgs, ... }:
     {
-      imports = lib.map (x: self.modules.homeManager."${x}@${name}") [
-        "firefox"
-        "fcitx5"
-        "helix"
-        "git"
-        "terminal"
-        "swww"
-        "keepassxc"
-        "mimetypes"
-        "rice"
-        "niri"
-        "gpg"
-      ];
+      imports =
+        lib.map (x: self.modules.homeManager."${x}@${name}") [
+          "firefox"
+          "fcitx5"
+          "helix"
+          "git"
+          "terminal"
+          "swww"
+          "keepassxc"
+          "mimetypes"
+          "rice"
+          "niri"
+          "gpg"
+        ]
+        ++ [ inputs.nix-index-database.homeModules.nix-index ];
 
       services = {
         dunst.enable = true;
