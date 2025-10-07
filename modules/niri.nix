@@ -4,7 +4,6 @@
 {
   flake.modules.nixos.niri =
     {
-      lib,
       pkgs,
       ...
     }:
@@ -39,13 +38,6 @@
         };
 
         gnome.gnome-keyring.enable = false;
-
-        xserver.desktopManager.xfce = {
-          enable = true;
-          enableXfwm = false;
-          enableWaylandSession = true;
-          enableScreensaver = false;
-        };
       };
 
       security.soteria.enable = true;
