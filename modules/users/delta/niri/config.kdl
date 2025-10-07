@@ -48,6 +48,8 @@ layout {
     border {
         off
     }
+
+    background-color "transparent"
 }
 
 window-rule {
@@ -80,6 +82,15 @@ gestures {
     hot-corners {
         off
     }
+}
+
+layer-rule {
+    match namespace="^(wallpaper|swww-daemon)$"
+    place-within-backdrop true
+}
+
+overview {
+    zoom 0.92
 }
 
 binds {
