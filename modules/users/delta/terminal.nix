@@ -2,12 +2,39 @@
 {
   flake.modules.homeManager."terminal@delta" =
     { pkgs, ... }:
+    let
+      hotspot = pkgs.writeShellApplication {
+        name = "hotspot";
+
+        runtimeInputs = with pkgs; [
+          linux-wifi-hotspot
+          haveged
+        ];
+
+        text = ''
+          echo "Enter SSID: "
+          read -r ssid
+
+          echo "Enter password: "
+          read -r password
+
+          sudo create_ap \
+            wlan0 wlan0 \
+            "$ssid" "$password" \
+            --ieee80211ac \
+            --dhcp-dns 1.1.1.1 \
+            -w 3
+        '';
+      };
+    in
     {
       home.packages = with pkgs; [
         bat
         ripgrep
         ripgrep-all
         file
+
+        hotspot
       ];
 
       programs.fzf = {
@@ -46,46 +73,25 @@
 
       programs.fish = {
         enable = true;
-        shellAliases = {
-          "ls" = "${pkgs.eza}/bin/eza";
-          "grep" = "${pkgs.ripgrep}/bin/rg";
-
-          "sysinfo" = "${pkgs.writeScript "sysinfo.sh" ''
-            ${pkgs.coreutils}/bin/uname --all
-            ${pkgs.util-linux}/bin/lscpu
-            ${pkgs.pciutils}/bin/lspci -v
-            ${pkgs.fastfetch}/bin/fastfetch
-          ''}";
-
-          "bottom" = "${pkgs.bottom}/bin/btm --tree";
-
-          "hotspot" =
-            let
-              script = pkgs.writeShellApplication {
-                name = "start-hotspot";
-
-                runtimeInputs = with pkgs; [
-                  linux-wifi-hotspot
-                  haveged
-                ];
-
-                text = ''
-                  sudo create_ap \
-                    wlan0 wlan0 \
-                    --ieee80211ac \
-                    --dhcp-dns 1.1.1.1 \
-                    -w 3
-                '';
-              };
-            in
-            "${script}/bin/start-hotspot";
-        };
       };
 
       programs.starship = {
         enable = true;
         enableBashIntegration = true;
         enableFishIntegration = true;
+      };
+
+      home.shellAliases = {
+        ls = "${pkgs.eza}/bin/eza";
+        grep = "${pkgs.ripgrep}/bin/rg";
+        bottom = "${pkgs.bottom}/bin/btm --tree";
+
+        sysinfo = "${pkgs.writeScript "sysinfo.sh" ''
+          ${pkgs.coreutils}/bin/uname --all
+          ${pkgs.util-linux}/bin/lscpu
+          ${pkgs.pciutils}/bin/lspci -v
+          ${pkgs.fastfetch}/bin/fastfetch
+        ''}";
       };
     };
 }

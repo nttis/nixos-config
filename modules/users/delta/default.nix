@@ -51,7 +51,7 @@ in
       };
 
       home.packages = [
-        # pkgs.libreoffice
+        pkgs.onlyoffice-bin
       ];
 
       home.stateVersion = "24.05";
