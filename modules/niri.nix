@@ -1,0 +1,65 @@
+{
+  ...
+}:
+{
+  flake.modules.nixos.niri =
+    {
+      lib,
+      pkgs,
+      ...
+    }:
+    {
+      programs = {
+        niri.enable = true;
+      };
+
+      xdg.portal = {
+        xdgOpenUsePortal = true;
+        config.common = {
+          default = [
+            "gnome"
+            "gtk"
+          ];
+        };
+      };
+
+      services = {
+        greetd = {
+          enable = true;
+          settings = {
+            default_session = {
+              command = "${pkgs.tuigreet}/bin/tuigreet --time";
+              user = "greeter";
+            };
+          };
+        };
+
+        flatpak = {
+          enable = true;
+        };
+
+        gnome.gnome-keyring.enable = false;
+
+        xserver.desktopManager.xfce = {
+          enable = true;
+          enableXfwm = false;
+          enableWaylandSession = true;
+          enableScreensaver = false;
+        };
+      };
+
+      security.soteria.enable = true;
+
+      environment.systemPackages = with pkgs; [
+        pinentry-gnome3
+        nautilus
+        wl-clipboard
+        rofi
+        xwayland-satellite
+      ];
+    };
+
+  flake.modules.homeManager.fcitx5 = {
+    i18n.inputMethod.fcitx5.waylandFrontend = true;
+  };
+}
