@@ -18,6 +18,16 @@
             "sponsorBlocker@ajay.app" = {
               private_browsing = true;
             };
+
+            # Greasemonkey
+            "{e4a8a97b-f2ed-450b-b12d-ee082ba24781}" = {
+              private_browsing = true;
+            };
+
+            # Yomitan
+            "{6b733b82-9261-47ee-a595-2dda294a4d08}" = {
+              private_browsing = true;
+            };
           };
         };
 
@@ -95,6 +105,7 @@
               ublock-origin
               sponsorblock
               greasemonkey
+              yomitan
             ];
 
             settings = {
