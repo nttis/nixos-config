@@ -8,6 +8,8 @@
     nix-ld
     foundation
     daily-drive
+    nvidia-legacy
+    plasma
 
     self.modules.nixos."users.delta"
   ];
