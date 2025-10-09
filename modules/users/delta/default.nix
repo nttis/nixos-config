@@ -41,6 +41,7 @@ in
           "mimetypes"
           "rice"
           "niri"
+          "plasma"
           "gpg"
         ]
         ++ [ inputs.nix-index-database.homeModules.nix-index ];
