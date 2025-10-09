@@ -1,8 +1,10 @@
-{ ... }:
+{ self, ... }:
 {
   flake.modules.nixos.daily-drive =
     { pkgs, ... }:
     {
+      imports = [ self.modules.nixos.scanners ];
+
       hardware = {
         enableRedistributableFirmware = true;
         graphics.enable = true;
