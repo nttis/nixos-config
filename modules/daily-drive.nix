@@ -3,7 +3,10 @@
   flake.modules.nixos.daily-drive =
     { pkgs, ... }:
     {
-      imports = [ self.modules.nixos.scanners ];
+      imports = [
+        self.modules.nixos.scanners
+        self.modules.nixos.printing
+      ];
 
       hardware = {
         enableRedistributableFirmware = true;
