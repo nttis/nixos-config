@@ -52,6 +52,7 @@ in
 
       home.packages = [
         pkgs.onlyoffice-bin
+        pkgs.gimp3
       ];
 
       home.stateVersion = "24.05";
