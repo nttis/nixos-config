@@ -10,36 +10,20 @@
       # - iwd: manages wireless connections
       # - dnscrypt-proxy2: DNS resolution and sinkholing
 
-      systemd.network = {
-        enable = true;
-        wait-online.enable = false;
-
-        networks."60-ether" = {
-          matchConfig = {
-            Type = "ether";
-          };
-
-          networkConfig = {
-            DHCP = "yes";
-            IgnoreCarrierLoss = "3s";
-          };
-
-          dhcpV4Config = {
-            UseDNS = false; # Ignore nameservers from DHCP
-          };
-        };
-      };
-
       # As of September 2025, systemd-resolved has horrible performance, drops queries all the time
       # and is generally just broken.
       services.resolved.enable = lib.mkForce false;
 
       networking = {
-        # Disable all other DHCP clients and DNS resolution services
-        useDHCP = false;
+        useDHCP = true;
         dhcpcd.enable = false;
         resolvconf.enable = false;
-        networkmanager.enable = false;
+
+        networkmanager = {
+          enable = true;
+          wifi.backend = "iwd";
+          dns = "none";
+        };
 
         wireless.iwd = {
           enable = true;
