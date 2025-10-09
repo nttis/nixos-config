@@ -2,7 +2,9 @@
 {
   flake.modules.homeManager."rice@delta" =
     {
+      lib,
       pkgs,
+      osConfig,
       ...
     }:
     let
@@ -52,7 +54,7 @@
         platformTheme.name = "qtct";
       };
 
-      xdg.configFile = {
+      xdg.configFile = lib.mkIf (!osConfig.services.desktopManager.plasma6.enable) {
         "qt5ct/qt5ct.conf" = {
           enable = true;
           text = ''
