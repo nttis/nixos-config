@@ -4,6 +4,7 @@
 {
   flake.modules.nixos.niri =
     {
+      lib,
       pkgs,
       ...
     }:
@@ -14,12 +15,7 @@
 
       xdg.portal = {
         xdgOpenUsePortal = true;
-        config.common = {
-          default = [
-            "gnome"
-            "gtk"
-          ];
-        };
+        extraPortals = lib.mkForce [ pkgs.xdg-desktop-portal-gnome ];
       };
 
       services = {
