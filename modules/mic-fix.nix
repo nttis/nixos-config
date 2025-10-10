@@ -4,7 +4,7 @@
   flake.modules.nixos.mic-fix =
     { pkgs, ... }:
     {
-      systemd.services.mic-fix = {
+      systemd.user.services.mic-fix = {
         unitConfig = {
           Description = "Lower microphone volume";
           After = [
@@ -20,6 +20,7 @@
         };
 
         wantedBy = [
+          "default.target"
           "wireplumber.target"
         ];
       };
