@@ -51,7 +51,7 @@ in
         ++ [ inputs.nix-index-database.homeModules.nix-index ];
 
       services = {
-        dunst.enable = true;
+        swaync.enable = true;
         udiskie.enable = true;
       };
 
