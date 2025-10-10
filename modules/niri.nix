@@ -41,6 +41,7 @@
         nautilus
         wl-clipboard
         rofi
+        swaylock
         xwayland-satellite
       ];
     };
