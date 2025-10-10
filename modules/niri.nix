@@ -36,8 +36,6 @@
         flatpak = {
           enable = true;
         };
-
-        gnome.gnome-keyring.enable = false;
       };
 
       security.soteria.enable = true;
