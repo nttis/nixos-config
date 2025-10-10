@@ -3,6 +3,10 @@ let
   name = "delta";
 in
 {
+  flake.homeConfigurations.${name} = inputs.home-manager.lib.homeConfiguration {
+    modules = [ self.modules.homeManager."users.${name}" ];
+  };
+
   flake.modules.nixos."users.${name}" =
     { config, ... }:
     {
