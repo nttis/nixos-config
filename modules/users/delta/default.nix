@@ -57,6 +57,7 @@ in
 
       home.packages = [
         pkgs.onlyoffice-bin
+        pkgs.libreoffice
         pkgs.gimp3
       ];
 
