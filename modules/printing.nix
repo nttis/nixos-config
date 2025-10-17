@@ -9,11 +9,7 @@
         cups-pdf.enable = true;
 
         drivers = with pkgs; [
-          # TODO: remove when nixpkgs resolves the CMageddon4
-          (brlaser.overrideAttrs (prev: {
-            cmakeFlags = prev.cmakeFlags ++ [ "-DCMAKE_POLICY_VERSION_MINIMUM=3.5" ];
-          }))
-
+          brlaser
           gutenprint
           gutenprint-bin
           splix
