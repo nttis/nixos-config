@@ -14,6 +14,8 @@
       # and is generally just broken.
       services.resolved.enable = lib.mkForce false;
 
+      systemd.services.NetworkManager-wait-online.enable = false;
+
       networking = {
         useDHCP = true;
         dhcpcd.enable = false;
