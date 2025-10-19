@@ -9,7 +9,7 @@
     foundation
     daily-drive
     nvidia-legacy
-    plasma
+    gnome
 
     self.modules.nixos."users.delta"
   ];
