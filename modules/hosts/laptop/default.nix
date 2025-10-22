@@ -1,23 +1,23 @@
 { self, ... }:
 {
-  flake.modules.nixos."hosts.laptop".imports = with self.modules.nixos; [
-    impermanence
-    systemd-boot
-    memtest86
-    tlp
-    thermald
-    networking
-    nix-ld
-    foundation
-    daily-drive
-    modern
-    niri
-    mic-fix
-
-    self.modules.nixos."users.delta"
-  ];
-
   flake.modules.nixos."hosts.laptop" = {
+    imports = with self.modules.nixos; [
+      impermanence
+      systemd-boot
+      memtest86
+      tlp
+      thermald
+      networking
+      nix-ld
+      foundation
+      daily-drive
+      modern
+      niri
+      mic-fix
+
+      self.modules.nixos."users.delta"
+    ];
+
     networking.hostName = "laptop";
     time.timeZone = "Asia/Ho_Chi_Minh";
 
