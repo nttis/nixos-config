@@ -4,8 +4,10 @@
     programs.git = {
       enable = true;
 
-      userName = "nttis";
-      userEmail = "slush-gulf-rural@duck.com";
+      settings = {
+        user.name = "nttis";
+        user.email = "slush-gulf-rural@duck.com";
+      };
     };
 
     programs.jujutsu = {
