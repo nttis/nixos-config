@@ -159,11 +159,9 @@
       };
     };
 
-  flake.modules.homeManager.impermanence =
-    { config, ... }:
-    {
-      home.persistence."/persist/${config.home.username}" = {
-        directories = [ ".mozilla/firefox" ];
-      };
+  flake.modules.nixos.impermanence = {
+    preservation.preserveAt."/persist".users.delta = {
+      directories = [ ".mozilla/firefox" ];
     };
+  };
 }

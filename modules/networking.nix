@@ -14,10 +14,16 @@
       # and is generally just broken.
       services.resolved.enable = lib.mkForce false;
 
-      systemd.services.NetworkManager-wait-online.enable = false;
+      systemd = {
+        network = {
+          enable = true;
+          wait-online.enable = false;
+        };
+
+        services.NetworkManager-wait-online.enable = false;
+      };
 
       networking = {
-        useDHCP = true;
         dhcpcd.enable = false;
         resolvconf.enable = false;
 
@@ -107,7 +113,7 @@
     };
 
   flake.modules.nixos.impermanence = {
-    environment.persistence."/persist/system" = {
+    preservation.preserveAt."/persist/system" = {
       directories = [ "/var/lib/iwd" ];
     };
   };

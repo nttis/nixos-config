@@ -1,38 +1,10 @@
 {
-  self,
   inputs,
-  lib,
   ...
 }:
 {
   flake.modules.nixos.impermanence = {
-    imports = [ inputs.impermanence.nixosModules.impermanence ];
-
-    boot.initrd.postDeviceCommands = lib.mkAfter ''
-      mkdir /btrfs_tmp
-      mount /dev/disk/by-partlabel/nix /btrfs_tmp
-
-      if [[ -e /btrfs_tmp/root ]]; then
-          mkdir -p /btrfs_tmp/old_roots
-          timestamp=$(date --date="@$(stat -c %Y /btrfs_tmp/root)" "+%Y-%m-%-d_%H:%M:%S")
-          mv /btrfs_tmp/root "/btrfs_tmp/old_roots/$timestamp"
-      fi
-
-      delete_subvolume_recursively() {
-          IFS=$'\n'
-          for i in $(btrfs subvolume list -o "$1" | cut -f 9- -d ' '); do
-              delete_subvolume_recursively "/btrfs_tmp/$i"
-          done
-          btrfs subvolume delete "$1"
-      }
-
-      for i in $(find /btrfs_tmp/old_roots/ -maxdepth 1 -mtime +14); do
-          delete_subvolume_recursively "$i"
-      done
-
-      btrfs subvolume create /btrfs_tmp/root
-      umount /btrfs_tmp
-    '';
+    imports = [ inputs.preservation.nixosModules.preservation ];
 
     fileSystems = {
       "/" = {
@@ -69,24 +41,65 @@
       };
     };
 
-    environment.persistence."/persist/system" = {
-      hideMounts = true;
-      directories = [
-        "/var/log"
-        "/var/lib/nixos"
-        "/var/lib/systemd/coredump"
-      ];
+    boot.initrd.systemd = {
+      enable = true;
+
+      # NOTE: stolen from https://blog.decent.id/post/nixos-systemd-initrd
+      services.impermanent-root = {
+        description = "Move current root to /old_roots";
+        wantedBy = [ "initrd.target" ];
+
+        # This ordering is important: we need this service to run AFTER the initrd filesystem is
+        # mounted (ie. /dev exists inside the initrd), but BEFORE the real filesystem is mounted.
+        after = [ "initrd-root-device.target" ];
+        before = [ "sysroot.mount" ];
+
+        unitConfig.DefaultDependencies = "no";
+        serviceConfig.Type = "oneshot";
+
+        script = ''
+          mkdir -p /btrfs_tmp
+          mount /dev/disk/by-partlabel/nix /btrfs_tmp
+
+          if [[ -e /btrfs_tmp/root ]]; then
+              mkdir -p /btrfs_tmp/old_roots
+              timestamp=$(date --date="@$(stat -c %Y /btrfs_tmp/root)" "+%Y-%m-%-d_%H:%M:%S")
+              mv /btrfs_tmp/root "/btrfs_tmp/old_roots/$timestamp"
+          fi
+
+          delete_subvolume_recursively() {
+              IFS=$'\n'
+              for i in $(btrfs subvolume list -o "$1" | cut -f 9- -d ' '); do
+                  delete_subvolume_recursively "/btrfs_tmp/$i"
+              done
+              btrfs subvolume delete "$1"
+          }
+
+          for i in $(find /btrfs_tmp/old_roots/ -maxdepth 1 -mtime +14); do
+              delete_subvolume_recursively "$i"
+          done
+
+          btrfs subvolume create /btrfs_tmp/root
+          umount /btrfs_tmp
+        '';
+      };
     };
 
-    programs.fuse.userAllowOther = true;
-  };
+    preservation = {
+      enable = true;
 
-  flake.modules.homeManager.impermanence = {
-    imports = [ inputs.impermanence.homeManagerModules.impermanence ];
-  };
+      preserveAt."/persist/system" = {
+        directories = [
+          "/var/log"
+          "/var/lib/nixos"
+          "/var/lib/systemd/coredump"
+        ];
 
-  # Load Impermanence for every user on the host
-  flake.modules.nixos.home-manager = {
-    home-manager.sharedModules = [ self.modules.homeManager.impermanence ];
+        commonMountOptions = [
+          "x-gvfs-hide"
+          "x-gdu.hide"
+        ];
+      };
+    };
   };
 }

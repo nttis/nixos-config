@@ -6,8 +6,8 @@
       url = "github:hercules-ci/flake-parts";
     };
 
-    impermanence = {
-      url = "github:nix-community/impermanence";
+    preservation = {
+      url = "github:nix-community/preservation";
     };
 
     home-manager = {

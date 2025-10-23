@@ -64,8 +64,12 @@ in
       home.stateVersion = "24.05";
     };
 
-  flake.modules.homeManager.impermanence = {
-    home.persistence."/persist/${name}" = {
+  flake.modules.nixos.impermanence = {
+    preservation.preserveAt."/persist".users.${name} = {
+      commonMountOptions = [
+        "x-gvfs-hide"
+        "x-gdu.hide"
+      ];
       directories = [
         "Downloads"
 
@@ -76,8 +80,6 @@ in
         ".local/share/flatpak"
         ".var/app"
       ];
-
-      allowOther = true;
     };
   };
 }
