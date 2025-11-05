@@ -1,0 +1,98 @@
+name: "Build and push flake to cache"
+
+on:
+  workflow_dispatch:
+
+  pull_request_target:
+
+jobs:
+  define-matrix:
+    name: "Generate build matrix from flake attributes"
+    runs-on: "ubuntu-latest"
+
+    outputs:
+      matrix: ${{ steps.define-matrix.outputs.matrix }}
+
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v5"
+
+      - name: "Install Nix"
+        uses: "cachix/install-nix-action@a809471b5c7c913aa67bec8f459a11a0decc3fce" # v31.6.2
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: "Generate matrix"
+        id: "define-matrix"
+        run: |
+          set -Eeu
+          matrix="$(nix eval --inputs-from . --json '.#githubActions.matrix')"
+          echo "matrix=$matrix" >> "$GITHUB_OUTPUT"
+
+  build:
+    name: ${{ matrix.name }} (${{ matrix.system }})
+    needs: "define-matrix"
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix: ${{ fromJSON(needs.define-matrix.outputs.matrix) }}
+
+    steps:
+      - name: "Purge"
+        run: |
+          sudo rm -rf /opt/hostedtoolcache \
+                      /usr/local/lib/android \
+                      /usr/local/.ghcup \
+                      /usr/share/dotnet
+
+      - name: "Install Nix"
+        uses: "cachix/install-nix-action@a809471b5c7c913aa67bec8f459a11a0decc3fce" # v31.6.2
+        with:
+          github_access_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: "Install Cachix"
+        uses: "cachix/cachix-action@0fc020193b5a1fa3ac4575aa3a7d3aa6a35435ad" # v16
+        with:
+          name: "nttis"
+          authToken: ${{ secrets.CACHIX_AUTH_TOKEN }}
+
+      - name: "Checkout"
+        uses: "actions/checkout@v5"
+
+      - name: "Commence the build"
+        run: |
+          nix build --inputs-from . --print-build-logs .#'${{ matrix.attr }}'
+
+  # Stolen from nixpkgs CI
+  unlock:
+    name: "Status check aggregator job"
+    runs-on: "ubuntu-24.04-arm"
+
+    needs:
+      - define-matrix
+      - build
+
+    permissions:
+      statuses: write
+
+    steps:
+      - uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
+        env:
+          RESULTS: ${{ toJSON(needs.*.result) }}
+
+        with:
+          script: |
+            const { serverUrl, repo, runId, payload } = context
+            const target_url =
+              `${serverUrl}/${repo.owner}/${repo.repo}/actions/runs/${runId}?pr=${payload.pull_request.number}`
+
+            await github.rest.repos.createCommitStatus({
+              ...repo,
+              sha: payload.pull_request.head.sha,
+              // WARNING:
+              // Do NOT change the name of this, otherwise the rule will not catch it anymore.
+              // This would prevent all PRs from merging.
+              context: 'No PR failures',
+              state: JSON.parse(process.env.RESULTS).every(status => status == 'success') ? 'success' : 'error',
+              target_url,
+            })
