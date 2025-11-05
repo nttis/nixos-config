@@ -4,4 +4,6 @@
     system = "x86_64-linux";
     modules = [ self.modules.nixos."hosts.laptop" ];
   };
+
+  perSystem.checks.laptop = self.nixosConfigurations.laptop.config.system.build.toplevel;
 }
