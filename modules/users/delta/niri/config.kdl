@@ -9,8 +9,6 @@ input {
 
     touchpad {
         tap
-        dwt
-        dwtp
         drag-lock
         natural-scroll
     }
