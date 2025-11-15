@@ -28,10 +28,6 @@
             };
           };
         };
-
-        flatpak = {
-          enable = true;
-        };
       };
 
       security.soteria.enable = true;

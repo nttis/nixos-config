@@ -38,6 +38,7 @@
         };
 
         gpm.enable = true;
+        flatpak.enable = true;
       };
 
       fonts = {
