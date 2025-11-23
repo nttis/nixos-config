@@ -41,6 +41,8 @@
         flatpak.enable = true;
       };
 
+      xdg.portal.enable = true;
+
       fonts = {
         packages = with pkgs; [
           noto-fonts
