@@ -19,19 +19,11 @@
           enable = true;
           wait-online.enable = false;
         };
-
-        services.NetworkManager-wait-online.enable = false;
       };
 
       networking = {
         dhcpcd.enable = false;
         resolvconf.enable = false;
-
-        networkmanager = {
-          enable = true;
-          wifi.backend = "iwd";
-          dns = "none";
-        };
 
         wireless.iwd = {
           enable = true;
