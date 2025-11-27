@@ -6,6 +6,8 @@
     home-manager = {
       useUserPackages = true;
       useGlobalPkgs = true;
+
+      sharedModules = [ { home.enableNixpkgsReleaseCheck = false; } ];
     };
   };
 }

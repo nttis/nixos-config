@@ -22,6 +22,7 @@
       };
 
       networking = {
+        useDHCP = false;
         dhcpcd.enable = false;
         resolvconf.enable = false;
 
