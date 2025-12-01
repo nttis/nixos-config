@@ -56,7 +56,6 @@ in
       };
 
       home.packages = [
-        pkgs.onlyoffice-desktopeditors
         pkgs.libreoffice
         pkgs.gimp3
       ];
