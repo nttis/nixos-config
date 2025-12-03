@@ -6,6 +6,12 @@
   flake.modules.nixos.impermanence = {
     imports = [ inputs.preservation.nixosModules.preservation ];
 
+    zramSwap = {
+      enable = true;
+      memoryPercent = 200;
+      writebackDevice = "/dev/disk/by-partlabel/swap";
+    };
+
     fileSystems = {
       "/" = {
         device = "/dev/disk/by-partlabel/nix";
