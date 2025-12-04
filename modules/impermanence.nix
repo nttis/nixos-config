@@ -1,10 +1,14 @@
 {
+  self,
   inputs,
   ...
 }:
 {
   flake.modules.nixos.impermanence = {
-    imports = [ inputs.preservation.nixosModules.preservation ];
+    imports = [
+      inputs.preservation.nixosModules.preservation
+      self.nixosModules.modern
+    ];
 
     zramSwap = {
       enable = true;
@@ -48,8 +52,6 @@
     };
 
     boot.initrd.systemd = {
-      enable = true;
-
       # NOTE: stolen from https://blog.decent.id/post/nixos-systemd-initrd
       services.impermanent-root = {
         description = "Move current root to /old_roots";
