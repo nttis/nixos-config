@@ -3,20 +3,15 @@
   flake.modules.nixos.foundation =
     { pkgs, ... }:
     {
-      imports = [ self.modules.nixos.nix ];
+      imports = [
+        self.modules.nixos.nix
+        self.modules.nixos.nttpkgs
+      ];
 
       nixpkgs = {
         config.allowUnfree = true;
         overlays = [
           inputs.firefox-addons.overlays.default
-
-          (
-            prev: final:
-            final.lib.packagesFromDirectoryRecursive {
-              inherit (final) callPackage newScope;
-              directory = "${inputs.nttpkgs}/packages";
-            }
-          )
         ];
       };
 
