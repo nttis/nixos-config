@@ -59,12 +59,21 @@
         ];
       };
 
+      programs.yazi = {
+        enable = true;
+        settings.yazi = {
+          mgr = {
+            show_hidden = true;
+            sort_by = "alphabetical";
+            sort_dir_first = true;
+          };
+        };
+      };
 
       environment = {
         systemPackages = with pkgs; [
           helix
           kitty
-          yazi
           trashy
           libarchive
           aria2
