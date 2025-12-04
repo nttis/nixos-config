@@ -26,30 +26,26 @@
             -w 3
         '';
       };
+
+      sysinfo = "${pkgs.writeScriptBin "sysinfo" ''
+        ${pkgs.util-linux}/bin/lscpu
+        ${pkgs.pciutils}/bin/lspci -v
+        ${pkgs.coreutils}/bin/uname --all
+        ${pkgs.fastfetch}/bin/fastfetch
+      ''}";
     in
     {
       home.packages = with pkgs; [
-        bat
         ripgrep
         ripgrep-all
         file
 
         hotspot
+        sysinfo
       ];
-
-      programs.fzf = {
-        enable = true;
-        enableBashIntegration = true;
-        enableFishIntegration = true;
-      };
 
       programs.kitty = {
         enable = true;
-
-        shellIntegration = {
-          enableBashIntegration = true;
-          enableFishIntegration = true;
-        };
 
         settings = {
           touch_scroll_multiplier = 3.0;
@@ -59,9 +55,6 @@
 
       programs.yazi = {
         enable = true;
-        enableFishIntegration = true;
-        enableBashIntegration = true;
-
         settings = {
           mgr = {
             show_hidden = true;
@@ -71,27 +64,15 @@
         };
       };
 
-      programs.fish = {
-        enable = true;
-      };
-
-      programs.starship = {
-        enable = true;
-        enableBashIntegration = true;
-        enableFishIntegration = true;
+      programs = {
+        fish.enable = true;
+        starship.enable = true;
+        fzf.enable = true;
       };
 
       home.shellAliases = {
         ls = "${pkgs.eza}/bin/eza";
         grep = "${pkgs.ripgrep}/bin/rg";
-        bottom = "${pkgs.bottom}/bin/btm --tree";
-
-        sysinfo = "${pkgs.writeScript "sysinfo.sh" ''
-          ${pkgs.coreutils}/bin/uname --all
-          ${pkgs.util-linux}/bin/lscpu
-          ${pkgs.pciutils}/bin/lspci -v
-          ${pkgs.fastfetch}/bin/fastfetch
-        ''}";
       };
     };
 }
