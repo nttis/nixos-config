@@ -72,15 +72,15 @@
 
       environment = {
         systemPackages = with pkgs; [
+          btop
           helix
           kitty
           trashy
           libarchive
           aria2
           brightnessctl
-          wireplumber
           pwvucontrol
-          qpwgraph
+          helvum
         ];
 
         shellAliases = {
