@@ -8,8 +8,13 @@
         initrd.systemd.enable = true;
       };
 
-      system.nixos-init.enable = true;
+      system = {
+        nixos-init.enable = true;
+        etc.overlay.enable = true;
+      };
+
       services = {
+        userborn.enable = true;
         kmscon.enable = true;
       };
     };
