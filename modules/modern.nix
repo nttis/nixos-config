@@ -9,5 +9,8 @@
       };
 
       system.nixos-init.enable = true;
+      services = {
+        kmscon.enable = true;
+      };
     };
 }
