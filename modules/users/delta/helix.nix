@@ -71,27 +71,6 @@
             }
 
             {
-              name = "html";
-              language-servers = [ "vscode-html-language-server" ];
-            }
-
-            {
-              name = "typst";
-              language-servers = [ "tinymist" ];
-            }
-
-            {
-              name = "zig";
-              formatter = {
-                command = "zig";
-                args = [
-                  "fmt"
-                  "--stdin"
-                ];
-              };
-            }
-
-            {
               name = "ziggy";
               scope = "text.ziggy";
               roots = [ ];
@@ -124,40 +103,6 @@
                   end = "////";
                 }
               ];
-            }
-
-            {
-              name = "luau";
-              scope = "source.luau";
-              injection-regex = "^luau$";
-              file-types = [ "luau" ];
-              comment-tokens = [
-                "--"
-                "---"
-              ];
-              block-comment-tokens = [
-                {
-                  start = "--[[";
-                  end = "]]";
-                }
-                {
-                  start = "--[=[";
-                  end = "]=]";
-                }
-                {
-                  start = "--[==[";
-                  end = "]==]";
-                }
-              ];
-              roots = [
-                "default.project.json"
-                "wally.toml"
-              ];
-              language-servers = [ "luau-lsp" ];
-              formatter = {
-                command = "stylua";
-                args = [ "-" ];
-              };
             }
 
             {
@@ -239,16 +184,6 @@
           ];
 
           language-server = {
-            luau-lsp = {
-              command = "luau-lsp";
-              args = [ "lsp" ];
-            };
-
-            # typst-ls is already deprecated lol...
-            tinymist = {
-              command = "tinymist";
-            };
-
             nixd =
               let
                 options = ''
@@ -357,16 +292,6 @@
 
       xdg.configFile."helix/runtime/queries/ziggy" = {
         source = "${pkgs.tree-sitter-ziggy}/queries";
-        recursive = true;
-      };
-
-      # luau
-      xdg.configFile."helix/runtime/grammars/luau.so" = {
-        source = "${pkgs.tree-sitter-luau}/parser";
-      };
-
-      xdg.configFile."helix/runtime/queries/luau" = {
-        source = "${pkgs.tree-sitter-luau}/queries";
         recursive = true;
       };
     };
