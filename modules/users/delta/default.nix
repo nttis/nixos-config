@@ -45,6 +45,7 @@ in
           "mimetypes"
           "rice"
           "niri"
+          "ashell"
           "plasma"
           "gpg"
         ]
@@ -53,6 +54,15 @@ in
       services = {
         swaync.enable = true;
         udiskie.enable = true;
+      };
+
+      systemd.user.services.swaync = {
+        Unit = {
+          PartOf = lib.mkForce [ "wayland-barebones.target" ];
+          After = lib.mkForce [ "wayland-barebones.target" ];
+        };
+
+        Instal.WantedBy = lib.mkForce [ "wayland-barebones.target" ];
       };
 
       home.packages = [
