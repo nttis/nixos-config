@@ -15,7 +15,6 @@
 
       services = {
         userborn.enable = true;
-        kmscon.enable = true;
         dbus.implementation = "broker";
       };
     };

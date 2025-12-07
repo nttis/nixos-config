@@ -10,6 +10,7 @@
         networking
         nix-ld
         foundation
+        modern
         daily-drive
         nvidia-legacy
 
