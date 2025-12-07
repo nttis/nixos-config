@@ -62,7 +62,7 @@ in
           After = lib.mkForce [ "wayland-barebones.target" ];
         };
 
-        Instal.WantedBy = lib.mkForce [ "wayland-barebones.target" ];
+        Install.WantedBy = lib.mkForce [ "wayland-barebones.target" ];
       };
 
       home.packages = [

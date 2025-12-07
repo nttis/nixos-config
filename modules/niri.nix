@@ -2,7 +2,6 @@
 {
   flake.modules.nixos.niri =
     {
-      lib,
       pkgs,
       ...
     }:
@@ -11,9 +10,13 @@
         niri.enable = true;
       };
 
-      xdg.portal = {
-        xdgOpenUsePortal = true;
-        extraPortals = lib.mkForce [ pkgs.xdg-desktop-portal-gnome ];
+      xdg.portal.config = {
+        niri = {
+          default = [
+            "gnome"
+            "gtk"
+          ];
+        };
       };
 
       services = {
@@ -30,7 +33,6 @@
 
       systemd.user.targets.wayland-barebones = {
         description = "Synchronization point for barebones Wayland compositors";
-        bindsTo = [ "niri.service" ];
         wantedBy = [ "niri.service" ];
       };
 
