@@ -47,7 +47,7 @@ in
           "niri"
           "ashell"
           "plasma"
-          "gpg"
+          "ssh"
         ]
         ++ [ inputs.nix-index-database.homeModules.nix-index ];
 
@@ -81,9 +81,6 @@ in
       ];
       directories = [
         "Downloads"
-
-        # GPG keys
-        ".gnupg/private-keys-v1.d"
 
         # Flatpak stuff
         ".local/share/flatpak"
