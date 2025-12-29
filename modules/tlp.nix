@@ -4,8 +4,6 @@
     services.tlp = {
       enable = true;
       settings = {
-        CPU_MAX_PERF_ON_BAT = "30";
-
         CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
         CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
 
