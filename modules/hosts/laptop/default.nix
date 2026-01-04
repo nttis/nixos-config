@@ -14,6 +14,7 @@
       modern
       niri
       mic-fix
+      virtual-mic
 
       self.modules.nixos."users.delta"
     ];

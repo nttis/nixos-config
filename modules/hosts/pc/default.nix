@@ -13,6 +13,7 @@
         modern
         daily-drive
         nvidia-legacy
+        virtual-mic
 
         self.modules.nixos."users.delta"
       ];
