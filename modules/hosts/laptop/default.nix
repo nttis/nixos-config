@@ -15,6 +15,7 @@
       niri
       mic-fix
       virtual-mic
+      bluetooth
 
       self.modules.nixos."users.delta"
     ];
