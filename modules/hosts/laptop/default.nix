@@ -14,7 +14,6 @@
       modern
       niri
       mic-fix
-      tailscale
 
       self.modules.nixos."users.delta"
     ];

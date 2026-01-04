@@ -108,7 +108,9 @@
 
   flake.modules.nixos.impermanence = {
     preservation.preserveAt."/persist/system" = {
-      directories = [ "/var/lib/iwd" ];
+      directories = [
+        "/var/lib/iwd"
+      ];
     };
   };
 }
