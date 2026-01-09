@@ -65,9 +65,13 @@ in
         Install.WantedBy = lib.mkForce [ "wayland-barebones.target" ];
       };
 
-      home.packages = [
-        pkgs.libreoffice
-        pkgs.gimp3
+      home.packages = with pkgs; [
+        libreoffice
+        gimp3
+        localsend
+        yt-dlp
+        autorandr
+        wdisplays
       ];
 
       home.stateVersion = "24.05";
